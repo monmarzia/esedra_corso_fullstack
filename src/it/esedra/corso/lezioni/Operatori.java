@@ -53,5 +53,11 @@ public class Operatori  {
       boolean flag2 = ( ( a == 0) || (c/a > 2)  );//FONDAMENTALE
       System.out.println(" il valore di flag2 è: " + flag2);
 
+
+      int k = 2;
+      int j = 10;
+
+      k *=  k + j; // k * (k + j)
+      System.out.println(" k *= " + k);
   }
 }
