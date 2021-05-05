@@ -1,5 +1,5 @@
 package it.esedra.corso.lezioni;
-import it.esedra.corso.test.persone.Persona;
+import it.esedra.corso.esempioClassi.persone.Persona;
 
 public class ArrayInJava  {
 

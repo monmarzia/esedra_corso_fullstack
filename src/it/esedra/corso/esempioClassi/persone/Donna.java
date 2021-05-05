@@ -1,4 +1,4 @@
-package it.esedra.corso.test.persone;
+package it.esedra.corso.esempioClassi.persone;
 
 
 public class Donna {
