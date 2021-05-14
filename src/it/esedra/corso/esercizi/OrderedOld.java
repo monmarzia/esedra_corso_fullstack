@@ -1,6 +1,7 @@
+package it.esedra.corso.esercizi;
 import java.util.*;
 
-public class Ordered  {
+public class OrderedOld  {
 
 
   public static void main(String[] args) {
