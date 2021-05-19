@@ -1,11 +1,151 @@
 <html>
   <head>
     <title>Struttura dei programmi in javascript</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+
   </head>
   <body>
     <h1>Struttura dei programmi in javascript</h1>
     <script type="text/javascript">
+      let theNumber = Number(prompt("Scegli il numero"));
+      //console.log("Il numero scelto moltiplicato per 3 è uguale a " + theNumer * 3 );
+      if (!Number.isNaN(theNumber)) {
+        console.log("Eseguo la moltiplicazione per 3: " + theNumber * 3 );
+      } else {
+        console.log("Non è stato inserito un numero");
+      }
+      //the_number
+      if (theNumber < 10) {
+        console.log("Numero piccolo");
+      } else if (theNumber < 100) {
+        console.log("Numero medio");
+      } else {
+        console.log("Numero grande");
+      }
 
+      let number = 0;
+      while (number <= 25) {
+        console.log(number);
+        number = number + 3;
+      }
+      let yourname;
+      do {
+        yourname = prompt("Chi sei?")
+      } while(!yourname);
+
+      console.log(yourname);
+
+      for (let number = 0;  number <= 25; number = number + 1) {
+        console.log(number);
+      }
+      //aggiornamento rapidio delle variabili number += 1
+      for (let number = 0;  number <= 25; number += 1) {
+        console.log(number);
+        break; //esco dal ciclo
+      }
+
+
+      //in alternativa all'if
+      switch (prompt("Com'è il tempo?")) {
+        case "piove":
+          console.log("prendere l'ombrello");
+          break;
+        case "soleggiato":
+          console.log("vestiti leggero");
+          break;
+        case "nuvoloso":
+          console.log("fa freddo");
+          break;
+        default:
+          console.log("Non so che tempo fa");
+          break;
+      }
+
+
+      /*
+
+        SCRIVERE UN CICLO CHE EFFETTUA SETTE CHIAMATE A CONSOLE.LOG AL FINE DI
+        PRODURRE QUESTO TRIANGOLO
+        *
+        **
+        ***
+        ****
+        *****
+        ******
+        *******
+
+
+      */
     </script>
-  </body>
+
+<pre>
+  <code class="javascript">
+    let theNumber = Number(prompt("Scegli il numero"));
+    //console.log("Il numero scelto moltiplicato per 3 è uguale a " + theNumer * 3 );
+    if (!Number.isNaN(theNumber)) {
+      console.log("Eseguo la moltiplicazione per 3: " + theNumber * 3 );
+    } else {
+      console.log("Non è stato inserito un numero");
+    }
+    //the_number
+    if (theNumber < 10) {
+      console.log("Numero piccolo");
+    } else if (theNumber < 100) {
+      console.log("Numero medio");
+    } else {
+      console.log("Numero grande");
+    }
+
+    let number = 0;
+    while (number <= 25) {
+      console.log(number);
+      number = number + 3;
+    }
+    let yourname;
+    do {
+      yourname = prompt("Chi sei?")
+    } while(!yourname);
+
+    console.log(yourname);
+
+    for (let number = 0;  number <= 25; number = number + 1) {
+      console.log(number);
+    }
+    //aggiornamento rapidio delle variabili number += 1
+    for (let number = 0;  number <= 25; number += 1) {
+      console.log(number);
+      break; //esco dal ciclo
+    }
+
+
+    //in alternativa all'if
+    switch (prompt("Com'è il tempo?")) {
+      case "piove":
+        console.log("prendere l'ombrello");
+        break;
+      case "soleggiato":
+        console.log("vestiti leggero");
+        break;
+      case "nuvoloso":
+        console.log("fa freddo");
+        break;
+      default:
+        console.log("Non so che tempo fa");
+        break;
+    }
+
+
+  </code>
+</pre>
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+  document.querySelectorAll('pre code').forEach((block) => {
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+</body>
 </html>

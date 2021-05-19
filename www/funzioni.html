@@ -1,0 +1,186 @@
+<html>
+  <head>
+    <title>Funzioni in Javascript</title>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+
+  </head>
+  <body>
+    <h1>Funzioni in Javascript</h1>
+
+    <script type="text/javascript">
+
+      const square = function(x) {
+        return x + x;
+      }
+
+      let squareVal = square(2);
+      console.log(squareVal);
+
+      const  makeNoise = function() {
+        console.log("!");
+      }
+      makeNoise();
+
+
+      let x = 10;
+
+      if (true) {
+        let y = 20;
+        var z = 30;
+        console.log(x + y + z);
+      }
+      console.log(x + z); //let y non è visibile qui.
+
+      const halve = function(n) {
+        return  n / 2;
+      }
+
+      let n = 10;
+      console.log(halve(100)); // -> 50 per halve osserverà la sua variabile n
+      console.log(n); // -> 10
+
+
+      const hummus = function(factor) {
+
+        const ingredient = function(amount, unit, name) {
+            let ingredientAmount =  amount * factor;
+            if (ingredientAmount > 1) {
+              unit += "s";
+            }
+            console.log('${ingredientAmount} ${unit} ${name}');
+        };
+        ingredient(1, 'can', 'chickpeas');
+        ingredient(0.25, 'cup', 'lemon juice');
+        ingredient(1, 'clove', 'cumin');
+        ingredient(1, 'teaspoon', 'olive oil');
+
+      }
+
+      let safeMode = true;
+      let launchMissiles = function() {
+        console.log("launched");
+      }
+
+      if (safeMode) {
+        launchMissiles = function() {  /* non fa null */ }
+      }
+
+      console.log( quadrato(x) );
+      //^ questo codice funziona lo stesso
+      //con questa dichiarazione di funzione
+      //non viene seguita la struttura di Controllo
+      //ma le funzioni vengono poste nel punto più alto dello scope
+      function quadrato(x) {
+        return x*x;
+      }
+
+      //ALTRA NOTAZIONE PER LE Funzioni
+      //FUNZIONI FRECCIA
+
+      const power = (base, exponent) => {
+
+        let result = 1;
+        for (let count = 0; count < exponent; count++) {
+          result *= base;
+        }
+        return result;
+      }
+
+      const square2 = x => x * x;0
+    </script>
+
+    <pre>
+      <code>
+        const square = function(x) {
+          return x + x;
+        }
+
+        let squareVal = square(2);
+        console.log(squareVal);
+
+        const  makeNoise = function() {
+          console.log("!");
+        }
+        makeNoise();
+
+
+        let x = 10;
+
+        if (true) {
+          let y = 20;
+          var z = 30;
+          console.log(x + y + z);
+        }
+        console.log(x + z); //let y non è visibile qui.
+
+        const halve = function(n) {
+          return  n / 2;
+        }
+
+        let n = 10;
+        console.log(halve(100)); // -> 50 per halve osserverà la sua variabile n
+        console.log(n); // -> 10
+
+
+        const hummus = function(factor) {
+
+          const ingredient = function(amount, unit, name) {
+              let ingredientAmount =  amount * factor;
+              if (ingredientAmount > 1) {
+                unit += "s";
+              }
+              console.log('${ingredientAmount} ${unit} ${name}');
+          };
+          ingredient(1, 'can', 'chickpeas');
+          ingredient(0.25, 'cup', 'lemon juice');
+          ingredient(1, 'clove', 'cumin');
+          ingredient(1, 'teaspoon', 'olive oil');
+
+        }
+
+        let safeMode = true;
+        let launchMissiles = function() {
+          console.log("launched");
+        }
+
+        if (safeMode) {
+          launchMissiles = function() {  /* non fa null */ }
+        }
+
+        console.log( quadrato(x) );
+        //^ questo codice funziona lo stesso
+        //con questa dichiarazione di funzione
+        //non viene seguita la struttura di Controllo
+        //ma le funzioni vengono poste nel punto più alto dello scope
+        function quadrato(x) {
+          return x*x;
+        }
+
+        //ALTRA NOTAZIONE PER LE Funzioni
+        //FUNZIONI FRECCIA
+
+        const power = (base, exponent) => {
+
+          let result = 1;
+          for (let count = 0; count < exponent; count++) {
+            result *= base;
+          }
+          return result;
+        }
+
+        const square2 = x => x * x;0
+      </code>
+    </pre>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+    });
+    </script>
+
+  </body>
+</html>
