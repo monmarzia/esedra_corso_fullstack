@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Piet Mondrian</title>
+    <h1> Pagina dedicata a Piet Mondrian</h1>
+  </head>
+  <body>
+    <p>
+      Figlio di Pieter Cornelis Mondriaan e Johanna Christina de Kok, cominciò la sua carriera come insegnante di italiano,
+      ma praticò anche l'arte della pittura. La maggior parte dei suoi lavori è naturalista o impressionista e consiste principalmente
+      in paesaggi. Queste immagini pastorali dei suoi natii Paesi Bassi descrivono mulini, campi e fiumi, inizialmente nella maniera
+      impressionista olandese, successivamente con l'utilizzo di una varietà di stili e tecniche che documentano la sua ricerca per
+      un'espressione personale. Questi suoi dipinti sono ancora in modo rappresentativo e ci illustrano l'influenza che svariati movimenti
+      artistici ebbero su Mondrian.
+
+      In esposizione al Gemeentemuseum di L'Aia si possono vedere svariati dipinti di questo periodo, compresi Il Mulino Rosso e Alberi nella
+      luce della luna. Un dipinto del 1908, intitolato Avond ("Sera"), rappresenta una scena di un albero in un campo al crepuscolo e ci predice
+      i futuri sviluppi con l'utilizzo di una tavolozza composta quasi solo da rosso, giallo e blu. Pur non essendo in alcun modo astratto, Avond
+      è il primo tra i lavori di Mondrian ad enfatizzare l'uso dei colori primari.
+    </p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Piet_Mondriaan.jpg" alt="Foto di Piet Mondrian"/>
+    <p id="galleria-immagini"></p>
+    <script>
+      (function(){
+        document.getElementById("galleria-immagini").innerHTML =
+        `<ul>
+          <li><img src="http://www.ibiblio.org/wm/paint/auth/mondrian/broadway.jpg" alt="Broadway"/></li>
+          <li><img src="http://www.ibiblio.org/wm/paint/auth/mondrian/ryb.jpg" alt="DIpinto2"/></li>
+          <li><img src="http://www.ibiblio.org/wm/paint/auth/mondrian/gray-lt-brown.jpg" alt="Grey it brown"/></li>
+        </ul>`
+      }());
+    </script>
+  </body>
+</html>

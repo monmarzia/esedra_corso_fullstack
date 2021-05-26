@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Piet Mondrian</title>
+  </head>
+  <body>
+    <h1>Pagina dedicata a Piet Mondrian</h1>
+    <p id="bio">Pieter Cornelis Mondriaan, meglio conosciuto come Piet Mondrian, è stato un pittore olandese, fondatore assieme a Theo van Doesburg del "neoplasticismo". Nonostante siano molto famosi, anche se spesso imitati e banalizzati, i quadri di Mondrian dimostrano una complessità che smentisce la loro apparente semplicità.</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Piet_Mondriaan.jpg" alt="Ritratto di Piet Mondrian">
+    <p id="galleria-immagini">
+
+    </p>
+    <script type="text/javascript">
+      let loadImg = function(img1, img2, img3) {
+        let str = `<ul>`;
+          str += `<li><img src=${img1} /></li>`;
+          str += `<li><img src=${img2} /></li>`;
+          str += `<li><img src=${img3} /></li>`;
+          str += `</ul>`
+        document.getElementById("galleria-immagini").innerHTML = str;
+      }
+      loadImg('images/ryb.jpg', 'images/broadway.jpg', 'images/gray-lt-brown.jpg');
+    </script>
+  </body>
+</html>

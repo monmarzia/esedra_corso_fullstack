@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Piet Mondrian</title>
+  </head>
+  <body>
+    <h1>Pagina dedicata a Piet Mondrian</h1>
+    <p>Pieter Cornelis Mondriaan, meglio conosciuto come Piet Mondrian (Amersfoort, 7 marzo 1872 – New York, 1 febbraio 1944),
+      è stato un pittore olandese, fondatore assieme a Theo van Doesburg del "neoplasticismo".</p>
+
+    <img src ="https://upload.wikimedia.org/wikipedia/commons/8/83/Piet_Mondriaan.jpg" alt="Immagine di Piet Mondrian">
+
+    <p id="galleria immagini"></p>
+
+    <script type="text/javascript">
+
+      function prova(){
+       document.getElementById("galleria immagini").innerHTML =
+        `<ul>
+          <li><img src ="http://www.ibiblio.org/wm/paint/auth/mondrian/gray-lt-brown.jpg" alt="Quadro1 di Piet Mondrian"></li>
+          <li><img src ="http://www.ibiblio.org/wm/paint/auth/mondrian/ryb.jpg" alt="Quadro2 di Piet Mondrian"></li>
+          <li><img src ="http://www.ibiblio.org/wm/paint/auth/mondrian/broadway.jpg" alt="Quadro3 di Piet Mondrian"></li>
+        </ul>`
+      }
+
+      prova();
+
+    </script>
