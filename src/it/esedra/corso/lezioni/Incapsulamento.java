@@ -2,6 +2,8 @@ package it.esedra.corso.lezioni;
 import it.esedra.corso.lezioni.oop.Data;
 import it.esedra.corso.lezioni.oop.PuntoFisso;
 import it.esedra.corso.lezioni.oop.Punto;
+import it.esedra.corso.lezioni.Singleton;
+import static java.lang.Math.*;
 
 
 public class Incapsulamento  {
@@ -10,6 +12,7 @@ public class Incapsulamento  {
 
   public static void main(String[] args) {
 
+    double d = Math.sqrt(3);
     int mese = 5;
     int anno = 2020;
     int giorno = 30;
