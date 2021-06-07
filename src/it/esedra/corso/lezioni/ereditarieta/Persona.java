@@ -1,9 +1,10 @@
 package it.esedra.corso.lezioni.ereditarieta;
+import it.esedra.corso.lezioni.interfacce.Occupazione;
 
 public abstract class Persona  {
 
   private String nome;
-  private String occupazione;
+  private Occupazione occupazione;
 
   public Persona() {
     nome = "Nessun nome";
@@ -13,10 +14,10 @@ public abstract class Persona  {
     this.nome = nome;
   }
 
-  public void setOccupazione(String occupazione) {
+  public void setOccupazione(Occupazione occupazione) {
     this.occupazione = occupazione;
   }
-  public String getOccupazione() {
+  public Occupazione getOccupazione() {
     return this.occupazione;
   }
 
