@@ -44,4 +44,10 @@ Tramite promp dei comandi andare su [WORKSPACE_FOLDER] e quindi digitare
 
 ```bash
 git clone https://github.com/andreadotta/esedra_corso_fullstack.git
-``
+```
+Creerà una cartella esedra_corso_fullstack dentro [WORKSPACE_FOLDER]
+
+Su Eclipse si va su 
+File->New->Java Project 
+e quindi come "Project name" si scrive esedra_corso_fullstack.
+Cliccare su "Finish", confermare tutti i passaggi e quindi cliccare su "Open Java perspective"
