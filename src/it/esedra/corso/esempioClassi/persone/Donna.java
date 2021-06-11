@@ -7,8 +7,8 @@ public class Donna {
 
   public Donna(String nome, String cognome) {
     persona = new Persona();
-    persona.setNome(nome); //chiamo il metodo
-    persona.cognome = cognome; //assegno un valore
+//    persona.setNome(nome); //chiamo il metodo
+//    persona.cognome = cognome; //assegno un valore
     persona.saluta();
   }
 

@@ -1,6 +1,3 @@
-import it.esedra.corso.test.animali.Gatto;
-import it.esedra.corso.test.persone.Persona;
-import it.esedra.corso.test.persone.Donna;
 public class App  {
 
 

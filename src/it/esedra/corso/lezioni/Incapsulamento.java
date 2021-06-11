@@ -1,9 +1,6 @@
 package it.esedra.corso.lezioni;
 import it.esedra.corso.lezioni.oop.Data;
 import it.esedra.corso.lezioni.oop.PuntoFisso;
-import it.esedra.corso.lezioni.oop.Punto;
-import it.esedra.corso.lezioni.Singleton;
-import static java.lang.Math.*;
 
 
 public class Incapsulamento  {
@@ -36,8 +33,8 @@ public class Incapsulamento  {
 
     PuntoFisso pu = new PuntoFisso(3, 5);
     System.out.println(pu.getX());
-    Punto punto = new Punto(7, 8);
-    System.out.println(punto.x());
+//    Punto punto = new Punto(7, 8);
+//    System.out.println(punto.x());
 
     //creo una istanza di Incapsulamento e viene eseguito
     //l'Inizializzatore di istanza
