@@ -29,7 +29,7 @@ https://git-scm.com/downloads
 
 Installare la versione di default e modificare soltanto "Choosing the default editor used by Git" selezionando Notepad
 
-### Installazione di Eclise
+### Installazione di Eclipse
 
 https://www.eclipse.org/downloads/packages/
 
