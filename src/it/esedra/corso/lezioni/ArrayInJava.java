@@ -50,7 +50,7 @@ public class ArrayInJava  {
       Persona persona1 = new Persona("Roberto", "Baldi", 1928);
       Persona persona2 = new Persona("Marco", "Rossi", 1955);
 
-      persona1.nome = "Ugo";
+//      persona1.nome = "Ugo";
       Persona[] persone = new Persona[2];
       persone[0] = persona1;
       persone[1] = persona2;
