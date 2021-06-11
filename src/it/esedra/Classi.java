@@ -1,6 +1,10 @@
 package it.esedra;
 
+<<<<<<< HEAD
 import it.esedra.corso.esempioClassi.persone.Persona;
+=======
+import it.esedra.corso.lezioni.ereditarieta.Persona;
+>>>>>>> cb14a66d4e1131c83891fc3e37cd15616c787fef
 
 public class Classi  {
 
@@ -20,7 +24,7 @@ public class Classi  {
   public void esegui() {
 
       //creo una istanza di persona
-      Persona persona = new Persona(); //variabile locale
+//      Persona persona = new Persona(); //variabile locale
 
       //SINTASSI
       //Nomeoggetto.nomevariabile;
@@ -31,30 +35,42 @@ public class Classi  {
 
       //SINTASSI
       //Nomeoggetto.nomemetodo();
-      persona.saluta(); //metodi di instanza
+//      persona.saluta(); //metodi di instanza
 
 //      persona.setNome("Roberto");
 
 
-      System.out.println(persona.getNomeCompleto());
+//      System.out.println(persona.getNomeCompleto());
 
-      int eta = persona.calcolaEta(ANNO_CORRENTE);
-      System.out.println(eta);
-
-      presentaPersona(persona, ANNO_CORRENTE);
+//      int eta = persona.calcolaEta(ANNO_CORRENTE);
+//      System.out.println(eta);
+//
+//      presentaPersona(persona, ANNO_CORRENTE);
 
       //creo una istanza di persona
+<<<<<<< HEAD
       Persona persona1 = new Persona();
+=======
+//      Persona persona1 = new Persona();
+>>>>>>> cb14a66d4e1131c83891fc3e37cd15616c787fef
 //      persona1.cognome = "Rossi"; //varibili di istanza
 //      persona1.setNome("Mario");
 //      persona1.annoDiNascita = 1990;
 
+<<<<<<< HEAD
       Persona persona2 = new Persona();
+=======
+//      Persona persona2 = new Persona();
+>>>>>>> cb14a66d4e1131c83891fc3e37cd15616c787fef
 //      persona2.cognome = "Bianchi"; //varibili di istanza
 //      persona2.setNome("Giuseppe");
 //      persona2.annoDiNascita = 1962;
 
+<<<<<<< HEAD
       Persona persona3 = new Persona();
+=======
+//      Persona persona3 = new Persona();
+>>>>>>> cb14a66d4e1131c83891fc3e37cd15616c787fef
 //      persona3.cognome = "Verdi"; //varibili di istanza
 //      persona3.setNome("Franco");
 //      persona3.annoDiNascita = 1955;
@@ -62,10 +78,10 @@ public class Classi  {
 
       System.out.println("----");
       Persona[] persone = new Persona[4];
-      persone[0] = persona;
-      persone[1] = persona1;
-      persone[2] = persona2;
-      persone[3] = persona3;
+//      persone[0] = persona;
+//      persone[1] = persona1;
+//      persone[2] = persona2;
+//      persone[3] = persona3;
 
 
       for (int i = 0; i < persone.length; i++) {
@@ -85,7 +101,11 @@ public class Classi  {
   public void presentaPersona(Persona persona, int annoAttuale) {
     //System.out.println(persona1);
 //    System.out.println("La persona si chiama: " + persona.getNome() + " " + persona.cognome );
+<<<<<<< HEAD
     System.out.println("Di anni: " + persona.calcolaEta(annoAttuale));
+=======
+//    System.out.println("Di anni: " + persona.calcolaEta(annoAttuale));
+>>>>>>> cb14a66d4e1131c83891fc3e37cd15616c787fef
 
   }
 
