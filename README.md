@@ -18,3 +18,11 @@ Per eseguire spostarsi nella cartella bin e quindi
 ```bash
 java it.esedra.corso.lezioni.Operatori
 ```
+
+
+### Installazione di Github
+Scaricare ed installare la versione di github per il proprio sistema operativo.
+
+Per Windows 10 scarichiamo
+
+https://git-scm.com/downloads
