@@ -14,7 +14,7 @@ public class Incapsulamento  {
     int anno = 2020;
     int giorno = 30;
 
-    Data data = new Data();
+    Data data  = new Data();
 
     data.setMese(mese);
     data.setGiorno(giorno);
