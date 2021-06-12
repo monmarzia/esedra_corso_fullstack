@@ -1,14 +1,14 @@
 package it.esedra.corso.lezioni;
-<<<<<<< HEAD
+
 import it.esedra.corso.lezioni.oop.Data;
 import it.esedra.corso.lezioni.oop.PuntoFisso;
-=======
+
 //import it.esedra.corso.lezioni.oop.Data;
 //import it.esedra.corso.lezioni.oop.PuntoFisso;
 //import it.esedra.corso.lezioni.oop.Punto;
 //import it.esedra.corso.lezioni.Singleton;
 //import static java.lang.Math.*;
->>>>>>> cb14a66d4e1131c83891fc3e37cd15616c787fef
+
 
 
 public class Incapsulamento  {
@@ -22,11 +22,11 @@ public class Incapsulamento  {
     int anno = 2020;
     int giorno = 30;
 
-<<<<<<< HEAD
+
     Data data  = new Data();
-=======
+
 //    Data data = new Data();
->>>>>>> cb14a66d4e1131c83891fc3e37cd15616c787fef
+
 
 //    data.setMese(mese);
 //    data.setGiorno(giorno);
@@ -43,13 +43,11 @@ public class Incapsulamento  {
 //    }
 
 
-<<<<<<< HEAD
+
     PuntoFisso pu = new PuntoFisso(3, 5);
     System.out.println(pu.getX());
-=======
-//    PuntoFisso pu = new PuntoFisso(3, 5);
-//    System.out.println(pu.getX());
->>>>>>> cb14a66d4e1131c83891fc3e37cd15616c787fef
+
+
 //    Punto punto = new Punto(7, 8);
 //    System.out.println(punto.x());
 
