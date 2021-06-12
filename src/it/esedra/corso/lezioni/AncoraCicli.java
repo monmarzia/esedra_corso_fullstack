@@ -52,7 +52,7 @@ public class AncoraCicli  {
     /** SWITCH COME ESPRESSIONE */
     day = 1;
 
-    dayString = switch(day) {
+    dayString = switch(day) { 
        // case statements
        case 1 -> "Monday";
        case 2 -> "Tuesday";
