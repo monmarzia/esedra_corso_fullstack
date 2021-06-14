@@ -24,8 +24,8 @@
 
     console.log(Object.keys(anObject));
 
-    let anotherObject = { nord: 1, sud: 3 }
-    Object.assign(anObject, anotherObject);
+    let anotherObject = { top: 20, nord: 1, sud: 3 }
+    Object.assign(anObject, anotherObject); //shallow copy
     console.log(Object.keys(anObject));
 
     let obj2 =  {
@@ -33,7 +33,21 @@
       mix: ["string", 1, anObject]
     }
     console.log(obj2);
-  </script>
+    console.log(typeof obj2.mix);
+
+    let object1 = { value: 10 };
+    let object2 = { value: 20 };
+    let object3 = object2;    
+    
+    console.log(object1 == object2);
+    console.log(object2 == object3);
+    
+    object2.value = 3;
+    console.log(object1);
+    console.log(object2);    
+
+    
+</script>
 
   </body>
 
