@@ -14,6 +14,7 @@ app.get('/oggetti', (req, res) => {
 });
 
 app.get('/array', (req, res) => {
+  console.log("chiamata alla rotta array");
   res.sendFile(__dirname + '/array.html');
 });
 
