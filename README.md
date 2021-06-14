@@ -51,3 +51,9 @@ Su Eclipse si va su
 File->New->Java Project 
 e quindi come "Project name" si scrive esedra_corso_fullstack.
 Cliccare su "Finish", confermare tutti i passaggi e quindi cliccare su "Open Java perspective"
+
+### NODE e NPM
+Nella cartella www eseguire il comando
+```bash
+npm install
+```
