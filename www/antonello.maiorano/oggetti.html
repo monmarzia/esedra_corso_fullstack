@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <title>Oggetti in javascript></title>
+  </head>
+  <body>
+
+  <script type="text/javascript">
+    
+    let persona = {
+      nome: "Roberto",
+      cognome: "Baldi"
+    };
+
+    console.log(persona.nome);
+    
+
+    let anObject = {left: 1, right: 2, top: 10, bottom: 20};
+
+    delete anObject.left; //delete per eliminare proprietà
+    console.log(anObject.left);
+
+    console.log("left" in anObject); //operatore in
+    console.log("right" in anObject);
+
+    console.log(Object.keys(anObject));
+
+    let anotherObject = { top: 20, nord: 1, sud: 3 }
+    Object.assign(anObject, anotherObject); //shallow copy
+    console.log(Object.keys(anObject));
+
+    let obj2 =  {
+      days: ["lunedì", "martedì", "mercoledì"],
+      mix: ["string", 1, anObject]
+    }
+    console.log(obj2);
+    console.log(typeof obj2.mix);
+
+    let object1 = { value: 10 };
+    let object2 = { value: 20 };
+    let object3 = object2;    
+    
+    console.log(object1 == object2);
+    console.log(object2 == object3);
+    
+    object2.value = 3;
+    console.log(object1);
+    console.log(object2);    
+
+    
+</script>
+
+  </body>
+
+</html>

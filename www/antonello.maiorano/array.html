@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <title>Array in javascript</title>
+  </head>
+  <body>
+
+  <script type="text/javascript">
+
+    
+    console.log("Aggungere elementi ad un array");
+
+    let journal = [];
+
+    console.log("Aggiungere elementi in una array");
+
+    let journal = [];
+
+
+    journal.push("test");
+
+    journal[journal.length] = "test2";
+    journal[journal.length] = "test3";
+
+    journal.push(...["test5", "test6"]);
+
+
+    let journal2 = ["test7", "test8"];
+
+    Array.prototype.push.apply(journal, journal2);
+    console.log(journal);
+
+    let journal3 = ["test9", "test10"];
+
+    console.log(journal);
+
+    let journal2 = ["test7", "test8"];
+
+    Array.prototype.push.apply(journal, journal2)
+    console.log(journal);
+
+    let journal3 = ["test9", "test10"];
+
+
+    journal = journal.concat(journal3);
+
+    console.log(journal);
+
+
+    for(let i = 0; i < journal.length; i++) {
+
+    // --> CICLI
+
+    for (let i = 0; i < journal.length; i++) {
+
+      console.log(journal[i]);
+    }
+
+    for (let entry of journal) {
+      console.log(entry);
+    }
+
+
+
+    //-> altre funzioni per le array
+
+
+
+    let todolist = [];
+
+    function remember(task) {
+      todolist.push(task);
+    }
+
+
+    function gettask() {
+
+    function getTask() {
+
+      return todolist.shift();
+    }
+
+    function rememberUrgently(task) {
+
+      todolist.unshift(task);
+    }
+
+    remember("cd working directory");
+    remember("npm install");
+    remember("node server.js");
+    rememberUrgently("Installazione Node.js");
+
+    console.log(gettask());
+    console.log(todolist);
+    console.log(gettask());
+    console.log(gettask());
+    console.log(todolist);
+
+    console.log([1,2,3,5,7,5,5].indexOf(5));
+    console.log([1,2,3,5,7,5,5].lastIndexOf(5));
+    console.log([1,2,3,5,7,5,5].indexOf(5, 4));
+
+    console.log([1,2,3,5,7,5,5].slice(2));
+    console.log([1,2,3,5,7,5,5].slice(2, 4));
+
+  </script>
+
+      todolist.unshift(task)
+    }
+    remember("cd working directory");
+    remember("npm install");
+    remember("node server.js");
+    rememberUrgently("Installazione node");
+    console.log(getTask());
+    console.log(todolist);
+    console.log(getTask());
+    console.log(getTask());
+    console.log(todolist);    
+
+    console.log([1, 2, 3, 5, 7, 5, 5].indexOf(5));
+    console.log([1, 2, 3, 5, 7, 5, 5].lastIndexOf(5));
+    console.log([1, 2, 3, 5, 7, 5, 5].indexOf(5, 4));
+
+    console.log([1, 2, 3, 5, 7, 5, 5].slice(2));
+
+    console.log([1, 2, 3, 5, 7, 5, 5].slice(2, 4));
+</script>
+
+
+  </body>
+
+</html>
