@@ -14,12 +14,7 @@ app.get('/oggetti', (req, res) => {
 });
 
 app.get('/array', (req, res) => {
-  console.log("chiamata alla rotta array");
   res.sendFile(__dirname + '/array.html');
-});
-
-app.get('/mm_array', (req, res) => {
-  res.sendFile(__dirname + '/monica.marziani' +'/array.html');
 });
 
 app.listen(port, () => console.log(`in ascolto alla porta ${port}`));
