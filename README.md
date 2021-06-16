@@ -57,3 +57,11 @@ Nella cartella www eseguire il comando
 ```bash
 npm install
 ```
+
+poi per lanciare il server
+```bash
+node server.js 
+```
+
+per raggiungere il server 
+http://localhost:3000
