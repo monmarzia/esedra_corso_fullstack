@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>Lista della spesa</title>
+  </head>
+  <body>
+	<div>
+	<p>Nome : <input type="text" id="lname" name="lname"><br><br> </p>
+	<p>quantita : <input type="text" id="lquantita" quantita="lquantita"><br><br> </p>
+	</div>
+	<div>
+		<ul id="lista"></ul>
+	</div>
+	
+	<input type="button" value="Aggiungi prodotto" onclick="msg()">
+	<script type="text/javascript">
+    
+
+let spesa = []; 
+
+function msg() {
+	let oggetto = {
+		nome: document.getElementById('lname').value,
+		quantita: document.getElementById('lquantita').value
+	}
+	
+	spesa.push(oggetto);
+	stampalista();
+}
+
+
+function stampalista() {
+	let riga = "";
+	 for(let i = 0 ; i<spesa.length;i++){
+		riga += "<li>"+spesa[i].nome+" "+spesa[i].quantita+"</li>";
+	}
+	document.getElementById("lista").innerHTML=riga;
+}
+
+
+function rimuovi (oggetto) {
+  spesa.shift(oggetto);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+  </body>
+
+</html>
