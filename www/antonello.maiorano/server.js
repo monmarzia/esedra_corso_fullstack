@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 
-const port = 3000;
+const port = 2222;
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -18,8 +18,6 @@ app.get('/array', (req, res) => {
   res.sendFile(__dirname + '/array.html');
 });
 
-app.get('/mm_array', (req, res) => {
-  res.sendFile(__dirname + '/monica.marziani' +'/array.html');
-});
 
-app.listen(port, () => console.log(`in ascolto alla porta ${port}`));
+
+app.listen(port, () => console.log(`Server di Antonello ${port}`));
