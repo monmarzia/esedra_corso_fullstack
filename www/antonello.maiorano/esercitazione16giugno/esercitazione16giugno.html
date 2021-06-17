@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Lista della spesa </title>
+	</head>
+	<body>
+		
+		<label for="nome"> Prodotto:</label><br>
+		<input type="text" id="nome"><br><br>
+		<label for="quantita"> Quantita:</label><br>
+		<input type="text" id="quantita"><br><br>
+		<input type="button" name="esegui" value="Esegui" onclick="assegna()">
+		<div><ul id="lista"></ul></div>
+		
+		<script>
+			let listaDellaSpesa = [];
+			
+			function assegna(){
+				
+				let prodotto1 = {
+					nome: document.getElementById("nome").value,
+					quantita: document.getElementById("quantita").value 
+				};
+							
+				listaDellaSpesa.push(prodotto1);
+				stampaLista();
+			}
+
+			function stampaLista(){
+				let str = "";
+				for(let i = 0; i <listaDellaSpesa.length; i++){
+					str += "<li>"+ listaDellaSpesa[i].nome + " " + listaDellaSpesa[i].quantita +"</li>";
+				}
+				document.getElementById("lista").innerHTML = str;
+			}
+		
+		</script>		
+	</body>
+</html>
+
+
+
