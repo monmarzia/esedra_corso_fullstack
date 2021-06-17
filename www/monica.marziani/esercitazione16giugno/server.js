@@ -9,13 +9,4 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/oggetti', (req, res) => {
-  res.sendFile(__dirname + '/oggetti.html');
-});
-
-app.get('/array', (req, res) => {
-  console.log("chiamata alla rotta array");
-  res.sendFile(__dirname + '/array.html');
-});
-
 app.listen(port, () => console.log(`in ascolto alla porta ${port}`));

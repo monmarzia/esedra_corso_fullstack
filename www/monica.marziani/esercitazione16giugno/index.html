@@ -2,44 +2,48 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Esercitazione condivisa</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercitazione condivisa</title>
 </head>
 
 <body>
-	<h1>Lista della spesa</h1>
-	<div>
-		<label>Prodotto</label> <input type="text" name="" id="prodotto"
-			value=""> <label>Quantità</label> <input type="text" name=""
-			id="quantita">
-		<button onClick="submit()">Aggiungi</button>
-	</div>
+    <h1>Lista della spesa</h1>
+    <div>
+        <label>Quantità</label> <input type="text" name="" id="quantita">
+        <label>Prodotto</label> <input type="text" name="" id="prodotto">
+        <button type="button" onClick="aggiungi()">Aggiungi</button>
+    </div>
 
-	<ul id="lista">
+    <ul id="lista">
 
-	</ul>
+    </ul>
 
-	<script>
+    <script>
+        "use:strict";
         let listaSpesa = [];
-        // creare ciclo for - creare funzione
-        function creaLista(prodotto, quantita) {
-            let str ='';
+        function aggiungi() {
+            let prodotto = document.getElementById('prodotto').value;
+            let quantita = document.getElementById('quantita').value;
             listaSpesa.push({
                 prodotto: prodotto,
                 quantita: quantita
             });
-            listaSpesa.forEach((elemento) => {
-            	str += `<li>${elemento.prodotto}, ${elemento.quantita}</li>`;
+            creaLista(listaSpesa);
+        }
+
+        function cancellaElemento(index) {
+            delete listaSpesa[index];
+            creaLista(listaSpesa);
+        }
+
+        function creaLista(listaSpesa) {
+            let str = '';
+            listaSpesa.forEach((elemento, index) => {
+                str += `<li>${elemento.quantita} ${elemento.prodotto} <button type="button" onClick="cancellaElemento(${index})">Rimuovi elemento</button></li>`;
             });
             document.getElementById("lista").innerHTML = str;
-        }
-        
-        function submit() {
-        	let prodotto = document.getElementById('prodotto').value;
-        	let quantita = document.getElementById('quantita').value;
-        	creaLista(prodotto, quantita);
         }
 
     </script>
