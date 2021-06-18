@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esercitazione condivisa</title>
+</head>
+
+<body>
+    <h1>Lista della spesa</h1>
+    <div>
+        <label>Quantità</label> <input type="text" name="" id="quantita">
+        <label>Prodotto</label> <input type="text" name="" id="prodotto">
+        <button type="button" onClick="aggiungi()">Aggiungi</button>
+    </div>
+
+    <ul id="lista">
+
+    </ul>
+
+    <script>
+        "use:strict";
+        let listaSpesa = [];
+        function aggiungi() {
+            let prodotto = document.getElementById('prodotto').value;
+            let quantita = document.getElementById('quantita').value;
+            listaSpesa.push({
+                prodotto: prodotto,
+                quantita: quantita
+            });
+            creaLista(listaSpesa);
+        }
+
+        function cancellaElemento(index) {
+            delete listaSpesa[index];
+            creaLista(listaSpesa);
+        }
+
+        function creaLista(listaSpesa) {
+            let str = '';
+            listaSpesa.forEach((elemento, index) => {
+                str += `<li>${elemento.quantita} ${elemento.prodotto} <button type="button" onClick="cancellaElemento(${index})">Rimuovi elemento</button></li>`;
+            });
+            document.getElementById("lista").innerHTML = str;
+        }
+
+    </script>
+</body>
+
+</html>
