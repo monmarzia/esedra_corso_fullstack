@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Lista della spesa</title>
+  </head>
+  <body>
+  
+    <label for="name">Nome prodotto</label>
+    <input type="text" id="name" name="name">
+    
+    <label for="number">Quantità</label>
+    <input type="number" id="number" name="number">
+    
+    <input type="button" value="Interisci" onclick="aggiungiElemento()">
+    
+  	<div>
+		<ul id="lista"></ul>
+
+ 	 </div>
+  
+    <script type="text/javascript">
+
+    let lista = [];
+    
+    function aggiungiElemento() {
+    	let obj = {
+    		nome: document.getElementById('name').value,
+    		quantità: document.getElementById('number').value		
+    	};
+        lista.push(obj);
+        console.log(lista);
+        let str = "";
+        for(let i = 0; i < lista.length; i++) {
+        	 str += `<li>${lista[i].nome}, ${lista[i].quantità}</li> `;
+        }
+        document.getElementById("lista").innerHTML = str;
+    }  
+    </script>
+  </body>
+</html>
