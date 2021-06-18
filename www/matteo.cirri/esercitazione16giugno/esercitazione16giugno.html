@@ -20,11 +20,12 @@
     <script type="text/javascript">
 
     let lista = [];
-    let obj = {nome: null, quantità: null};
-    
-    function aggiungiElemento() {
-    	obj.nome = document.getElementById('name').value;
-    	obj.quantità = document.getElementById('number').value;		
+   
+    function aggiungiElemento() { 
+    	var obj = {
+    		nome: document.getElementById('name').value,
+    		quantità: document.getElementById('number').value
+    	};	
         lista.push(obj);
         console.log(lista);
         stampaLista(lista);
