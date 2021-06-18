@@ -36,4 +36,8 @@ app.get('/mm_array.html', (req, res) => {
   res.sendFile(__dirname + '/monica.marziani' +'/array.html');
 });
 
+app.get('/json', (req, res) => {
+  res.sendFile(__dirname + '/json.html');
+});
+
 app.listen(port, () => console.log(`in ascolto alla porta ${port}`));
