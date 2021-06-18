@@ -1,0 +1,35 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Lista della Spesa</title>
+  </head>
+  <body>
+  <input type="text" id="prodotto" />
+  <input type="number" id="quantita" />
+  <button onClick="aggiungi()">aggiungi</button>
+    <div>
+    	<ul id="lista">
+    	</ul>
+    </div> 
+  <script type="text/javascript">
+  	var listaSpesa = [];
+ 	function aggiungi(){
+	  	listaSpesa.push({
+	  		prodotto: document.getElementById("prodotto").value,
+	  		quantita: document.getElementById("quantita").value,
+	  	});
+	  	stampa();
+ 	}
+ 	function stampa(){
+ 		let righe = "";
+ 		
+ 		for(let i = 0; i<listaSpesa.length; i++){
+ 			righe += "<li>"+listaSpesa[i].prodotto+" "+listaSpesa[i].quantita+"</li>";
+ 		}
+ 		document.getElementById("lista").innerHTML=righe;
+ 	}
+  </script>
+  	
+  
+  </body>
+</html>
