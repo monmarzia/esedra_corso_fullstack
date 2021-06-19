@@ -7,10 +7,28 @@
     <body>
         <h1>Componenti PC</h1>
             <p>Nome : <input type="text" id="lname" ><br><br></p>
-            <p>Quantità : <input type="number" id="lquantità" ><br><br></p>
-            <p>Prezzo : <input type="number" id="lprezzo" ><br><br></p>
+            <p>Quantità : <input type="number" min="1" max="10" id="lquantità" ><br><br></p>
+            <p>Prezzo : <input type="number" min="0" id="lprezzo" ><br><br></p>
         <input type="button" name="aggiungi prodotto" value="Aggiungi prodotto" onclick="msg()">
-        <div>   
+        
+<!--		<table>
+			<thead>
+				<tr>
+					<th>Prodotto</th>
+					<th>Quantità</th>
+					<th>Prezzo</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td id="nome"></td>
+					<td id="quantità"></td>
+					<td id="prezzo"></td>
+				</tr>
+			</tbody>
+		</table>  -->
+
+		<div>   
             <ul id="lista"></ul>
         </div>
 
@@ -26,20 +44,27 @@
             };
 
             componenti.push(oggetto);
-            stampalista();
+            stampalista(componenti);
         }
         
+		function rimuovi(i){
+			componenti.splice(i, 1);
+			stampalista(componenti);
+		} 
 
-        function stampalista() {
+        function stampalista(componenti) {
             let riga = "";
             for (let i = 0; i < componenti.length; i++) {
-                riga += `<li> ${componenti[i].Nome} ${componenti[i].Quantità} ${componenti[i].Prezzo} </li>`;
-            }
+                riga += `<li> ${componenti[i].Nome} ${componenti[i].Quantità} ${componenti[i].Prezzo} <button type="button" onclick="rimuovi(${i})">Rimuovi prodotto</button></li>`;
+ /*           	document.getElementById("nome").innerHTML = componenti[i].Nome;
+				document.getElementById("quantità").innerHTML = componenti[i].Quantità;
+				document.getElementById("prezzo").innerHTML = componenti[i].Prezzo;*/
+			}
 
             document.getElementById("lista").innerHTML = riga;
+			
         }
-
-        
+		
         </script>
     </body>
 </html>
