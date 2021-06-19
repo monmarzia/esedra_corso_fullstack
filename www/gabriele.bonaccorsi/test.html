@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Componenti PC</title>
+    </head>
+    <body>
+        <h1>Componenti PC</h1>
+            <p>Nome : <input type="text" id="lname" ><br><br></p>
+            <p>Quantità : <input type="number" id="lquantità" ><br><br></p>
+            <p>Prezzo : <input type="number" id="lprezzo" ><br><br></p>
+        <input type="button" name="aggiungi prodotto" value="Aggiungi prodotto" onclick="msg()">
+        <div>   
+            <ul id="lista"></ul>
+        </div>
+
+        <script type="text/javascript">
+        
+        let componenti = [];
+
+        function msg() {
+            let oggetto = {
+                Nome: document.getElementById('lname').value,
+                Quantità: document.getElementById('lquantità').value,
+                Prezzo: document.getElementById('lprezzo').value
+            };
+
+            componenti.push(oggetto);
+            stampalista();
+        }
+        
+
+        function stampalista() {
+            let riga = "";
+            for (let i = 0; i < componenti.length; i++) {
+                riga += `<li> ${componenti[i].Nome} ${componenti[i].Quantità} ${componenti[i].Prezzo} </li>`;
+            }
+
+            document.getElementById("lista").innerHTML = riga;
+        }
+
+        
+        </script>
+    </body>
+</html>

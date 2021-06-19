@@ -6,18 +6,7 @@ const app = express();
 const port = 1312;
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/test.html');
 });
-
-app.get('/oggetti', (req, res) => {
-  res.sendFile(__dirname + '/oggetti.html');
-});
-
-app.get('/array', (req, res) => {
-  console.log("chiamata alla rotta array");
-  res.sendFile(__dirname + '/array.html');
-});
-
-
 
 app.listen(port, () => console.log(`Server di Gabriele ${port}`));

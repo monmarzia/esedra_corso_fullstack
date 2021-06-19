@@ -1,11 +1,14 @@
+<!DOCTYPE html>
 <html>
   <head>
+   <meta charset="UTF-8">
     <title>Lista della spesa</title>
   </head>
   <body>
+  <h1>Lista della spesa</h1>
 	<div>
 	<p>Nome : <input type="text" id="lname" name="lname"><br><br> </p>
-	<p>quantita : <input type="text" id="lquantita" quantita="lquantita"><br><br> </p>
+	<p>Quantità : <input type="text" id="lquantita" Quantità ="lquantita"><br><br> </p>
 	</div>
 	<div>
 		<ul id="lista"></ul>
@@ -30,28 +33,11 @@ function msg() {
 
 function stampalista() {
 	let riga = "";
-	 for(let i = 0 ; i<spesa.length;i++){
-		riga += "<li>"+spesa[i].nome+" "+spesa[i].quantita+"</li>";
+	 for(let i = 0 ; i < spesa.length; i++){
+		riga += "<li>" + spesa[i].nome+" "+ spesa[i].Quantità +"</li>";
 	}
-	document.getElementById("lista").innerHTML=riga;
+	document.getElementById("lista").innerHTML = riga;
 }
-
-
-function rimuovi (oggetto) {
-  spesa.shift(oggetto);
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
   </script>
 
