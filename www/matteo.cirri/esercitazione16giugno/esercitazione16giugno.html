@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>Lista della spesa</title>
+    <h1>Lista della spesa</h1>
   </head>
   <body>
   
@@ -34,7 +35,7 @@
     function stampaLista(lista) {
     	let str = "";
         for(let i = 0; i < lista.length; i++) {
-        	 str += `<li>${lista[i].nome}, ${lista[i].quantità}<input type="button" value="X" onclick="rimuoviElemento(${i})"></li> `;
+        	 str += `<li>${lista[i].nome}, ${lista[i].quantità}  <input type="button" value="X" onclick="rimuoviElemento(${i})"></li>`;
         }
         document.getElementById("lista").innerHTML = str;
     }
