@@ -6,3 +6,6 @@ www/node_modules
 .loadpath
 .project
 .classpath
+node_modules
+
+
