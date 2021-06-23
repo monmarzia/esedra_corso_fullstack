@@ -8,11 +8,15 @@ public class ScanTest {
 		System.out.println("Digita qualcosa");
 		Scanner scan = new Scanner(System.in);
 		
-		int num;
+		int num = 0;
 		try {
-			
+			num = scan.nextInt();
+			System.out.println(num);
 		} catch (Exception e) {
-			// TODO: handle exception
+			System.out.println("Non hai digitato un intero valido! " + e.getMessage());
+		} finally {
+			scan.close();
+			return;
 		}
 	}
 	
