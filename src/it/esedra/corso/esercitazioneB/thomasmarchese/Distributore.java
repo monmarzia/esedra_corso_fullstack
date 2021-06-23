@@ -45,6 +45,10 @@ public class Distributore {
 		auto[3] = auto4;
 		auto[4] = auto5;
 		
+		for(int i = 0 ; i<auto.length;i++) {
+			
+		}
+		
 	
 		System.out.println("serbatoio 1a : " + auto[0].serbatoio.getCarica());
 		System.out.println("serbatoio 2a : " + auto[1].serbatoio.getCarica());
