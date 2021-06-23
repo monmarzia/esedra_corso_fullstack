@@ -1,6 +1,7 @@
 package it.esedra.corso.esercitazioneB.francescorossi;
 
 public class Automobile {
+	
 	private String Targa;
 	public String getTarga() {
 		return Targa;
@@ -8,13 +9,16 @@ public class Automobile {
 	public void setTarga(String targa) {
 		Targa = targa;
 	}
-	public Class getSerbatoio() {
-		return Serbatoio;
+	public class Serbatoio extends Automobile {
+		public Class getSerbatoio() {
+			return Serbatoio;
+		}
+		public void setSerbatoio(Class serbatoio) {
+			Serbatoio = serbatoio;
+		}
+		private Class Serbatoio;
 	}
-	public void setSerbatoio(Class serbatoio) {
-		Serbatoio = serbatoio;
-	}
-	private Class Serbatoio;
+	
 	
 
 }

@@ -2,7 +2,7 @@ package it.esedra.corso.esercitazioneB.monicamarziani;
 
 public class Serbatoio {
 	private int capacita;
-	static private int carica = 10;
+	private int carica = 0;
 	
 	public Serbatoio(int capacita) {
 		this.capacita = capacita;
@@ -29,8 +29,9 @@ public class Serbatoio {
 	 * @param carica the carica to set
 	 */
 	public void setCarica() throws CapacitaSuperata{
-		Serbatoio.carica += 10;
-		if (Serbatoio.carica > this.capacita) {
+		this.carica += 10;
+		if (this.carica > this.capacita) {
+			System.out.println("L\'Auto ha un serbatoio di " + this.capacita + " litri");
 			throw new CapacitaSuperata();
 		}
 	}
