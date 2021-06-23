@@ -9,7 +9,7 @@
   <body>
 
     <div id="nuovaLista" >
-      <button type="button" id="buttonLista" onclick="nuovaLista()">Nuova Lista</button>
+      <button class="bold" type="button" id="buttonLista" onclick="openNuova()">Nuova lista</button>
     </div>
 
     <br>
@@ -20,8 +20,25 @@
     <br>
     <br>
 
-    <div>
-      <table id= "lista" align="center"></table>
+    <div id="lista"></div>
+
+    <br>
+    <br>
+
+    <div id="finestraNuova" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <label for="name">Nome lista</label>
+        <input type="text" id="nomeLista" name="name">
+        <input class="bold, enter" type="button" value="Crea lista" id="creaLista" onclick="nuovaLista()">
+      </div>
+    </div>
+
+    <div id="finestraModifica" class="modal">
+      <div class="modal-content">
+        <span class="closeMod">&times;</span>
+        <p id="formQui">testo</p>
+      </div>
     </div>
 
     <br>
@@ -48,47 +65,60 @@
         lista[lista.length - 1].totale = calcolaTotale();
         console.log(lista);
         stampaLista(lista);
+        // document.getElementById('name').value = null;
+        // document.getElementById('number').value = null;
+        // document.getElementById('prezzo').value = null;
     }  
 
     function calcolaTotale() {
       let totale = 0;
-      for(let i = 0; i < lista.length; i++) {
-        totale += lista[i].prezzo;
+      for(let j = 0; j < lista.length; j++) {
+        totale += lista[j].prezzo;
       }
       return totale;
-      
     }
     
     function nuovaLista() {
-      let str = ""
-      str = `
-            <label for="name">Nome prodotto:</label>
-            <input type="text" id="name" name="name" required>
-    
-            <label for="number">Quantità:</label>
-            <input type="number" id="number" name="number" required>
-    
-            <label for="number">Euro/pz:</label>
-            <input type="number" id="prezzo" name="prezzo" step="0.01" required>
-
-            <input type="button" value="Interisci" id="aggiungi" onclick="aggiungiElemento()">
-            `
+      let str = nuovoForm("Inserisci", "aggiungiElemento()", "name", "number", "prezzo");
       document.getElementById("form").innerHTML = str;
       document.getElementById("lista").innerHTML = "";
       document.getElementById("totale").innerHTML = "";
       lista = [];
       stampaLista(lista);
+      modalNuova.style.display = "none";
+      document.getElementById('nomeLista').value = "Spesa";
+    }
+
+    function nuovoForm(value, funzione, name, number, prezzo) {
+      let str = `
+            <label for="name">Nome prodotto:</label>
+            <input type="text" id="${name}" name="name">
+    
+            <label for="number">Quantità:</label>
+            <input type="number" id="${number}" name="number">
+    
+            <label for="number">Euro/pz:</label>
+            <input type="number" id="${prezzo}" name="prezzo" step="0.01">
+
+            <input type="button, enter" class="bold" value="${value}" id="aggiungi" onclick="${funzione}">
+            `
+      return str;
     }
 
     function stampaLista(lista) {
-      let str = "";
-      if(lista[0] != null)
-    	  str += `<tr><td>#</td><td>Oggetto</td><td>Quantità</td><td>Prezzo</td></tr>`;
-      for(let i = 0; i < lista.length; i++) {
-        str += `<tr><td>${i + 1}</td><td>${lista[i].nome}</td><td>${lista[i].quantità}</td><td>${lista[i].prezzo}€</td><td> <input type="button" value="X" id="rimuovi" width="30px" onclick="rimuoviElemento(${i})"></td></tr>`;
-      }
-      if(lista[0] != null)
+      let nome = document.getElementById('nomeLista').value;
+      let str = `<table align="center" id= "boxLista"><tr><td class="bold">${nome}</td></tr>`;
+      if(lista[0] != null) {
+    	    str += `<tr class="bold"><td></td><td>#</td><td>Oggetto</td><td>Quantità</td><td>Prezzo</td></tr>`;
+        for(let i = 0; i < lista.length; i++) {
+          str += `<tr><td><input type="checkbox" id="prodotto${i}" name="prodotto${i}" value="prodotto${i}" onclick="checkProdotto(${i})"></td><td>${i + 1}</td><td>${lista[i].nome}</td><td>${lista[i].quantità}</td><td>${lista[i].prezzo}€</td><td> <input type="button" value="M" id="modifica" width="30px"  onclick="openMod(${i})">  <input type="button" value="X" id="rimuovi" width="30px" onclick="rimuoviElemento(${i})"></td></tr>`;
+        }
         document.getElementById("totale").innerHTML = `<div id="boxTot">Il totale è: ${lista[lista.length - 1].totale}€</div>`;
+      }
+      else if(lista[0] == null) {
+        str += `<tr><td>Lista Vuota</td></tr>`;
+      }
+      str += `</table>`;
       document.getElementById("lista").innerHTML = str;
     }
     
@@ -101,6 +131,76 @@
         document.getElementById("totale").innerHTML = "";
     	stampaLista(lista);
     } 
+
+    function modificaElemento(i) {
+      lista[i].nome = document.getElementById('nameMod').value;
+    	lista[i].quantità = document.getElementById('numberMod').value;
+      lista[i].prezzo = document.getElementById('prezzo').value * document.getElementById('numberMod').value;
+      lista[lista.length - 1].totale = calcolaTotale();
+      stampaLista(lista);
+      modal.style.display = "none";
+    }
+
+    function checkProdotto(i) {
+      let totale;
+      let check = document.querySelector(`#prodotto${i}`).checked;
+      //document.getElementById('daPagare') = calcolaTotale(i, check);
+      console.log(calcolaTotale(i, check));
+      if (check == true) {
+        totale -= lista[i].prezzo;
+      }
+      else if (check == false) {
+        totale += lista[i].prezzo;
+    }
+
+    var modal = document.getElementById("finestraModifica");
+    var span = document.getElementsByClassName("closeMod")[0];
+
+    function openMod(i) {
+      modal.style.display = "block";
+      document.getElementById("formQui").innerHTML = nuovoForm("Modifica", `modificaElemento(${i})`, "nameMod", "numberMod", "prezzoMod");
+      document.getElementById("nameMod").defaultValue = lista[i].nome;
+      document.getElementById("numberMod").defaultValue = lista[i].quantità;
+      document.getElementById("prezzoMod").defaultValue = lista[i].prezzo;
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    var modalNuova = document.getElementById("finestraNuova");
+    var spanNuova = document.getElementsByClassName("close")[0];
+
+    function openNuova() {
+      modalNuova.style.display = "block";
+      document.getElementById('nomeLista').defaultValue = "Spesa";
+    }
+
+    spanNuova.onclick = function() {
+      modalNuova.style.display = "none";
+    }
+
+    
+    window.onclick = function(event) {
+      if (event.target == modal || event.target == modalNuova) {
+        modal.style.display = "none";
+        modalNuova.style.display = "none";
+      }
+    }
+
+    // var input = document.getElementsByClassName("enter");
+
+    // // Execute a function when the user releases a key on the keyboard
+    // input.addEventListener("keyup", function(event) {
+    //   // Number 13 is the "Enter" key on the keyboard
+    //   if (event.keyCode === 13) {
+    //     // Cancel the default action, if needed
+    //     event.preventDefault();
+    //     // Trigger the button element with a click
+    //     document.getElementById("myBtn").click();
+    //   }
+    // });
+
     </script>
   </body>
 </html>
