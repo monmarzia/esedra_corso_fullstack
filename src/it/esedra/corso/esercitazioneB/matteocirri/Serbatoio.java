@@ -2,7 +2,7 @@ package it.esedra.corso.esercitazioneB.matteocirri;
 
 public class Serbatoio {
 	private int capacita;
-	private int carica = 10;
+	private static final int carica = 10;
 	
 	public int getCapacita() {
 	    return this.capacita;
@@ -14,9 +14,5 @@ public class Serbatoio {
 	
 	public int getCarica() {
 	    return this.carica;
-	}
-
-	public void setCarica(int carica) {
-	    this.carica = carica;
 	}
 }

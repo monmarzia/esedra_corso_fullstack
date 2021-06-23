@@ -8,6 +8,10 @@ public class CapacitaSuperata extends Exception{
 		
 		@Override
 		public String toString() {
-			return getMessage() + ":capacità superata";
+			return getMessage() + ": capacità superata";
+		}
+		
+		public CapacitaSuperata(Automobile automobile) {
+			super("Capacità superata per " + automobile.getTarga());
 		}
 }
