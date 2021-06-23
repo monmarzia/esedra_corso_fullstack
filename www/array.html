@@ -3,129 +3,64 @@
     <title>Array in javascript</title>
   </head>
   <body>
+    <script type="text/javascript">
+      console.log("Aggungere elementi ad un array");
 
-  <script type="text/javascript">
-<<<<<<< HEAD
-    
-    console.log("Aggungere elementi ad un array");
+      let journal = [];
+      journal.push("test");
 
-    let journal = [];
-=======
-    console.log("Aggiungere elementi in una array");
+      journal[journal.length] = "test2";
+      journal[journal.length] = "test3";
 
-    let journal = [];
+      journal.push(...["test5", "test6"]);
 
->>>>>>> 947f52443e50b67a30388a59f1d52984bde289c8
-    journal.push("test");
+      let journal2 = ["test7", "test8"];
 
-    journal[journal.length] = "test2";
-    journal[journal.length] = "test3";
+      Array.prototype.push.apply(journal, journal2);
+      console.log(journal);
 
-    journal.push(...["test5", "test6"]);
-<<<<<<< HEAD
+      let journal3 = ["test9", "test10"];
+      journal = journal.concat(journal3);
 
-    let journal2 = ["test7", "test8"];
+      console.log(journal);
 
-    Array.prototype.push.apply(journal, journal2);
-    console.log(journal);
+      for (let i = 0; i < journal.length; i++) {
+        console.log(journal[i]);
+      }
 
-    let journal3 = ["test9", "test10"];
-=======
-    console.log(journal);
+      for (let entry of journal) {
+        console.log(entry);
+      }
 
-    let journal2 = ["test7", "test8"];
+      let todolist = [];
 
-    Array.prototype.push.apply(journal, journal2)
-    console.log(journal);
+      function remember(task) {
+        todolist.push(task);
+      }
+      function getTask() {
+        return todolist.shift();
+      }
 
-    let journal3 = ["test9", "test10"];
+      function rememberUrgently(task) {
+        todolist.unshift(task);
+      }
+      remember("cd working directory");
+      remember("npm install");
+      remember("node server.js");
+      rememberUrgently("Installazione node");
+      console.log(getTask());
+      console.log(todolist);
+      console.log(getTask());
+      console.log(getTask());
+      console.log(todolist);
 
->>>>>>> 947f52443e50b67a30388a59f1d52984bde289c8
-    journal = journal.concat(journal3);
+      console.log([1, 2, 3, 5, 7, 5, 5].indexOf(5));
+      console.log([1, 2, 3, 5, 7, 5, 5].lastIndexOf(5));
+      console.log([1, 2, 3, 5, 7, 5, 5].indexOf(5, 4));
 
-    console.log(journal);
+      console.log([1, 2, 3, 5, 7, 5, 5].slice(2));
 
-<<<<<<< HEAD
-    for(let i = 0; i < journal.length; i++) {
-=======
-    // --> CICLI
-
-    for (let i = 0; i < journal.length; i++) {
->>>>>>> 947f52443e50b67a30388a59f1d52984bde289c8
-      console.log(journal[i]);
-    }
-
-    for (let entry of journal) {
-      console.log(entry);
-    }
-
-<<<<<<< HEAD
-=======
-    //-> altre funzioni per le array
-
-
->>>>>>> 947f52443e50b67a30388a59f1d52984bde289c8
-    let todolist = [];
-
-    function remember(task) {
-      todolist.push(task);
-    }
-<<<<<<< HEAD
-
-    function gettask() {
-=======
-    function getTask() {
->>>>>>> 947f52443e50b67a30388a59f1d52984bde289c8
-      return todolist.shift();
-    }
-
-    function rememberUrgently(task) {
-<<<<<<< HEAD
-      todolist.unshift(task);
-    }
-
-    remember("cd working directory");
-    remember("npm install");
-    remember("node server.js");
-    rememberUrgently("Installazione Node.js");
-
-    console.log(gettask());
-    console.log(todolist);
-    console.log(gettask());
-    console.log(gettask());
-    console.log(todolist);
-
-    console.log([1,2,3,5,7,5,5].indexOf(5));
-    console.log([1,2,3,5,7,5,5].lastIndexOf(5));
-    console.log([1,2,3,5,7,5,5].indexOf(5, 4));
-
-    console.log([1,2,3,5,7,5,5].slice(2));
-    console.log([1,2,3,5,7,5,5].slice(2, 4));
-
-  </script>
-=======
-      todolist.unshift(task)
-    }
-    remember("cd working directory");
-    remember("npm install");
-    remember("node server.js");
-    rememberUrgently("Installazione node");
-    console.log(getTask());
-    console.log(todolist);
-    console.log(getTask());
-    console.log(getTask());
-    console.log(todolist);    
-
-    console.log([1, 2, 3, 5, 7, 5, 5].indexOf(5));
-    console.log([1, 2, 3, 5, 7, 5, 5].lastIndexOf(5));
-    console.log([1, 2, 3, 5, 7, 5, 5].indexOf(5, 4));
-
-    console.log([1, 2, 3, 5, 7, 5, 5].slice(2));
-
-    console.log([1, 2, 3, 5, 7, 5, 5].slice(2, 4));
-</script>
->>>>>>> 947f52443e50b67a30388a59f1d52984bde289c8
-
+      console.log([1, 2, 3, 5, 7, 5, 5].slice(2, 4));
+    </script>
   </body>
-
 </html>
