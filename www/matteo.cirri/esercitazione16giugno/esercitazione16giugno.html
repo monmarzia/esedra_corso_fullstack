@@ -1,51 +1,106 @@
 <html>
   <head>
     <title>Lista della spesa</title>
-    <h1>Lista della spesa</h1>
+    <h1 id="boxTitle">Lista della spesa</h1>
+    <link rel = "stylesheet" type="text/css" href = "stili.css"/>
+    <br>
+    <br>
   </head>
   <body>
-  
-    <label for="name">Nome prodotto</label>
-    <input type="text" id="name" name="name">
-    
-    <label for="number">Quantit�</label>
-    <input type="number" id="number" name="number">
-    
-    <input type="button" value="Interisci" onclick="aggiungiElemento()">
-    
-  	<div>
-		<ul id="lista"></ul>
 
- 	 </div>
+    <div id="nuovaLista" >
+      <button type="button" id="buttonLista" onclick="nuovaLista()">Nuova Lista</button>
+    </div>
+
+    <br>
+    <br>
+
+    <div id="form"></div>
+
+    <br>
+    <br>
+
+    <div>
+      <table id= "lista" align="center"></table>
+    </div>
+
+    <br>
+    <br>
+
+    <div id="totale"></div>
   
     <script type="text/javascript">
 
     let lista = [];
     
     function aggiungiElemento() {
+      if (document.getElementById('number').value.length == 0 || document.getElementById('name').value.length == 0 || document.getElementById('number').value == 0 || document.getElementById('prezzo').value.length == 0 || document.getElementById('prezzo').value == 0) {
+        alert("Elemento invalido");
+        return;
+      }
     	let obj = {
     		nome: document.getElementById('name').value,
-    		quantit�: document.getElementById('number').value
+    		quantità: document.getElementById('number').value,
+        prezzo: document.getElementById('prezzo').value * document.getElementById('number').value,
+        totale: 0
     	};	
         lista.push(obj);
+        lista[lista.length - 1].totale = calcolaTotale();
         console.log(lista);
         stampaLista(lista);
     }  
+
+    function calcolaTotale() {
+      let totale = 0;
+      for(let i = 0; i < lista.length; i++) {
+        totale += lista[i].prezzo;
+      }
+      return totale;
+      
+    }
     
+    function nuovaLista() {
+      let str = ""
+      str = `
+            <label for="name">Nome prodotto:</label>
+            <input type="text" id="name" name="name" required>
+    
+            <label for="number">Quantità:</label>
+            <input type="number" id="number" name="number" required>
+    
+            <label for="number">Euro/pz:</label>
+            <input type="number" id="prezzo" name="prezzo" step="0.01" required>
+
+            <input type="button" value="Interisci" id="aggiungi" onclick="aggiungiElemento()">
+            `
+      document.getElementById("form").innerHTML = str;
+      document.getElementById("lista").innerHTML = "";
+      document.getElementById("totale").innerHTML = "";
+      lista = [];
+      stampaLista(lista);
+    }
+
     function stampaLista(lista) {
-    	let str = "";
-        for(let i = 0; i < lista.length; i++) {
-        	 str += `<li>${lista[i].nome}, ${lista[i].quantit�}  <input type="button" value="X" onclick="rimuoviElemento(${i})"></li>`;
-        }
-        document.getElementById("lista").innerHTML = str;
+      let str = "";
+      if(lista[0] != null)
+    	  str += `<tr><td>#</td><td>Oggetto</td><td>Quantità</td><td>Prezzo</td></tr>`;
+      for(let i = 0; i < lista.length; i++) {
+        str += `<tr><td>${i + 1}</td><td>${lista[i].nome}</td><td>${lista[i].quantità}</td><td>${lista[i].prezzo}€</td><td> <input type="button" value="X" id="rimuovi" width="30px" onclick="rimuoviElemento(${i})"></td></tr>`;
+      }
+      if(lista[0] != null)
+        document.getElementById("totale").innerHTML = `<div id="boxTot">Il totale è: ${lista[lista.length - 1].totale}€</div>`;
+      document.getElementById("lista").innerHTML = str;
     }
     
     function rimuoviElemento(i) {
     	lista.splice(i, 1);
     	console.log(lista);
+      if(lista[0] != null)
+        lista[lista.length - 1].totale = calcolaTotale();
+      if(lista[0] == null)
+        document.getElementById("totale").innerHTML = "";
     	stampaLista(lista);
-    }
-    
+    } 
     </script>
   </body>
 </html>

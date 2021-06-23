@@ -1,0 +1,96 @@
+h1 {
+    background: rgb(196, 196, 196);
+    color: black;
+    font-family: Georgia, "Times New Roman", serif;
+    text-align: center;
+    }
+
+div {
+    background: white;
+    color: black;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15;
+    text-align: center;
+    }
+
+input {
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+#rimuovi:hover {
+    background: #333;
+    border: 1px solid #333;
+    color: white;
+    cursor: pointer;
+}
+
+#aggiungi {
+    background: #fff;
+    border: 2px solid #333;
+    border-radius: 5px;
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0.3rem;
+    box-shadow: 2px 2px 1px rgb(94, 94, 94);
+}
+
+#aggiungi:hover {
+    background: #333;
+    border: 2px solid #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+#form {
+    background: white;
+    color: black;
+    font-family: Georgia, "Times New Roman", serif;
+    text-align: center;
+}
+
+#lista td, tr {
+    text-align: center;
+    border:1px solid;
+    padding:8px;
+    border-collapse:separate;
+    background-color: rgb(196, 196, 196);
+}
+
+#buttonLista {
+    box-shadow: 3px 3px 2px rgb(94, 94, 94);
+    vertical-align: middle;
+    text-align: center;
+    width:100px; 
+    height:50px; 
+    border:2px solid;
+    border-radius: 5px;
+}
+
+#buttonLista:hover {
+    background: #333;
+    border: 2px solid #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+#boxTot {
+    width:200px; 
+    height:50px; 
+    border:1px solid;
+    margin: auto;
+    border: 2px solid;
+    border-radius: 5px;
+    line-height: 50px;
+}
+
+#boxTitle {
+    width:400px; 
+    height:50px; 
+    border:1px solid;
+    margin: auto;
+    border: 2px solid;
+    border-radius: 5px;
+    line-height: 50px;
+}
