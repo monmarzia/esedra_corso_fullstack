@@ -1,34 +1,31 @@
 package it.esedra.corso.esercitazioneB.thomasmarchese;
 
-import it.esedra.corso.lezioni.eccezioni.MyException;
 
 public class Distributore {
 	
+	private static final int caricaStandard = 10;
 	
-	public Automobile rifornimento(Automobile automobile) {
+	
+	public static Automobile rifornimento(Automobile automobile) {
 	
 		try {
 			
-			automobile.serbatoio.setCarica(10);
+			if(automobile.getSerbatoio().getCarica()+caricaStandard > automobile.getSerbatoio().getCapacita() ) // se la carica + 10l è maggiore della sua capacita
+				throw new CapacitaSuperata("la capacità del serbatoio dell'auto targata \"" + automobile.getTarga() + "\" è stata superata");
 			
-			if(automobile.serbatoio.getCapacita() < 10)
-				throw new CapacitaSuperata("la capacita' è stat superata");
-			
+			automobile.getSerbatoio().setCarica(automobile.getSerbatoio().getCarica() + caricaStandard);	// ggiunge 10 litri a quelli già presenti
+				
 		} catch(Exception e) {
-			System.out.println(e.getMsg());
+			System.out.println(e.getMessage()+", il suo serbatoio sarà quindi riempito fino al massimo della sua capacità ");
+			automobile.getSerbatoio().setCarica(automobile.getSerbatoio().getCapacita());// altrimenti carica fino a che può
+		} finally {
+			System.out.println("il serbatoio dell'auto targata \""+automobile.getTarga()+"\" ora contiene : "+automobile.getSerbatoio().getCarica()+" litri");
 		}
-		
-		
 		
 		return automobile;
 	}
 	
-		
-	
 
-	
-	
-	
 	public static void main(String[] args) {
 		
 		Automobile[] auto = new Automobile[5];
@@ -47,20 +44,15 @@ public class Distributore {
 		
 		for(int i = 0 ; i<auto.length;i++) {
 			
+			rifornimento(auto[i]);			
+			
 		}
 		
-	
-		System.out.println("serbatoio 1a : " + auto[0].serbatoio.getCarica());
-		System.out.println("serbatoio 2a : " + auto[1].serbatoio.getCarica());
-		System.out.println("serbatoio 3a : " + auto[2].serbatoio.getCarica());
-		System.out.println("serbatoio 4a : " + auto[3].serbatoio.getCarica());
-		System.out.println("serbatoio 5a : " + auto[4].serbatoio.getCarica());
-	
+		
 		
 	}
 
-	
-	
+
 	
 }
 

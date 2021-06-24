@@ -19,11 +19,11 @@ public class Serbatoio {
 		return capacita;
 	}
 	
-	public int getCarica () {
+	public int getCarica() {
 		return carica;
 	}
 		
-	}
+}
 
 	
 

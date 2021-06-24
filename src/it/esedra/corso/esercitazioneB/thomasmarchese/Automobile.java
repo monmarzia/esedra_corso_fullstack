@@ -3,14 +3,15 @@ package it.esedra.corso.esercitazioneB.thomasmarchese;
 
 public class Automobile {
 	
-	private String targa ;
-	
-	Serbatoio serbatoio = new Serbatoio();
+	private String targa ;	
+	private Serbatoio serbatoio;
+	 
 	
 
 	public Automobile(String targa, int capacitaSerbatoio) {
 		
 		this.targa = targa ;
+		serbatoio = new Serbatoio();
 		serbatoio.setCapacita(capacitaSerbatoio);
 		
 	}
@@ -20,19 +21,20 @@ public class Automobile {
 	}
 	
 	
-	
-	
-	
-	public static void main(String[] args) {
-		
-		
-		
-		
-		
+	public Serbatoio getSerbatoio() {
+		return serbatoio;
 	}
-
 	
+	public String getTarga() {
+		return this.targa;
+	}
 	
+	public void setTarga(String targa) {
+		this.targa  = targa;
+	}
+	
+    
+		
 	
 }
 

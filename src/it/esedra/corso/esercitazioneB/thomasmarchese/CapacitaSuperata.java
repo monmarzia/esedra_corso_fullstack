@@ -11,7 +11,4 @@ public class CapacitaSuperata extends Exception {
 			super(msg);
 		}
 		
-		public String getMsg() {
-			return msg;
-		}
 }
