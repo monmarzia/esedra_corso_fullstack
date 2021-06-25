@@ -1,5 +1,7 @@
 package it.esedra.corso.esercitazioneB.antonellomaiorano;
-import java.util.*;
+
+import java.util.Scanner;
+import java.util.Random;
 
 public class Esercizio1 {
 	public static void main(String[] args) {
