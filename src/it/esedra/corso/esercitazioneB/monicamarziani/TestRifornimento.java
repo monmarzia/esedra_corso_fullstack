@@ -9,13 +9,13 @@ public class TestRifornimento {
 		Automobile miaAuto4 = new Automobile("MM519XX", new Serbatoio(4));
 		Automobile miaAuto5 = new Automobile("MM520XX", new Serbatoio(11));
 		Distributore shell = new Distributore();
-		
+
 		try {
-			shell.rifornimento(miaAuto1);
+//			shell.rifornimento(miaAuto1);
 			shell.rifornimento(miaAuto2);
-			shell.rifornimento(miaAuto3);
-			shell.rifornimento(miaAuto4);
-			shell.rifornimento(miaAuto5);
+//			shell.rifornimento(miaAuto3);
+//			shell.rifornimento(miaAuto4);
+//			shell.rifornimento(miaAuto5);
 		} catch (CapacitaSuperata e) {
 			System.out.println(e.toString());
 		}
