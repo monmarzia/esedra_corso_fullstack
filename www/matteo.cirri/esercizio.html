@@ -1,0 +1,28 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script type="text/javascript">
+            function promptNumber(question) {
+                let a = (prompt(question));
+                let b = Math.floor(getRandomArbitrary(0, 4));
+                console.log(b);
+                if (b == 0)
+                    throw new Error;
+                console.log(a / b);
+            }
+
+            function getRandomArbitrary(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            try {
+                promptNumber("Inserisci un numero");
+       
+            } catch (error) {
+                console.log("Divisione per zero: " + error);
+            }
+        </script>
+    </body>
+</html>
