@@ -44,7 +44,7 @@
           }
 
         }
-        promptNumber("Inserisci un numero");
+        //promptNumber("Inserisci un numero");
  
         function promptDirection(question) {
           let result = prompt(question);
@@ -85,9 +85,18 @@
           }
           
         }
+        /*
+        Scrivere una function che inserito un numero intero da tastiera stampi a video il risultato 
+        della divisione di tale numero per un altro numero generato casualmente, compreso fra 0 e 3, 
+        intercettando l'eventuale eccezione della divisione per 0. 
+        */
 
-
-      </script>
+        function getRandomArbitrary(min, max) {
+          return Math.random() * (max - min) + min;
+        }
+        
+        console.log(Math.floor(getRandomArbitrary(0, 4)));
+        </script>
 </body>
 
 </html>
