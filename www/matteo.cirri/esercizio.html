@@ -9,7 +9,7 @@
                 let b = Math.floor(getRandomArbitrary(0, 4));
                 console.log(b);
                 if (b == 0)
-                    throw new Error;
+                    throw new Error("Impossibile dividere per 0");
                 console.log(a / b);
             }
 
@@ -19,9 +19,8 @@
 
             try {
                 promptNumber("Inserisci un numero");
-       
             } catch (error) {
-                console.log("Divisione per zero: " + error);
+                console.log(error);
             }
         </script>
     </body>
