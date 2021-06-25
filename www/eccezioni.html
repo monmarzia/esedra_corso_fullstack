@@ -1,0 +1,93 @@
+<html>
+
+<head>
+  <title>Eccezioni</title>
+</head>
+
+<body>
+  <h1>Eccezioni</h1>
+  <ul>
+
+    <ul>
+
+      <script type="text/javascript">
+        function x() {
+          "use strict";
+
+          /* for (counter = 0; counter < 10; counter ++) {
+            console.log("counter value: " + counter);
+          } */
+
+
+          //
+          "use strict";
+          function Person(name) { this.name = name; }
+
+          let roberto = new Person("Roberto");
+
+        }
+        x();
+
+        //propagazione errori
+
+        function promptNumber(question) {
+          let result = Number(prompt(question));
+          /* if (Number.isNaN(result)) {
+            alert("Non è stato inserito un numero");
+            result = Number(prompt(question));
+          } else {
+            return console.log(result);
+          } */
+          while (Number.isNaN(result)) {
+            alert("Non è stato inserito un numero");
+            result = Number(prompt(question));
+          }
+
+        }
+        promptNumber("Inserisci un numero");
+ 
+        function promptDirection(question) {
+          let result = prompt(question);
+          if (result.toLocaleLowerCase() == 'sinistra') return 'L';
+          if (result.toLocaleLowerCase() == 'destra') return 'R';
+          throw new Error('Invalid direction ' + result);
+        }
+        function look() {
+          if (promptDirection("In quale direzione ?") == 'L') {
+            return "a casa";
+          } else {
+            return "altrove";
+          }
+        }
+
+        try {
+       //   console.log("Dove vai? ", look());
+        } catch (error) {
+          console.log("C'è stato un errore: " + error);
+        } finally {
+          console.log("finally");
+        }
+
+        console.log("sono andato avanti"); 
+
+        //look();
+
+
+
+        class InputError extends Error {}
+
+        try {
+          throw new InputError("ciao");          
+        } catch (error) {
+
+          if (error instanceof InputError) {
+            console.log("eccezione InputError " + error);
+          }
+          
+        }
+
+
+      </script>
+</body>
+
+</html>

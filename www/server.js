@@ -39,5 +39,7 @@ app.get('/mm_array.html', (req, res) => {
 app.get('/json', (req, res) => {
   res.sendFile(__dirname + '/json.html');
 });
-
+app.get('/eccezioni', (req, res) => {
+  res.sendFile(__dirname + '/eccezioni.html');
+});
 app.listen(port, () => console.log(`in ascolto alla porta ${port}`));
