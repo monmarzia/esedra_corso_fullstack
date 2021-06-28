@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Esercizio eccezioni</title>
+    </head>
+    <body>
+        <script>
+            function promptNumber(question){
+                let result = Number(prompt(question));
+                return result;
+            }
+
+            function getRandomArbitrary(min, max){
+                return Math.random() * (max - min) + min;
+            }
+
+            try {
+                let division = promptNumber("Inserisci un numero") / Math.floor(getRandomArbitrary(0,4));
+                if (division == Infinity) throw "il divisore è zero";
+                console.log(division);
+            } catch (error) {
+                console.log(error);
+            } finally{
+                console.log("finally");
+            }
+        </script>
+    </body>
+</html>

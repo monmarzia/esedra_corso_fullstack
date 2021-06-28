@@ -65,10 +65,14 @@
         totale: 0
     	};	
         lista.push(obj);
-        totale += lista[i].prezzo;
-        totaleDaPagare += lista[i].prezzo;
+        totale += lista[lista.length - 1].prezzo;
+        totaleDaPagare += lista[lista.length - 1].prezzo;
         stampaLista(lista);
         checked.push(false);
+        // for(let j = 0; j < lista.length; j++) {
+        //   if (checked[j] == true)
+        //     document.getElementById(`check${j}`).innerHTML = `<input type="checkbox" id="prodotto${j}" name="prodotto${j}" value="prodotto${j}" onclick="checkProdotto(${j})" checked>`;
+        // }
         // document.getElementById('name').value = null;
         // document.getElementById('number').value = null;
         // document.getElementById('prezzo').value = null;
@@ -90,6 +94,9 @@
       document.getElementById("lista").innerHTML = "";
       document.getElementById("totale").innerHTML = "";
       lista = [];
+      checked = [];
+      totale = 0;
+      totaleDaPagare = 0;
       stampaLista(lista);
       modalNuova.style.display = "none";
       document.getElementById('nomeLista').value = "Spesa";
@@ -126,6 +133,10 @@
       }
       str += `</table>`;
       document.getElementById("lista").innerHTML = str;
+      for(let j = 0; j < lista.length; j++) {
+          if (checked[j] == true)
+            document.getElementById(`check${j}`).innerHTML = `<input type="checkbox" id="prodotto${j}" name="prodotto${j}" value="prodotto${j}" onclick="checkProdotto(${j})" checked>`;
+      }
     }
     
     function rimuoviElemento(i) {
@@ -139,22 +150,25 @@
       if(lista[0] == null)
         document.getElementById("totale").innerHTML = "";
     	stampaLista(lista);
-      for(let j = 0; j < lista.length; j++) {
-        if (checked[j] == true)
-          document.getElementById(`check${j}`).innerHTML = `<input type="checkbox" id="prodotto${j}" name="prodotto${j}" value="prodotto${j}" onclick="checkProdotto(${j})" checked>`;
-      }
+      // for(let j = 0; j < lista.length; j++) {
+      //   if (checked[j] == true)
+      //     document.getElementById(`check${j}`).innerHTML = `<input type="checkbox" id="prodotto${j}" name="prodotto${j}" value="prodotto${j}" onclick="checkProdotto(${j})" checked>`;
+      // }
       console.log(lista);
     } 
 
     function modificaElemento(i) {
-      if (checked[i] == true)
+      if (checked[i] == false)
         totaleDaPagare -= lista[i].prezzo;
       totale -= lista[i].prezzo;
       lista[i].nome = document.getElementById('nameMod').value;
     	lista[i].quantità = document.getElementById('numberMod').value;
       lista[i].prezzo = document.getElementById('prezzoMod').value * document.getElementById('numberMod').value;
-      document.getElementById(`riga${i}`).innerHTML = `<tr id="riga${i}"><td><input type="checkbox" id="prodotto${i}" name="prodotto${i}" value="prodotto${i}" onclick="checkProdotto(${i})"></td><td>${i + 1}</td><td>${lista[i].nome}</td><td>${lista[i].quantità}</td><td>${lista[i].prezzo}€</td><td> <input type="button" value="M" id="modifica" width="30px"  onclick="openMod(${i})">  <input type="button" value="X" id="rimuovi" width="30px" onclick="rimuoviElemento(${i})"></td></tr>`;
       if (checked[i] == true)
+        document.getElementById(`riga${i}`).innerHTML = `<tr id="riga${i}"><td><input type="checkbox" id="prodotto${i}" name="prodotto${i}" value="prodotto${i}" onclick="checkProdotto(${i})" checked></td><td>${i + 1}</td><td>${lista[i].nome}</td><td>${lista[i].quantità}</td><td>${lista[i].prezzo}€</td><td> <input type="button" value="M" id="modifica" width="30px"  onclick="openMod(${i})">  <input type="button" value="X" id="rimuovi" width="30px" onclick="rimuoviElemento(${i})"></td></tr>`;
+      else
+        document.getElementById(`riga${i}`).innerHTML = `<tr id="riga${i}"><td><input type="checkbox" id="prodotto${i}" name="prodotto${i}" value="prodotto${i}" onclick="checkProdotto(${i})"></td><td>${i + 1}</td><td>${lista[i].nome}</td><td>${lista[i].quantità}</td><td>${lista[i].prezzo}€</td><td> <input type="button" value="M" id="modifica" width="30px"  onclick="openMod(${i})">  <input type="button" value="X" id="rimuovi" width="30px" onclick="rimuoviElemento(${i})"></td></tr>`;
+      if (checked[i] == false)
         totaleDaPagare += lista[i].prezzo;
       totale += lista[i].prezzo;
       document.getElementById("totale").innerHTML = `<div id="boxTot">Il totale è: ${totale}€  ||  Rimangono da pagare: ${totaleDaPagare}€</div>`;
@@ -162,7 +176,7 @@
     }
 
     function checkProdotto(i) {
-      checked[i] = document.querySelector(`#prodotto${i}`).checked;;
+      checked[i] = document.querySelector(`#prodotto${i}`).checked;
       if (checked[i] == true) {
         totaleDaPagare -= lista[i].prezzo;
       }
