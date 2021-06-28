@@ -40,7 +40,7 @@ public class Controller {
 	public void getPrevisioniTempo(String citta) {
 		
 		Model model = new Model();
-		String previsioneDomani = model.previsioni(citta);
+		Previsione previsioneDomani = model.previsioni(citta);
 		
 		View view = new View();
 		String html = view.createHTML(citta, previsioneDomani);

@@ -1,0 +1,38 @@
+<html>
+
+<head>
+  <title>Eccezioni</title>
+</head>
+
+<body>
+  <h1>Eccezioni</h1>
+  <ul>
+
+    <ul>
+
+      <script type="text/javascript">     
+
+        function getRandom(min ,max) {
+          return Math.random() * (max-min) + min;
+        }
+        
+        function dividi(numeratore,denominatore) {
+          if(denominatore == 0)
+            throw Error("impossibile dividere per 0");
+          return numeratore/denominatore;
+        }
+
+        let casuale = Math.floor(getRandom(0,4));
+        let numero = prompt("inserisci un numero");
+        try {
+          console.log(dividi(numero,casuale));
+        } catch (error) {
+          console.log(error)
+        }
+
+
+
+      </script>
+</body>
+
+</html>
