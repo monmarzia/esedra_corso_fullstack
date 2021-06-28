@@ -7,19 +7,19 @@ public class Model {
 		Previsione previsione = new Previsione();
 		
 		if (citta.equals("Firenze")) {
-			previsione.setTempo("piove");
+			previsione.setTempo(TempoMeteo.SOLE);
 			previsione.setTemperatura(Float.valueOf("20.4"));
 			return previsione;
 		} else if (citta.equals("Prato")) {
-			previsione.setTempo("sole");
+			previsione.setTempo(TempoMeteo.SOLE);
 			previsione.setTemperatura(Float.valueOf("32.1"));
 			return previsione;
 		} else if (citta.equals("Genova")) {
-			previsione.setTempo("neve");
+			previsione.setTempo(TempoMeteo.NEVE);
 			previsione.setTemperatura(Float.valueOf("-1.4"));
 			return previsione;
 		} else {
-			previsione.setTempo("non pervenuto");
+			previsione.setTempo(TempoMeteo.NON_PERVENUTO);
 			previsione.setTemperatura(null);
 			return previsione;
 		}

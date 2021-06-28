@@ -1,13 +1,14 @@
 package it.esedra.corso.mvc;
 
 public class Previsione {
-	private String tempo;
+	
+	private TempoMeteo tempo;
 	private Float temperatura;
 	
-	public String getTempo() {
+	public TempoMeteo getTempo() {
 		return tempo;
 	}
-	public void setTempo(String tempo) {
+	public void setTempo(TempoMeteo tempo) {
 		this.tempo = tempo;
 	}
 	public Float getTemperatura() {
