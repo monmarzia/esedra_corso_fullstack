@@ -1,6 +1,6 @@
 package it.esedra.corso.esercitazioneB.giovannifiorillo;
 
-public class Serbatoio extends Automobile {
+public class Serbatoio {
 	private int capacita;
 	private int carica;
 	public int getCapacita() {

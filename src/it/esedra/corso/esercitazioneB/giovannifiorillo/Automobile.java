@@ -2,7 +2,7 @@ package it.esedra.corso.esercitazioneB.giovannifiorillo;
 
 public class Automobile extends Esercizio1 {
 	public String targa ; 
-
+	private Serbatoio serbatoio;
 	private Automobile(String targa, int capacitaSerbatoio) {
 	
 }
