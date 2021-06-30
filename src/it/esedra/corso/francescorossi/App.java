@@ -15,6 +15,7 @@ public class App {
 		for (int i = 0; i < lista.length; i++) {
 			if (lista[i] == null) {
 				lista[i] = listaElemento;
+				break;
 			}
 		}
 	}
@@ -34,6 +35,7 @@ public class App {
 
 		app.aggiungiElemento(listaA);		
 		app.aggiungiElemento(listaB);
+		app.store();
 	}
 
 	
@@ -43,9 +45,11 @@ public class App {
 			
 			
 			String file = getClass().getProtectionDomain().getCodeSource().getLocation().getPath()+System.getProperty("path.separator")+"lista.csv";
-			PrintWriter writer = new PrintWriter(new File(file));
+			PrintWriter writer = new PrintWriter(new File("lista.csv"));
 			StringBuilder builder = new StringBuilder();
 			for(ListaSpesa listaTemp : lista) {
+				if(listaTemp == null)
+					continue;
 				builder.append(listaTemp.getProdotto());
 				builder.append(",");
 				builder.append(listaTemp.getQuantita());
@@ -58,6 +62,8 @@ public class App {
 			}
 			
 			writer.write(builder.toString());
+			writer.flush();
+			writer.close();
 			
 		} catch (Exception e) {
 			System.out.println(e.toString());
