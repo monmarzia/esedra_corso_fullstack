@@ -30,7 +30,7 @@
         <span class="close">&times;</span>
         <label for="name">Nome lista</label>
         <input type="text" id="nomeLista" name="name">
-        <input class="bold, enter" type="button" value="Crea lista" id="creaLista" onclick="nuovaLista()">
+        <input class="bold" type="button" value="Crea lista" id="creaLista" onclick="nuovaLista()">
       </div>
     </div>
 
@@ -52,6 +52,7 @@
     let totale = 0;
     let totaleDaPagare = 0;
     let checked = [];
+
     
     function aggiungiElemento() {
       if (document.getElementById('number').value.length == 0 || document.getElementById('name').value.length == 0 || document.getElementById('number').value == 0 || document.getElementById('prezzo').value.length == 0 || document.getElementById('prezzo').value == 0) {
