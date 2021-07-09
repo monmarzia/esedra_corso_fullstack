@@ -1,4 +1,7 @@
-package it.esedra.corso.mvc;
+package it.esedra.corso.mvc.model;
+
+import it.esedra.corso.mvc.Previsione;
+import it.esedra.corso.mvc.TempoMeteo;
 
 public class Model {
 

@@ -3,6 +3,8 @@ package it.esedra.corso.mvc;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import it.esedra.corso.mvc.model.Model;
+
 public class Controller {
 
 	public static void main(String[] args) {
