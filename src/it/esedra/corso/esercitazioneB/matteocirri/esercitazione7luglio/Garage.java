@@ -7,6 +7,7 @@ public class Garage<T> {
 
 	public static void main(String[] args) {
 		Garage<Veicoli> garage = new Garage<Veicoli>(); 
+		garage.veicoli = new ArrayList<>();
 		garage.veicoli.add(new Moto("Ducati"));
 		garage.veicoli.add(new Auto("Audi"));
 		garage.veicoli.add(new Camion("//"));

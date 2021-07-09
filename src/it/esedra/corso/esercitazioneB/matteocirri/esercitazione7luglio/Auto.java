@@ -5,7 +5,6 @@ public class Auto extends Veicoli {
 	public Auto() {};
 	
 	public Auto(String marca) {
-		Auto auto = new Auto();
-		auto.setMarca("marca");
+		this.setMarca(marca);
 	}
 }

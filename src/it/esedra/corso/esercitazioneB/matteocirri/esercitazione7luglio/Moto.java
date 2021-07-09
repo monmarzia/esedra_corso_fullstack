@@ -5,7 +5,6 @@ public class Moto extends Veicoli {
 	public Moto() {};
 	
 	public Moto(String marca) {
-		Moto moto = new Moto();
-		moto.setMarca("marca");
+		this.setMarca(marca);
 	}
 }
