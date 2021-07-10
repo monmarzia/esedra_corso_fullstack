@@ -78,12 +78,11 @@ public class AddShoppingList implements HttpHandler {
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
 				item.setUnit(tmpObj.getString("unit"));
-				shoppingList.addItems(item);
+				shoppingList.addItem(item);
 			}
 
 			shoppingList.store();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new IOException("Errore interno");
 		}

@@ -26,23 +26,19 @@ public class Server {
 	public static void main(String[] args) throws Exception {
 
 		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
-		server.createContext("/", new MyHandler());
+		server.createContext("/", new DefaultHandler());
 		server.createContext("/add-shopping-list", new AddShoppingList());
 		server.setExecutor(null);
 		server.start();
 		System.out.println("Server stared");
 	}
 
-	static class MyHandler implements HttpHandler {
+	static class DefaultHandler implements HttpHandler {
 
 		@Override
 		public void handle(HttpExchange exchange) throws IOException {
-			MyHandler.setHttpExchangeResponseHeaders(exchange);
-			String param = null;
-			if (exchange.getRequestMethod().equals("POST")) {
-				param = this.handlePostRequest(exchange);
-			}
-			String response = "Benvenuto mi hai passato: " + param;
+			DefaultHandler.setHttpExchangeResponseHeaders(exchange);
+			String response = "Benvenuto su Shopping List";
 
 			exchange.sendResponseHeaders(200, response.length());
 			OutputStream stream = exchange.getResponseBody();
@@ -59,36 +55,6 @@ public class Server {
 			httpExchange.getResponseHeaders().add("Access-Control-Allow-Headers", "*");
 			httpExchange.getResponseHeaders().add("Access-Control-Allow-Credentials", "true");
 			httpExchange.getResponseHeaders().add("Access-Control-Allow-Credentials-Header", "*");
-		}
-
-		public String handlePostRequest(HttpExchange exchange) throws IOException {
-			StringBuilder sb = new StringBuilder();
-			InputStream ios = exchange.getRequestBody();
-			int i;
-			while ((i = ios.read()) != -1) {
-				sb.append((char) i);
-			}
-
-			String jsonStr = sb.toString();
-
-			try {
-				JsonReader reader = Json.createReader(new StringReader(jsonStr));
-				JsonObject listaSpesaObject = reader.readObject();
-
-				String prodotto = listaSpesaObject.get(0).asJsonObject().getString("prodotto");
-
-				String quantita = listaSpesaObject.get(0).asJsonObject().getString("quantita");
-
-				System.out.println(prodotto);
-				System.out.println(quantita);
-
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new IOException("Errore interno");
-			}
-
-			return ".";
 		}
 
 	}

@@ -25,7 +25,7 @@ public class ShoppingList implements Persist {
 	}
 
 
-	public void addItems(Item item) {
+	public void addItem(Item item) {
 		this.items.add(item);
 	}
 

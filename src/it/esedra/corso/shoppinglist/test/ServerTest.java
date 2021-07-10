@@ -17,12 +17,10 @@ public class ServerTest {
 
 	public static void main(String args[]) {
 		try {
-
 			//server client
 			HttpClient client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
 					.connectTimeout(Duration.ofSeconds(80)).build();
-		
-			
+					
 			//creao una request
 			HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8000/add-shopping-list"))
 					.timeout(Duration.ofMinutes(2)).header("Content-Type", "application/json")
@@ -36,7 +34,6 @@ public class ServerTest {
 			System.out.println(response.body());
 
 		} catch (IOException | InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

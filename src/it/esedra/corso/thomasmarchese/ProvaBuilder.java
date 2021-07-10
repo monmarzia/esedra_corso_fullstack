@@ -1,6 +1,4 @@
-package it.esedra.corso.thomasmarchese;
-
-import it.esedra.corso.francescorossi.ListaSpesa;
+package src.it.esedra.corso.thomasmarchese;
 
 public class ProvaBuilder {
 
@@ -9,6 +7,24 @@ public class ProvaBuilder {
 	private String annoNascita;
 	private String altezza;
 	private int peso;
+	
+	public ProvaBuilder(String nome, String cognome, String annoNascita, String altezza, int peso) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.annoNascita = annoNascita;
+		this.altezza = altezza;
+		this.peso = peso;
+		
+	}
+
+	public ProvaBuilder() {
+				
+	}
+	
+	
+	public Prova build() {
+		return new Prova(nome, cognome, annoNascita, altezza, peso);
+	}
 	
 	public String getNome() {
 		return nome;
@@ -44,24 +60,6 @@ public class ProvaBuilder {
 	public ProvaBuilder setPeso(int peso) {
 		this.peso = peso;
 		return this;
-	}
-	
-	public ProvaBuilder(String nome, String cognome, String annoNascita, String altezza, int peso) {
-		this.nome = nome;
-		this.cognome = cognome;
-		this.annoNascita = annoNascita;
-		this.altezza = altezza;
-		this.peso = peso;
-		
-	}
-
-	public ProvaBuilder() {
-				
-	}
-	
-	
-	public Prova build() {
-		return new Prova(nome, cognome, annoNascita, altezza, peso);
 	}
 	
 }

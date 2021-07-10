@@ -1,4 +1,4 @@
-package it.esedra.corso.thomasmarchese;
+package src.it.esedra.corso.thomasmarchese;
 
 public class Prova {
 

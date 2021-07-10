@@ -14,7 +14,7 @@ public class View {
 			
 
 		String html = "<html><body><h1>Previsione a " + citta 
-				+ " per domani</h1><p>Domani far&agrave;  : " + previsione.getTempo()
+				+ " per domani</h1><p>Domani far&agrave; : " + previsione.getTempo()
 				+ " e temperatura  "+ temperatura
 				+ "<p></body></html>";
 		
