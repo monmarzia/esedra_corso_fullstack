@@ -11,12 +11,11 @@ public class Previsione {
 	public void setTempo(TempoMeteo tempo) {
 		this.tempo = tempo;
 	}
+	@Deprecated
 	public Float getTemperatura() {
 		return temperatura;
 	}
 	public void setTemperatura(Float temperatura) {
 		this.temperatura = temperatura;
 	}
-	
-
 }

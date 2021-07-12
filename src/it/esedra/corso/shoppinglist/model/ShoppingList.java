@@ -8,6 +8,23 @@ import java.util.List;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
+/**
+ * 
+ *  Gli elementi di queso modello sono:
+ *  Prodotti
+ *  Nome
+ *  Identificatio univoco numerico sequenziale
+ *  Identificatore univoco pubblico alfanumerico
+ *  (questo identificatore consente di non ricevere scanning
+ *  o attacchi dall'esterno)
+ *  Utente
+ * 	
+ * TODO: Implementare il campo "utente"
+ * TODO: Implementare identificatore numerico BigInteger
+ * TODO: Implementare l'identificatore alfanumenrico (String)
+ *
+ */
+
 public class ShoppingList implements Persist {
 
 	private List<Item> items = new ArrayList<Item>();

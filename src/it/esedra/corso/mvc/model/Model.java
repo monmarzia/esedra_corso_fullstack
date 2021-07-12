@@ -5,7 +5,7 @@ import it.esedra.corso.mvc.TempoMeteo;
 
 public class Model {
 
-	
+	@Deprecated
 	public static Previsione previsioni(String citta) {
 		Previsione previsione = new Previsione();
 		
