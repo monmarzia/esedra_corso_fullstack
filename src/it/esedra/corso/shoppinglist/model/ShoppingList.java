@@ -27,11 +27,11 @@ import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
 public class ShoppingList implements Persist {
 
-	private List<Item> items = new ArrayList<Item>();
+	private List<Product> products = new ArrayList<Product>();
 	private String listName = new String();
 	
-	public List<Item> getItems() {
-		return items;
+	public List<Product> getProducts() {
+		return products;
 	}
 
 	public String getListName() {
@@ -39,8 +39,8 @@ public class ShoppingList implements Persist {
 	}
 
 
-	public void addItem(Item item) {
-		this.items.add(item);
+	public void addItem(Product product) {
+		this.products.add(product);
 	}
 
 	public void setListName(String listName) {
@@ -57,7 +57,7 @@ public class ShoppingList implements Persist {
 
 			PrintWriter writer = new PrintWriter(GetFileResource.get("lista.csv", "shoppinglist"));
 			StringBuilder builder = new StringBuilder();
-			for (Item listaTemp : items) {
+			for (Product listaTemp : products) {
 				if (listaTemp == null) {
 					continue;
 				}
