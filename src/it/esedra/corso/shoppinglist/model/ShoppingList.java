@@ -30,12 +30,9 @@ public class ShoppingList implements Persist {
 	private List<Item> items = new ArrayList<Item>();
 	private String listName = new String();
 	
-
 	public List<Item> getItems() {
 		return items;
 	}
-
-
 
 	public String getListName() {
 		return listName;

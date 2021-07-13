@@ -12,7 +12,7 @@ package it.esedra.corso.shoppinglist.model;
  * (meccanismo di conferma attivazione email)
  * flag privacy
  * flag newsletter
- *TODO: implementare proprietà dell'oggetto e relativi getter e setter
+ *	TODO: implementare proprietà dell'oggetto e relativi getter e setter
  */
 public class User {
 
