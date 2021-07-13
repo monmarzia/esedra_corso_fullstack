@@ -14,12 +14,7 @@ public class Esercizio1 {
 		int value = rand.nextInt(4);
 		
 		int a = input1;
-		int b = int value;
-		int c = a/b;
+
 		
-		if (int b = 0);
-		try {
-			int c = 
-		}
-		
+	}
 }
