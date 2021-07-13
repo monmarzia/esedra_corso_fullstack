@@ -38,7 +38,7 @@ public class Persona {
     public void stampaAnagrafica() {
       System.out.println("----Anagrafica-----");
       System.out.println("Nome completo: " + nome + " " + cognome);
-      System.out.println("Anno di nascita: " + annoDiNascita);
+      System.out.println("Anno di nascita: " + annoDiNascita + "Ciao");
     }
 
 
