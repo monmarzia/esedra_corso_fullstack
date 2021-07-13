@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
-public abstract class ShoppingListHandler implements HttpHandler{
+public abstract class ShoppingListHandler implements HttpHandler {
 	
 	@Override
 	public void handle(HttpExchange exchange) throws IOException {
@@ -35,8 +35,9 @@ public abstract class ShoppingListHandler implements HttpHandler{
 		
 
 	}
+	public abstract String handlePostRequest(HttpExchange exchange) throws IOException;
 	
-	private static void setHttpExchangeResponseHeaders(HttpExchange httpExchange) {
+	private void setHttpExchangeResponseHeaders(HttpExchange httpExchange) {
 		// Set common response headers
 		httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 		httpExchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
@@ -45,9 +46,6 @@ public abstract class ShoppingListHandler implements HttpHandler{
 		httpExchange.getResponseHeaders().add("Access-Control-Allow-Credentials-Header", "*");
 	}
 	
-	public String handlePostRequest(HttpExchange exchange) throws IOException {
-		return "null";
-	}
 }
 
 	

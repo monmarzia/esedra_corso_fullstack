@@ -10,12 +10,11 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 
 import it.esedra.corso.shoppinglist.model.Item;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 
-public class AddShoppingList extends ShoppingListHandler implements HttpHandler {
+public class AddShoppingList extends ShoppingListHandler {
 
 	@Override
 	public String handlePostRequest(HttpExchange exchange) throws IOException {
