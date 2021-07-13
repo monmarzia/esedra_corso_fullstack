@@ -38,6 +38,8 @@ Lanciare quindi il file eseguibile eclipse dentro la cartella.
 
 Una volta avviato Eclipse chiede un percorso per generare la cartella del workspace: [WORKSPACE_FOLDER]
 
+Cliccando
+
 ### Configurazione del progetto
 
 Tramite promp dei comandi andare su [WORKSPACE_FOLDER] e quindi digitare
@@ -51,6 +53,15 @@ Su Eclipse si va su
 File->New->Java Project 
 e quindi come "Project name" si scrive esedra_corso_fullstack.
 Cliccare su "Finish", confermare tutti i passaggi e quindi cliccare su "Open Java perspective"
+
+#### Compilazione e build
+Cliccando con il pulsante destro sulla cartella del progetto si seleziona Proprietà e quindi nella finestra che si apre si imposta:
+
+- Java Build Path
+       Su libraries verificare che: tra i modulepath sia presente la JRE System Library
+       Nel class path deve essere presente il file javax.json.1.1.4.jr che si trova nella cartella lib (eventualmente si carica cliccando su add library a destra)
+- Project Natures
+        Deve essere presente Java, altrimenti aggiungere premenedo su Add a destra
 
 ### NODE e NPM
 Nella cartella www eseguire il comando
