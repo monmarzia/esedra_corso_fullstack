@@ -25,6 +25,8 @@ public class Controller {
 				if (pagina.equals("previsioni-tempo")) {
 					controller.getPrevisioniTempo(citta);
 				}
+				
+				System.out.println("test branch");
 			}
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
