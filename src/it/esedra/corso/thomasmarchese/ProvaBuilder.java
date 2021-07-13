@@ -1,4 +1,4 @@
-package src.it.esedra.corso.thomasmarchese;
+package it.esedra.corso.thomasmarchese;
 
 public class ProvaBuilder {
 

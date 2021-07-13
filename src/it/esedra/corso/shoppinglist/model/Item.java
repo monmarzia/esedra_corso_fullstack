@@ -6,10 +6,10 @@ package it.esedra.corso.shoppinglist.model;
  *  Quantità
  *  Prezzo
  *  Unità
- *  Identificatio univoco numerico sequenziale
+ *  Identificativo univoco numerico sequenziale
  * 	TODO: valutare se rinominare in "Product"
  *  TODO: valutare l'utlizzo di un'enum al posto di "unit"
- *  TODO: Implementare identificatore numerico BigInteger
+ *  TODO: Implementare identificatore numerico BigInteger,
  */
 
 public class Item {
