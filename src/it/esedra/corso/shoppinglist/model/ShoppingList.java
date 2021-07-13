@@ -1,8 +1,8 @@
 package it.esedra.corso.shoppinglist.model;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +19,6 @@ import it.esedra.corso.shoppinglist.helper.GetFileResource;
  *  o attacchi dall'esterno)
  *  Utente
  * 	
- * TODO: Implementare il campo "utente"
- * TODO: Implementare identificatore numerico BigInteger
- * TODO: Implementare l'identificatore alfanumenrico (String)
  *
  */
 
@@ -29,7 +26,33 @@ public class ShoppingList implements Persist {
 
 	private List<Item> items = new ArrayList<Item>();
 	private String listName = new String();
-	
+	private User utente; 
+	private BigInteger id; 
+	private String uniqueCode;
+	public User getUtente() {
+		return utente;
+	}
+
+	public void setUtente(User utente) {
+		this.utente = utente;
+	}
+
+	public BigInteger getId() {
+		return id;
+	}
+
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
+
+	public String getUniqueCode() {
+		return uniqueCode;
+	}
+
+	public void setUniqueCode(String uniqueCode) {
+		this.uniqueCode = uniqueCode;
+	}
+
 	public List<Item> getItems() {
 		return items;
 	}
@@ -82,4 +105,5 @@ public class ShoppingList implements Persist {
 
 	}
 
+	
 }
