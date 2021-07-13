@@ -3,6 +3,7 @@ package it.esedra.corso.esercitazioneB.francescorossi;
 public class Automobile {
 	
 	private String Targa;
+	private String Matricola;
 	public String getTarga() {
 		return Targa;
 	}
