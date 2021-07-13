@@ -15,7 +15,7 @@ import com.sun.net.httpserver.HttpHandler;
 import it.esedra.corso.shoppinglist.model.Item;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 
-public class AddShoppingList extends ShoppingListHandler implements HttpHandler {
+public class Update extends ShoppingListHandler implements HttpHandler {
 
 	@Override
 	public String handlePostRequest(HttpExchange exchange) throws IOException {
@@ -34,7 +34,7 @@ public class AddShoppingList extends ShoppingListHandler implements HttpHandler 
 
 			JsonArray items = listaSpesaObject.get("items").asJsonArray();
 
-			ShoppingList shoppingList = new ShoppingList();
+			ShoppingList shoppingList = GET
 			for (Object o: items)  {
 				JsonObject tmpObj = (JsonObject)o;
 				Item item = new Item();
