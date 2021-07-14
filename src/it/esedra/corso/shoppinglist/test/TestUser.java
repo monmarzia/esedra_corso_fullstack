@@ -38,7 +38,7 @@ public class TestUser {
 			String isNewsletter = userObj.getString("isNewsletter");
 			User user = new User().setFirstName(firstName).setLastName(lastName).setEmail(email).setMobilePhone(mobilePhone).build();
 			user.store();
-			System.out.println(userObj.toString());
+			System.out.println(user.getUserId());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

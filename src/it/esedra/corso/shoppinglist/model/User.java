@@ -14,7 +14,7 @@ import it.esedra.corso.shoppinglist.helper.GetFileResource;
  *
  */
 public class User implements Persist {
-	private static BigInteger userId = new BigInteger("0");
+	private static BigInteger userId = new BigInteger("1");
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -24,7 +24,7 @@ public class User implements Persist {
 	private boolean newsletter;
 
 	public User() {
-		
+		userId = userId.add(new BigInteger("1"));
 	}
 	
 	public User(String firstName, String lastName, String email, String mobilePhone) {
@@ -35,7 +35,6 @@ public class User implements Persist {
 		isActive = false;
 		privacyConsent = false;
 		newsletter = false;
-		userId.add(new BigInteger("1"));
 	}
 	
 	public User build() {
