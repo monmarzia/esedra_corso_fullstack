@@ -15,7 +15,7 @@ import com.sun.net.httpserver.HttpHandler;
 import it.esedra.corso.shoppinglist.model.Item;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 
-public class Update extends ShoppingListHandler implements HttpHandler {
+public class Update extends ShoppingListHandler{
 
 	@Override
 	public String handlePostRequest(HttpExchange exchange) throws IOException {
