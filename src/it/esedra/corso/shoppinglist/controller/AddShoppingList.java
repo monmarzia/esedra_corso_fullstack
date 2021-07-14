@@ -41,7 +41,7 @@ public class AddShoppingList extends ShoppingListHandler {
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
 				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
-				shoppingList.addItem(item);
+				shoppingList.addProduct(item);
 			}
 
 			shoppingList.store();
