@@ -24,17 +24,21 @@ import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
 public class ShoppingList implements Persist {
 
-	private List<Item> items = new ArrayList<Item>();
+	private List<Product> products = new ArrayList<Product>();
 	private String listName = new String();
-	private User utente; 
+	private User user; 
 	private BigInteger id; 
 	private String uniqueCode;
-	public User getUtente() {
-		return utente;
+	
+	public List<Product> getProducts() {
+		return products;
+  }
+	public User getUser() {
+		return user;
 	}
 
-	public void setUtente(User utente) {
-		this.utente = utente;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public BigInteger getId() {
@@ -62,8 +66,8 @@ public class ShoppingList implements Persist {
 	}
 
 
-	public void addItem(Item item) {
-		this.items.add(item);
+	public void addItem(Product product) {
+		this.products.add(product);
 	}
 
 	public void setListName(String listName) {
@@ -80,7 +84,7 @@ public class ShoppingList implements Persist {
 
 			PrintWriter writer = new PrintWriter(GetFileResource.get("lista.csv", "shoppinglist"));
 			StringBuilder builder = new StringBuilder();
-			for (Item listaTemp : items) {
+			for (Product listaTemp : products) {
 				if (listaTemp == null) {
 					continue;
 				}

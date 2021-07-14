@@ -1,5 +1,6 @@
 package it.esedra.corso.shoppinglist.model;
 
+import java.math.BigInteger;
 /**
  *  Gli elementi di queso modello sono:
  *  Descrizione
@@ -12,13 +13,17 @@ package it.esedra.corso.shoppinglist.model;
  *  TODO: Implementare identificatore numerico BigInteger,
  */
 
-public class Item {
+public class Product {
 	private String name;
 	private Integer qty;
-	private String unit;
+	private Unit unit;
 	private String description;
+	private BigInteger id = new BigInteger("1");
 
 
+	public BigInteger getSequence() {
+		return id.add(new BigInteger("1"));
+	}
 	/**
 	 * @return the description
 	 */
@@ -37,7 +42,7 @@ public class Item {
 		return qty;
 	}
 
-	public String getUnit() {
+	public Unit getUnit() {
 		return unit;
 	}
 
@@ -45,7 +50,10 @@ public class Item {
 	public String getName() {
 		return name;
 	}
-
+	
+	public BigInteger getId() {
+		return id;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -54,8 +62,13 @@ public class Item {
 		this.qty = qty;
 	}
 
-	public void setUnit(String unit) {
+	public void setUnit(Unit unit) {
 		this.unit = unit;
 	}
+	
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
+	
 
 }
