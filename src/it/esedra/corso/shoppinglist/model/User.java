@@ -146,9 +146,12 @@ public class User implements Persist {
 	public void setNewsletter(boolean newsletter) {
 		this.newsletter = newsletter;
 	}
+	
+	public BigInteger getSequence() {
+		return	userId.add(new BigInteger("1"));
+	}
 
 	public void store() throws IOException {
-		userId = userId.add(new BigInteger("1"));
 		try {
 			PrintWriter writer = new PrintWriter(GetFileResource.get("user.csv", "shoppinglist"));
 			StringBuilder builder = new StringBuilder();
