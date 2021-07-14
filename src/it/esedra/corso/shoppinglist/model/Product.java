@@ -18,9 +18,12 @@ public class Product {
 	private Integer qty;
 	private Unit unit;
 	private String description;
-	private BigInteger id;
+	private BigInteger id = new BigInteger("1");
 
 
+	public BigInteger getSequence() {
+		return id.add(new BigInteger("1"));
+	}
 	/**
 	 * @return the description
 	 */
@@ -66,5 +69,6 @@ public class Product {
 	public void setId(BigInteger id) {
 		this.id = id;
 	}
+	
 
 }
