@@ -1,8 +1,10 @@
 package it.esedra.corso.shoppinglist.model;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.nio.file.Files;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
@@ -151,6 +153,45 @@ public class User implements Persist {
 		return	userId.add(new BigInteger("1"));
 	}
 
+	/**
+	 * Restituisce un nuovo oggetto User
+	 * 
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public User get() throws IOException {
+		
+		BufferedReader br = Files.newBufferedReader(GetFileResource.get("user.csv", "shoppinglist").toPath());
+		
+		
+		String line = br.readLine();
+		
+		User user = null;
+		
+		while (line != null) {
+			String[] fields = line.split(",");
+			BigInteger tmpUserId = new BigInteger(fields[0]);
+			if (tmpUserId.equals(this.getUserId())) {
+				user = new User();
+				user.setActive(Boolean.parseBoolean(fields[5]));
+				user.setEmail(fields[3]);
+				user.setFirstName(fields[1]);
+				user.setLastName(fields[2]);
+				user.setMobilePhone(fields[4]);
+				user.setNewsletter(Boolean.parseBoolean(fields[7]));
+				user.setPrivacyConsent(Boolean.parseBoolean(fields[6]));
+				user.setUserId(tmpUserId);
+			}
+			
+		}
+		
+		return new User();
+	}
+	
+	/**
+	 * Salva un oggetto user
+	 */
 	public void store() throws IOException {
 		try {
 			PrintWriter writer = new PrintWriter(GetFileResource.get("user.csv", "shoppinglist"));
