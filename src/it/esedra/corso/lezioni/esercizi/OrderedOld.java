@@ -1,4 +1,4 @@
-package it.esedra.corso.esercizi;
+package it.esedra.corso.lezioni.esercizi;
 import java.util.*;
 
 public class OrderedOld  {
