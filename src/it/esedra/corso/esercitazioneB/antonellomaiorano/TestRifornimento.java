@@ -10,7 +10,7 @@ public class TestRifornimento {
 		Distributore q8 = new Distributore();
 		
 		//Automobile[] auto = {auto1, auto2, auto3 , auto4, auto5};
-		
+		System.out.println("");
 		//for(int i = 0; i < auto.length; i++) {
 		try {	
 //			q8.rifornimento(auto[i]);

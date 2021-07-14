@@ -11,8 +11,9 @@ import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 
-import it.esedra.corso.shoppinglist.model.Item;
+import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
+import it.esedra.corso.shoppinglist.model.Unit;
 
 public class AddShoppingList extends ShoppingListHandler {
 
@@ -36,10 +37,10 @@ public class AddShoppingList extends ShoppingListHandler {
 			ShoppingList shoppingList = new ShoppingList();
 			for (Object o: items)  {
 				JsonObject tmpObj = (JsonObject)o;
-				Item item = new Item();
+				Product item = new Product();
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
-				item.setUnit(tmpObj.getString("unit"));
+				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
 				shoppingList.addItem(item);
 			}
 

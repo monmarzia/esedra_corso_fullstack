@@ -29,6 +29,7 @@ public class ShoppingList implements Persist {
 	private User utente; 
 	private BigInteger id; 
 	private String uniqueCode;
+	
 	public User getUtente() {
 		return utente;
 	}

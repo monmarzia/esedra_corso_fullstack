@@ -1,0 +1,12 @@
+{
+	"user": 
+		{
+			"firstName": "Mario",
+			"lastName": "Bianchi",
+			"email": "mariobianchi@example.com",
+			"mobilePhone": "333444555",
+			"isActive": "true",
+			"isPrivacyConsent": "true",
+			"isNewsletter": "true"
+		}
+}
