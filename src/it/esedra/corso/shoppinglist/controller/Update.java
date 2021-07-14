@@ -10,12 +10,12 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 
-import it.esedra.corso.shoppinglist.model.Product;
+import it.esedra.corso.shoppinglist.model.Item;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
-import it.esedra.corso.shoppinglist.model.Unit;
 
-public class AddShoppingList extends ShoppingListHandler {
+public class Update extends ShoppingListHandler{
 
 	@Override
 	public String handlePostRequest(HttpExchange exchange) throws IOException {
@@ -34,13 +34,13 @@ public class AddShoppingList extends ShoppingListHandler {
 
 			JsonArray items = listaSpesaObject.get("items").asJsonArray();
 
-			ShoppingList shoppingList = new ShoppingList();
+			ShoppingList shoppingList = GET
 			for (Object o: items)  {
 				JsonObject tmpObj = (JsonObject)o;
-				Product item = new Product();
+				Item item = new Item();
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
-				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
+				item.setUnit(tmpObj.getString("unit"));
 				shoppingList.addItem(item);
 			}
 
