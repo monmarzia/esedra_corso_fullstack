@@ -21,7 +21,7 @@ public class ServerTest {
 			HttpClient client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
 					.connectTimeout(Duration.ofSeconds(80)).build();
 					
-			//creao una request
+			//creo una request
 			HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8000/add-shopping-list"))
 					.timeout(Duration.ofMinutes(2)).header("Content-Type", "application/json")
 					.POST(BodyPublishers.ofFile(GetFileResource.get("item.json", "test").toPath())).build();
