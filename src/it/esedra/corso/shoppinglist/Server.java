@@ -30,7 +30,7 @@ public class Server {
 		server.createContext("/add-shopping-list", new AddShoppingList());
 		server.setExecutor(null);
 		server.start();
-		System.out.println("Server stared");
+		System.out.println("Server started");
 	}
 
 	static class DefaultHandler implements HttpHandler {
