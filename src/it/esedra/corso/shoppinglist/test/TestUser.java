@@ -36,7 +36,12 @@ public class TestUser {
 			String isActive = userObj.getString("isActive");
 			String isPrivacyConsent = userObj.getString("isPrivacyConsent");
 			String isNewsletter = userObj.getString("isNewsletter");
-			User user = new User().setFirstName(firstName).setLastName(lastName).setEmail(email).setMobilePhone(mobilePhone).build();
+			User user = new User()
+					.setFirstName(firstName)
+					.setLastName(lastName)
+					.setEmail(email)
+					.setMobilePhone(mobilePhone)
+					.build();
 			user.store();
 			System.out.println(user.getUserId());
 		} catch (FileNotFoundException e) {

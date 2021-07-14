@@ -24,7 +24,7 @@ public class User implements Persist {
 	private boolean newsletter;
 
 	public User() {
-		userId = userId.add(new BigInteger("1"));
+		
 	}
 	
 	public User(String firstName, String lastName, String email, String mobilePhone) {
@@ -148,12 +148,13 @@ public class User implements Persist {
 	}
 
 	public void store() throws IOException {
-
+		userId = userId.add(new BigInteger("1"));
 		try {
-
 			PrintWriter writer = new PrintWriter(GetFileResource.get("user.csv", "shoppinglist"));
 			StringBuilder builder = new StringBuilder();
 
+			builder.append(this.getUserId());
+			builder.append(",");
 			builder.append(this.getFirstName());
 			builder.append(",");
 			builder.append(this.getLastName());
