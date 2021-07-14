@@ -92,7 +92,6 @@ public class ShoppingList implements Persist {
 				builder.append(",");
 				builder.append(this.getListName());
 				builder.append(System.getProperty("line.separator"));
-
 			}
 
 			writer.write(builder.toString());
