@@ -1,8 +1,8 @@
 package it.esedra.corso.shoppinglist.model;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,19 +19,42 @@ import it.esedra.corso.shoppinglist.helper.GetFileResource;
  *  o attacchi dall'esterno)
  *  Utente
  * 	
- * TODO: Implementare il campo "utente"
- * TODO: Implementare identificatore numerico BigInteger
- * TODO: Implementare l'identificatore alfanumenrico (String)
- *
  */
 
 public class ShoppingList implements Persist {
 
-	private List<Item> items = new ArrayList<Item>();
+	private List<Product> products = new ArrayList<Product>();
 	private String listName = new String();
+	private User user; 
+	private BigInteger id; 
+	private String uniqueCode;
 	
-	public List<Item> getItems() {
-		return items;
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public BigInteger getId() {
+		return id;
+	}
+
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
+
+	public String getUniqueCode() {
+		return uniqueCode;
+	}
+
+	public void setUniqueCode(String uniqueCode) {
+		this.uniqueCode = uniqueCode;
+	}
+	
+	public List<Product> getProducts() {
+		return products;
 	}
 
 	public String getListName() {
@@ -39,8 +62,8 @@ public class ShoppingList implements Persist {
 	}
 
 
-	public void addItem(Item item) {
-		this.items.add(item);
+	public void addProduct(Product product) {
+		this.products.add(product);
 	}
 
 	public void setListName(String listName) {
@@ -57,7 +80,7 @@ public class ShoppingList implements Persist {
 
 			PrintWriter writer = new PrintWriter(GetFileResource.get("lista.csv", "shoppinglist"));
 			StringBuilder builder = new StringBuilder();
-			for (Item listaTemp : items) {
+			for (Product listaTemp : products) {
 				if (listaTemp == null) {
 					continue;
 				}
@@ -69,6 +92,7 @@ public class ShoppingList implements Persist {
 				builder.append(",");
 				builder.append(this.getListName());
 				builder.append(System.getProperty("line.separator"));
+
 			}
 
 			writer.write(builder.toString());
