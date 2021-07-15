@@ -13,7 +13,7 @@ import java.time.Duration;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
-public class ServerTest {
+public class AddShoppingListTest {
 
 	public static void main(String args[]) {
 		try {
@@ -22,7 +22,7 @@ public class ServerTest {
 					.connectTimeout(Duration.ofSeconds(80)).build();
 					
 			//creo una request
-			HttpRequest request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8000/add-shopping-list"))
+			HttpRequest request = HttpRequest.newBuilder().version(Version.HTTP_1_1).uri(URI.create("http://localhost:3000/add-shopping-list"))
 					.timeout(Duration.ofMinutes(2)).header("Content-Type", "application/json")
 					.POST(BodyPublishers.ofFile(GetFileResource.get("item.json", "test").toPath())).build();
 
@@ -36,5 +36,6 @@ public class ServerTest {
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
+		
 	}
 }
