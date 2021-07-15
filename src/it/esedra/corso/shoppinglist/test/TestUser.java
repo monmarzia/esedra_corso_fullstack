@@ -52,8 +52,8 @@ public class TestUser {
 						.build();
 				user.getSequence();
 				user.store();
+				System.out.println("ID: " + user.get().getUserId() + " Nome: " + user.getFirstName() + ", salvato.");
 			}
-			System.out.println(user.get().getUserId());
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

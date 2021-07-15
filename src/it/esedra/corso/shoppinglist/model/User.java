@@ -1,9 +1,12 @@
 package it.esedra.corso.shoppinglist.model;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
@@ -212,10 +215,16 @@ public class User implements Persist {
 	 * Il problema riguarda anche ShoppingList in quanto non possono essere salvate
 	 * sul file due diverse liste, ma solo una per volta
 	 * 
+	 * Soluzione: usare Files.newBufferedWriter() valutando se considerare il file come già creato
+	 * in modo da evitare la sovrascrittura. Implementazione:
+	 * 
+	 * BufferedWriter bw = Files.newBufferedWriter(GetFileResource.get("user.csv", "shoppinglist"), StandardCharsets.UTF_8, StandardOpenOption.WRITE);
+	 * 
 	 */
 	public void store() throws IOException {
 		try {
 			PrintWriter writer = new PrintWriter(GetFileResource.get("user.csv", "shoppinglist"));
+//			BufferedWriter writer = Files.newBufferedWriter((GetFileResource.get("user.csv", "shoppinglist").toPath()), StandardCharsets.UTF_8, StandardOpenOption.WRITE);
 			StringBuilder builder = new StringBuilder();
 
 			builder.append(this.getUserId());
@@ -236,7 +245,7 @@ public class User implements Persist {
 			builder.append(",");
 			builder.append(System.getProperty("line.separator"));
 
-			writer.write(builder.toString());
+			writer.append(builder.toString());
 			writer.flush();
 			writer.close();
 
