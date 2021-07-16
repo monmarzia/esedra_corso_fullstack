@@ -14,8 +14,12 @@ import java.time.Duration;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
 public class AddShoppingListTest {
+	
+	public static void main(String[] args) {
+		execute();
+	}
 
-	public static void main(String args[]) {
+	public static void execute() {
 		try {
 			//server client
 			HttpClient client = HttpClient.newBuilder().version(Version.HTTP_1_1).followRedirects(Redirect.NORMAL)
