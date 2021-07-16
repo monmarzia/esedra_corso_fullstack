@@ -40,51 +40,37 @@ public class User implements Persist, Comparable<User> {
 		this.newsletter = newsletter;
 	}
 	
+	/**
+	 * 
+	 * @return new User()
+	 * restituisce un'istanza di User con i parametri nell'ordine
+	 */
 	public User build() {
 		return new User(firstName, lastName, email, mobilePhone, isActive, privacyConsent, newsletter);
 	}
-	
-	/**
-	 * @return the userId
-	 */
+
 	public BigInteger getUserId() {
 		return userId;
 	}
 
-	/**
-	 * @param userId the userId to set
-	 */
 	public User setUserId(BigInteger userId) {
 		this.userId = userId;
 		return this;
 	}
 
-	/**
-	 * @return the firstName
-	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
-	/**
-	 * @param firstName the firstName to set
-	 */
 	public User setFirstName(String firstName) {
 		this.firstName = firstName;
 		return this;
 	}
 
-	/**
-	 * @return the lastName
-	 */
 	public String getLastName() {
 		return lastName;
 	}
 
-	/**
-	 * @param lastName the lastName to set
-	 */
-	
 	public User setLastName(String lastName) {
 		this.lastName = lastName;
 		return this;
@@ -108,50 +94,33 @@ public class User implements Persist, Comparable<User> {
 		return this;
 	}
 
-	/**
-	 * @return the mobilePhone
-	 */
 	public String getMobilePhone() {
 		return mobilePhone;
 	}
 
-	/**
-	 * @param mobilePhone the mobilePhone to set
-	 */
 	public User setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 		return this;
 	}
 
-	/**
-	 * @return the isActive
-	 */
 	public boolean isActive() {
 		return isActive;
 	}
 
-	/**
-	 * @param isActive the isActive to set
-	 */
 	public User setActive(boolean isActive) {
 		this.isActive = isActive;
 		return this;
 	}
 
-	/**
-	 * @return the newsletter
-	 */
 	public boolean isNewsletter() {
 		return newsletter;
 	}
 
-	/**
-	 * @param newsletter the newsletter to set
-	 */
 	public User setNewsletter(boolean newsletter) {
 		this.newsletter = newsletter;
 		return this;
 	}
+	
 	/**
 	 * 
 	 * @return userID incrementato di 1
@@ -163,6 +132,7 @@ public class User implements Persist, Comparable<User> {
 		id = id.add(BigInteger.ONE);
 		return userId = id ;
 	}
+	
 	/**
 	 * Restituisce un nuovo oggetto User
 	 * 
@@ -258,7 +228,7 @@ public class User implements Persist, Comparable<User> {
 	
 	/**
 	 * 
-	 * @return l'id piùnalto assegnato
+	 * @return l'id più in alto assegnato
 	 * @throws IOException
 	 */
 	
@@ -273,13 +243,18 @@ public class User implements Persist, Comparable<User> {
 		}
 	}
 
-	
 	/**
 	 * 
-	 * Salva un oggetto user
-	 * La gestione dell'update deve essere compresa nello store o essere creata a parte?
+	 * Salva un oggetto user nel file user.csv:
+	 * Se il file è vuoto, crea un nuovo utente con id=1
+	 * Se il file non è vuoto, controlla che userId sia maggiore di getLastId() e che getAll() non
+	 * contenga un utente con lo stesso userId: verificate le condizioni procede con lo store
+	 * In caso contrario si può procedere con l'update, non implementato.
+	 * L'implementazione dell'update richiede la possibilità di sovrascrivere una riga del file.
+	 * Il metodo get(userId) non è ancora stato utilizzato.
 	 * 
 	 */
+	
 	public void store() throws IOException {
 		System.out.println("Chiamato store(): UserId =  " + this.getUserId());
 		try {
@@ -309,6 +284,7 @@ public class User implements Persist, Comparable<User> {
 				writer.close();
 				System.out.println("User " + this.getFirstName() + " salvato");
 			} else {
+//				Implementazione del blocco per l'update o chiamata ad un metodo apposito
 				System.out.println("no user stored or updated!");
 			}
 
