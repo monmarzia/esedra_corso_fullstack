@@ -52,12 +52,12 @@ public class TestUser {
 						.build();
 				user.getSequence();
 				user.store();
-//				SortedSet<User> users = user.getAll();
-//				for(User usr: users) {
-//					if(usr != null) {
-//						System.out.println(usr.getFirstName());
-//					}
-//				}
+				SortedSet<User> users = user.getAll();
+				for(User usr: users) {
+					if(usr != null) {
+						System.out.println(usr.getFirstName());
+					}
+				}
 			}
 			
 		} catch (FileNotFoundException e) {

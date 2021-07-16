@@ -215,7 +215,19 @@ public class User implements Persist, Comparable<User> {
 	/*
 	 * @return SortedSet users
 	 * 
-	 * Restituisce un TreeSet di User ordinato secondo userId
+	 * Restituisce un TreeSet di User ordinato secondo userId:
+	 * Manca l'implementazione dell'interfaccia Comparator in una classe da utilizzare per l'ordinamento:
+	 * 
+	 * public class UserComparator implements Comparator<User> {
+	 * 	@Override 
+	 * 		public int compare(User o1, User o2) {
+	 * 			return o1.getUserId().compareTo(o2.getUserId();
+	 * 		}
+	 * }
+	 * 
+	 * Costruire il TreeSet usando il comparator e il metodo Collections.syncronizedSortedSet
+	 * 
+	 * SortedSet users = Collections.syncronizedSortedSet(new TreeSet<User>(new UserComparator()));
 	 */
 	public SortedSet<User> getAll() throws IOException {
 		try {
