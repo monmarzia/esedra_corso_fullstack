@@ -274,7 +274,7 @@ public class User implements Persist, Comparable<User> {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(GetFileResource.get("user.csv", "shoppinglist").toPath().toString(), true));
 			StringBuilder builder = new StringBuilder();
 			System.out.println("Condizione compareTo: " + (this.getUserId().compareTo(getLastId()) > 0));
-			if (this.getUserId().equals(BigInteger.ONE) || this.getUserId().compareTo(getLastId()) > 0 && !getAll().contains(this)) {
+			if ((this.getUserId().equals(BigInteger.ONE) || this.getUserId().compareTo(getLastId()) > 0) && !getAll().contains(this)) {
 				builder.append(this.getUserId());
 				builder.append(",");
 				builder.append(this.getFirstName());
