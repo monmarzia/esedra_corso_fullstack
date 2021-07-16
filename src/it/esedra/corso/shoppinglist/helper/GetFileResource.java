@@ -16,10 +16,10 @@ public class GetFileResource {
 
 
 		File file = new File(PATH + S + path + S + name);
-		String absolutePath = file.getAbsolutePath();
-
-		System.out.println(absolutePath);
-		
+//		String absolutePath = file.getAbsolutePath();
+//
+//		System.out.println(absolutePath);
+//		
 		return file;
 	}
 }
