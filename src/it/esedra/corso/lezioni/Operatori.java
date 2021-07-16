@@ -1,5 +1,5 @@
 package it.esedra.corso.lezioni;
-import it.esedra.corso.esempioClassi.persone.Persona;
+import it.esedra.corso.lezioni.esempioClassi.persone.Persona;
 
 public class Operatori  {
 

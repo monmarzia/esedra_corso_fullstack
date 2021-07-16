@@ -1,4 +1,4 @@
-package it.esedra.corso.francescorossi;
+package it.esedra.corso.lezioni.builder;
 
 public class ListaSpesa {
 	

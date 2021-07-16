@@ -1,4 +1,4 @@
-package it.esedra.corso.esempioClassi.animali;
+package it.esedra.corso.lezioni.esempioClassi.animali;
 
 public class Gatto {
       private String nome;
