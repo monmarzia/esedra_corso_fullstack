@@ -51,7 +51,7 @@ public class AddShoppingList extends ShoppingListHandler {
 			throw new IOException("Errore interno");
 		}
 
-		return ".";
+		return "Lista aggiunta";
 	}
 
 }

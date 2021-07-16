@@ -17,7 +17,7 @@ public abstract class ShoppingListHandler implements HttpHandler {
 			if (exchange.getRequestMethod().equals("POST")) {
 				param = this.handlePostRequest(exchange);
 			}
-			String response = "Hai aggiornato la lista: " + param;
+			String response = "Evento terminato: " + param;
 
 			exchange.sendResponseHeaders(200, response.length());
 			OutputStream stream = exchange.getResponseBody();
