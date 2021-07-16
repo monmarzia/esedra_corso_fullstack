@@ -24,9 +24,14 @@ public class AddUser extends ShoppingListHandler {
 	@Override
 	public String handlePostRequest(HttpExchange exchange) throws IOException {
 
+		//è praticamente TestUser con un unica modifica
+		
 		try {
+//MODIFICA  InputStream inputUser = new FileInputStream(GetFileResource.get("user.json", "test"));
+			InputStream inputUser = exchange.getRequestBody(); //possibile avendo fatto partire AddUser tramite richiesta usando AddUserTest per postare sul body
+			
+
 			StringBuilder sb = new StringBuilder();
-			InputStream inputUser = new FileInputStream(GetFileResource.get("user.json", "test"));
 			int i;
 			while((i = inputUser.read()) != -1) {
 				sb.append((char) i);
