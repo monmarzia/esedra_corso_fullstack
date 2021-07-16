@@ -1,13 +1,13 @@
 package it.esedra.corso.shoppinglist.model;
 
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
@@ -15,8 +15,9 @@ import it.esedra.corso.shoppinglist.helper.GetFileResource;
  * @author monica
  *
  */
-public class User implements Persist {
-	private static BigInteger userId = new BigInteger("0");
+public class User implements Persist, Comparable<User> {
+	private static BigInteger id = new BigInteger("0");
+	private BigInteger userId = id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -159,9 +160,9 @@ public class User implements Persist {
 	 */
 	
 	public BigInteger getSequence() {
-		return userId =	userId.add(new BigInteger("1"));
+		id = id.add(BigInteger.ONE);
+		return userId = id ;
 	}
-
 	/**
 	 * Restituisce un nuovo oggetto User
 	 * 
@@ -181,15 +182,18 @@ public class User implements Persist {
 	 * una List di String ciascuna con una linea. Utilizzato un ciclo for migiorato per la ricerca
 	 * dello User nel file user.csv.
 	 * 
+	 * Modifica: aggiunta di un argomento BigInteger findId per la ricerca: se il file è vuoto, 
+	 * il campo tmpUserId assume un valore BigInteger.zeroLenght e da luogo ad un flusso non gestito;
+	 * 
 	 */
-	public User get() throws IOException {
+	public User get(BigInteger findId) throws IOException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
 			User user = null;
 			for(String line:lines) {				
 				String[] fields = line.split(",");
 				BigInteger tmpUserId = new BigInteger(fields[0]);
-				if (tmpUserId.equals(this.getUserId())) {
+				if (tmpUserId.equals(findId)) {
 					user = new User();
 					user.setActive(Boolean.parseBoolean(fields[5]));
 					user.setEmail(fields[3]);
@@ -208,51 +212,105 @@ public class User implements Persist {
 				
 	}
 	
+	/*
+	 * @return SortedSet users
+	 * 
+	 * Restituisce un TreeSet di User ordinato secondo userId
+	 */
+	public SortedSet<User> getAll() throws IOException {
+		try {
+			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
+			SortedSet<User> users = new TreeSet<User>();
+			for(String line:lines) {				
+				User user = null;
+				String[] fields = line.split(",");
+				if (!fields[0].equals("")) {
+					user = new User();
+					user.setActive(Boolean.parseBoolean(fields[5]));
+					user.setEmail(fields[3]);
+					user.setFirstName(fields[1]);
+					user.setLastName(fields[2]);
+					user.setMobilePhone(fields[4]);
+					user.setNewsletter(Boolean.parseBoolean(fields[7]));
+					user.setPrivacyConsent(Boolean.parseBoolean(fields[6]));
+					user.setUserId(new BigInteger(fields[0]));
+					users.add(user);
+				}
+			}
+			return users;
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IOException();
+		}		
+	}
+	
 	/**
+	 * 
+	 * @return l'id piùnalto assegnato
+	 * @throws IOException
+	 */
+	
+	public BigInteger getLastId() throws IOException{
+		try {
+			BigInteger lastId = (getAll().isEmpty())? this.getUserId() :  getAll().last().getUserId();
+			System.out.println("Chiamato getLastId(): lastId = " + lastId);
+			return lastId;			
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IOException();
+		}
+	}
+
+	
+	/**
+	 * 
 	 * Salva un oggetto user
-	 * 
-	 * Problema: Il file viene sovrascritto ad ogni chiamata del metodo.
-	 * Il problema riguarda anche ShoppingList in quanto non possono essere salvate
-	 * sul file due diverse liste, ma solo una per volta
-	 * 
-	 * Soluzione: usare Files.newBufferedWriter() valutando se considerare il file come già creato
-	 * in modo da evitare la sovrascrittura. Implementazione:
-	 * 
-	 * BufferedWriter bw = Files.newBufferedWriter(GetFileResource.get("user.csv", "shoppinglist"), StandardCharsets.UTF_8, StandardOpenOption.WRITE);
+	 * La gestione dell'update deve essere compresa nello store o essere creata a parte?
 	 * 
 	 */
 	public void store() throws IOException {
+		System.out.println("Chiamato store(): UserId =  " + this.getUserId());
 		try {
-			PrintWriter writer = new PrintWriter(GetFileResource.get("user.csv", "shoppinglist"));
-//			BufferedWriter writer = Files.newBufferedWriter((GetFileResource.get("user.csv", "shoppinglist").toPath()), StandardCharsets.UTF_8, StandardOpenOption.WRITE);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(GetFileResource.get("user.csv", "shoppinglist").toPath().toString(), true));
 			StringBuilder builder = new StringBuilder();
-
-			builder.append(this.getUserId());
-			builder.append(",");
-			builder.append(this.getFirstName());
-			builder.append(",");
-			builder.append(this.getLastName());
-			builder.append(",");
-			builder.append(this.getEmail());
-			builder.append(",");
-			builder.append(this.getMobilePhone());
-			builder.append(",");
-			builder.append(this.isActive());
-			builder.append(",");
-			builder.append(this.isPrivacyConsent());
-			builder.append(",");
-			builder.append(this.isNewsletter());
-			builder.append(",");
-			builder.append(System.getProperty("line.separator"));
-
-			writer.append(builder.toString());
-			writer.flush();
-			writer.close();
+			System.out.println("Condizione compareTo: " + (this.getUserId().compareTo(getLastId()) > 0));
+			if (this.getUserId().equals(BigInteger.ONE) || this.getUserId().compareTo(getLastId()) > 0 && !getAll().contains(this)) {
+				builder.append(this.getUserId());
+				builder.append(",");
+				builder.append(this.getFirstName());
+				builder.append(",");
+				builder.append(this.getLastName());
+				builder.append(",");
+				builder.append(this.getEmail());
+				builder.append(",");
+				builder.append(this.getMobilePhone());
+				builder.append(",");
+				builder.append(this.isActive());
+				builder.append(",");
+				builder.append(this.isPrivacyConsent());
+				builder.append(",");
+				builder.append(this.isNewsletter());
+				builder.append(",");
+				builder.append(System.getProperty("line.separator"));
+				writer.write(builder.toString());
+				writer.flush();
+				writer.close();
+				System.out.println("User " + this.getFirstName() + " salvato");
+			} else {
+				System.out.println("no user stored or updated!");
+			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new IOException();
 		}
-
 	}
+
+	@Override
+	public int compareTo(User o) {
+		return o.getUserId().compareTo(userId);
+	}
+
+	
 
 }

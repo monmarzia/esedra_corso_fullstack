@@ -1,11 +1,11 @@
 package it.esedra.corso.shoppinglist.test;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.util.SortedSet;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -52,7 +52,12 @@ public class TestUser {
 						.build();
 				user.getSequence();
 				user.store();
-				System.out.println("ID: " + user.get().getUserId() + " Nome: " + user.getFirstName() + ", salvato.");
+//				SortedSet<User> users = user.getAll();
+//				for(User usr: users) {
+//					if(usr != null) {
+//						System.out.println(usr.getFirstName());
+//					}
+//				}
 			}
 			
 		} catch (FileNotFoundException e) {
