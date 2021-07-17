@@ -186,7 +186,7 @@ public class User implements Persist {
 			
 		}
 		
-		return new User();
+		return user;
 	}
 	
 	/**
