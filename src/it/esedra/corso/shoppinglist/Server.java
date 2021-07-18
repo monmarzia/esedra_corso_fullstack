@@ -1,14 +1,8 @@
 package it.esedra.corso.shoppinglist;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.StringReader;
 import java.net.InetSocketAddress;
-
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -16,7 +10,8 @@ import com.sun.net.httpserver.HttpServer;
 
 import it.esedra.corso.shoppinglist.controller.AddShoppingList;
 import it.esedra.corso.shoppinglist.controller.AddUser;
-
+import it.esedra.corso.shoppinglist.controller.GetUser;
+import it.esedra.corso.shoppinglist.controller.UpdateShoppingList;
 
 public class Server {
 
@@ -31,6 +26,8 @@ public class Server {
 		server.createContext("/", new DefaultHandler());
 		server.createContext("/add-shopping-list", new AddShoppingList());
 		server.createContext("/add-user", new AddUser());
+		server.createContext("/get-user", new GetUser());
+		server.createContext("/update", new UpdateShoppingList());
 		server.setExecutor(null);
 		server.start();
 		System.out.println("Server started"); 

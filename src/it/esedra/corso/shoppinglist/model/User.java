@@ -236,8 +236,9 @@ public class User implements Persist, Comparable<User> {
 	 * @throws IOException
 	 */
 	
-	public BigInteger getLastId() throws IOException{
+	public synchronized BigInteger getLastId() throws IOException{
 		try {
+					
 			BigInteger lastId = (getAll().isEmpty())? this.getUserId() :  getAll().last().getUserId();
 			System.out.println("Chiamato getLastId(): lastId = " + lastId);
 			return lastId;			
@@ -260,7 +261,7 @@ public class User implements Persist, Comparable<User> {
 	 * 
 	 */
 	
-
+	/**
 	 * Restituisce un nuovo oggetto User
 	 * 
 	 * 
