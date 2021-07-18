@@ -19,6 +19,7 @@ public class AddShoppingList extends ShoppingListHandler {
 
 	@Override
 	public String handlePostRequest(HttpExchange exchange) throws IOException {
+		
 		StringBuilder sb = new StringBuilder();
 		InputStream ios = exchange.getRequestBody();
 		int i;
@@ -40,7 +41,7 @@ public class AddShoppingList extends ShoppingListHandler {
 				Product item = new Product();
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
-				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
+				//item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
 				shoppingList.addProduct(item);
 			}
 
@@ -50,7 +51,7 @@ public class AddShoppingList extends ShoppingListHandler {
 			throw new IOException("Errore interno");
 		}
 
-		return ".";
+		return "Lista aggiunta";
 	}
 
 }

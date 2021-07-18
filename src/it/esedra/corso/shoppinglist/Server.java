@@ -15,6 +15,8 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import it.esedra.corso.shoppinglist.controller.AddShoppingList;
+import it.esedra.corso.shoppinglist.controller.AddUser;
+
 
 public class Server {
 
@@ -25,12 +27,13 @@ public class Server {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+		HttpServer server = HttpServer.create(new InetSocketAddress(3000), 0);
 		server.createContext("/", new DefaultHandler());
 		server.createContext("/add-shopping-list", new AddShoppingList());
+		server.createContext("/add-user", new AddUser());
 		server.setExecutor(null);
 		server.start();
-		System.out.println("Server started");
+		System.out.println("Server started"); 
 	}
 
 	static class DefaultHandler implements HttpHandler {
