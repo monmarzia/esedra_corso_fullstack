@@ -293,7 +293,7 @@ public class User implements Persist, Comparable<User> {
 			
 		}
 		
-		return new User();
+		return user;
 	}
 	
 	/**
