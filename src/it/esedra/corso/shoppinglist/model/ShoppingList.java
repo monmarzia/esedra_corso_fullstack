@@ -1,8 +1,10 @@
 package it.esedra.corso.shoppinglist.model;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,9 +72,38 @@ public class ShoppingList implements Persist {
 		this.listName = listName;
 	}
 
-
 	/**
+	 * Restituisce un nuovo oggetto con il nome della lista e le proprietà del prodotto
 	 * 
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public ShoppingList get() throws IOException {
+		
+		BufferedReader br = Files.newBufferedReader(GetFileResource.get("lista.csv", "shoppinglist").toPath());	
+		
+		String line = br.readLine();
+		ShoppingList shoppingList = new ShoppingList();
+		
+		while (line != null) {
+			String[] fields = line.split(",");
+			BigInteger tmpId = new BigInteger("id");
+			Product tmpProduct = new Product();
+			if (tmpId.equals(this.getId())) {
+				shoppingList = new ShoppingList();
+				shoppingList.setListName(fields[3]);
+				tmpProduct.setName(fields[0]);
+				tmpProduct.setQty(Integer.parseInt(fields[1]));
+				tmpProduct.setUnit(Unit.valueOf(fields[2]));
+				shoppingList.addProduct(tmpProduct);
+			}
+		}
+		return  shoppingList;
+	}
+	
+	/**
+	 * Salva un oggetto 
 	 */
 	public void store() throws IOException {
 
