@@ -27,7 +27,7 @@ public class Server {
 		server.createContext("/add-shopping-list", new AddShoppingList());
 		server.createContext("/add-user", new AddUser());
 		server.createContext("/get-user", new GetUser());
-		server.createContext("/update", new UpdateShoppingList());
+		server.createContext("/update-shopping-list", new UpdateShoppingList());
 		server.setExecutor(null);
 		server.start();
 		System.out.println("Server started"); 

@@ -2,7 +2,6 @@ package it.esedra.corso.shoppinglist.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.StringReader;
 
 import javax.json.Json;
@@ -17,36 +16,6 @@ import it.esedra.corso.shoppinglist.model.ShoppingList;
 import it.esedra.corso.shoppinglist.model.Unit;
 
 public class UpdateShoppingList extends ShoppingListHandler {
-
-	@Override
-	public void handle(HttpExchange exchange) throws IOException {
-
-		try {
-			this.setHttpExchangeResponseHeaders(exchange);
-			String param = null;
-
-			if (exchange.getRequestMethod().equals("POST")) {
-
-				param = this.handleRequest(exchange);
-
-				String response = "Hai aggiornato la lista: " + param;
-
-				exchange.sendResponseHeaders(200, response.length());
-				OutputStream stream = exchange.getResponseBody();
-
-				stream.write(response.getBytes());
-				stream.close();
-			}
-
-		} catch (Exception e) {
-
-			exchange.sendResponseHeaders(500, e.getMessage().length());
-			OutputStream stream = exchange.getResponseBody();
-
-			stream.write(e.getMessage().getBytes());
-			stream.close();
-		}
-	}
 
 	@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
@@ -81,6 +50,6 @@ public class UpdateShoppingList extends ShoppingListHandler {
 			throw new IOException("Errore interno");
 		}
 
-		return "OK";
+		return "Lista aggiornata";
 	}
 }

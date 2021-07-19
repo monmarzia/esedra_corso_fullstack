@@ -1,6 +1,5 @@
 package it.esedra.corso.shoppinglist.controller;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,53 +12,59 @@ import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 
-import it.esedra.corso.shoppinglist.helper.GetFileResource;
-import it.esedra.corso.shoppinglist.model.Product;
-import it.esedra.corso.shoppinglist.model.ShoppingList;
-import it.esedra.corso.shoppinglist.model.Unit;
 import it.esedra.corso.shoppinglist.model.User;
 
 public class AddUser extends ShoppingListHandler {
 
 	@Override
-	public String handlePostRequest(HttpExchange exchange) throws IOException {
+	public String handleRequest(HttpExchange exchange) throws IOException {
 
-		//è praticamente TestUser con un unica modifica
+		// è praticamente TestUser con un unica modifica
+		// MODIFICA InputStream inputUser = new
+		// FileInputStream(GetFileResource.get("user.json", "test"));
+		InputStream inputUser = exchange.getRequestBody(); // possibile avendo fatto partire AddUser tramite richiesta
+															// usando AddUserTest per postare sul body
+
+		StringBuilder sb = new StringBuilder();
+		int i;
+		while ((i = inputUser.read()) != -1) {
+			sb.append((char) i);
+		}
+		String jsonStr = sb.toString();
 		
-		try {
-//MODIFICA  InputStream inputUser = new FileInputStream(GetFileResource.get("user.json", "test"));
-			InputStream inputUser = exchange.getRequestBody(); //possibile avendo fatto partire AddUser tramite richiesta usando AddUserTest per postare sul body
-			
+		User user = null;
 
-			StringBuilder sb = new StringBuilder();
-			int i;
-			while((i = inputUser.read()) != -1) {
-				sb.append((char) i);
-			}
-			String jsonStr = sb.toString();
-			
+		try {
 			JsonReader reader = Json.createReader(new StringReader(jsonStr));
-			JsonObject userObj = reader.readObject().get("user").asJsonObject();
-			String firstName = userObj.getString("firstName");
-			String lastName = userObj.getString("lastName");
-			String email = userObj.getString("email");
-			String mobilePhone = userObj.getString("mobilePhone");
-			String isActive = userObj.getString("isActive");
-			String isPrivacyConsent = userObj.getString("isPrivacyConsent");
-			String isNewsletter = userObj.getString("isNewsletter");
-			User user = new User()
-					.setFirstName(firstName)
-					.setLastName(lastName)
-					.setEmail(email)
-					.setMobilePhone(mobilePhone)
-					.build();
-			user.store();
-		//	System.out.println(user.getUserId());  
+			JsonObject userJson = reader.readObject();
+			JsonArray userArr = userJson.get("users").asJsonArray();
+			for(Object el: userArr) {
+				JsonObject tmpUser = (JsonObject)(el);
+				String firstName = tmpUser.getString("firstName");
+				String lastName = tmpUser.getString("lastName");
+				String email = tmpUser.getString("email");
+				String mobilePhone = tmpUser.getString("mobilePhone");
+				String isActive = tmpUser.getString("isActive");
+				String isPrivacyConsent = tmpUser.getString("isPrivacyConsent");
+				String isNewsletter = tmpUser.getString("isNewsletter");
+				user = new User()
+						.setFirstName(firstName)
+						.setLastName(lastName)
+						.setEmail(email)
+						.setMobilePhone(mobilePhone)
+						.setActive(Boolean.parseBoolean(isActive))
+						.setPrivacyConsent(Boolean.parseBoolean(isPrivacyConsent))
+						.setNewsletter(Boolean.parseBoolean(isNewsletter))
+						.build();
+				user.getSequence();
+				user.store();
+			}
+			// System.out.println(user.getUserId());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		return "User aggiunto";
+		return "Utente aggiunto";
 	}
 
 }

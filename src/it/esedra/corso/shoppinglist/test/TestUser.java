@@ -11,7 +11,6 @@ import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonValue;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 import it.esedra.corso.shoppinglist.model.User;
