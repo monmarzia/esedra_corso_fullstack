@@ -21,10 +21,9 @@ import it.esedra.corso.shoppinglist.model.User;
 
 public class AddUser extends ShoppingListHandler {
 
-	@Override
 	public String handlePostRequest(HttpExchange exchange) throws IOException {
 
-		//è praticamente TestUser con un unica modifica
+		//ï¿½ praticamente TestUser con un unica modifica
 		
 		try {
 //MODIFICA  InputStream inputUser = new FileInputStream(GetFileResource.get("user.json", "test"));
@@ -60,6 +59,12 @@ public class AddUser extends ShoppingListHandler {
 		}
 
 		return "User aggiunto";
+	}
+
+	@Override
+	public String handleRequest(HttpExchange exchange) throws IOException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

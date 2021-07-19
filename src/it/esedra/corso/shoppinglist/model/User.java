@@ -1,27 +1,26 @@
 package it.esedra.corso.shoppinglist.model;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-
-import java.io.BufferedReader;
-
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
+import it.esedra.corso.shoppinglist.helper.IdSingleton;
 
 /**
  * @author monica
  *
  */
 public class User implements Persist, Comparable<User> {
-	private static BigInteger id = new BigInteger("0");
-	private BigInteger userId = id;
+	private BigInteger userId = new BigInteger("0");
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -29,6 +28,7 @@ public class User implements Persist, Comparable<User> {
 	private boolean isActive = false;
 	private boolean privacyConsent = false;
 	private boolean newsletter = false;
+	private Map<BigInteger, User> storedUsers = new HashMap<>();
 
 	public User() {
 		
@@ -125,16 +125,24 @@ public class User implements Persist, Comparable<User> {
 		return this;
 	}
 	
+	public Map<BigInteger, User> getStoredUsers() {
+		return storedUsers;
+	}
+
 	/**
 	 * 
 	 * @return userID incrementato di 1
-	 * 
-	 * Testato l'incremento: il secondo user ha userId = 2;
+	 *  Sostituito getSequence() con newUserId()
 	 */
 	
-	public BigInteger getSequence() {
-		id = id.add(BigInteger.ONE);
-		return userId = id ;
+	public BigInteger newUserId() {
+		 userId = IdSingleton.newIdUser();
+		 return userId;
+	}
+	
+	public Map<BigInteger, User> addToStoredUsers (User user) {
+		storedUsers.put(user.getUserId(), user);
+		return storedUsers;
 	}
 	
 	/**
@@ -240,7 +248,6 @@ public class User implements Persist, Comparable<User> {
 		try {
 					
 			BigInteger lastId = (getAll().isEmpty())? this.getUserId() :  getAll().last().getUserId();
-			System.out.println("Chiamato getLastId(): lastId = " + lastId);
 			return lastId;			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -271,8 +278,7 @@ public class User implements Persist, Comparable<User> {
 	public User get() throws IOException {
 		
 		BufferedReader br = Files.newBufferedReader(GetFileResource.get("user.csv", "shoppinglist").toPath());
-		
-		
+				
 		String line = br.readLine();
 		
 		User user = null;
@@ -298,15 +304,13 @@ public class User implements Persist, Comparable<User> {
 	}
 	
 	/**
-	 * Salva un oggetto user
+	 * Salva un oggetto user se non è già registrato il suo userId
 	 */
   
 	public void store() throws IOException {
-		System.out.println("Chiamato store(): UserId =  " + this.getUserId());
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(GetFileResource.get("user.csv", "shoppinglist").toPath().toString(), true));
 			StringBuilder builder = new StringBuilder();
-			System.out.println("Condizione compareTo: " + (this.getUserId().compareTo(getLastId()) > 0));
 			if ((this.getUserId().equals(BigInteger.ONE) || this.getUserId().compareTo(getLastId()) > 0) && !getAll().contains(this)) {
 				builder.append(this.getUserId());
 				builder.append(",");
@@ -329,6 +333,7 @@ public class User implements Persist, Comparable<User> {
 				writer.flush();
 				writer.close();
 				System.out.println("User " + this.getFirstName() + " salvato");
+				addToStoredUsers(this);
 			} else {
 //				Implementazione del blocco per l'update o chiamata ad un metodo apposito
 				System.out.println("no user stored or updated!");
