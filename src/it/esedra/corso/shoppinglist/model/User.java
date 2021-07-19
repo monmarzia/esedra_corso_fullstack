@@ -136,8 +136,7 @@ public class User implements Persist, Comparable<User> {
 	 */
 	
 	public BigInteger newUserId() {
-		 userId = IdSingleton.newIdUser();
-		 return userId;
+		return userId = IdSingleton.newIdUser();
 	}
 	
 	public Map<BigInteger, User> addToStoredUsers (User user) {
@@ -145,71 +144,11 @@ public class User implements Persist, Comparable<User> {
 		return storedUsers;
 	}
 	
-	/**
-	 * Restituisce un nuovo oggetto User
-	 * 
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	
-	/**
-	 * 
-	 * Modifica: aggiunto blocco try/catch per gestire l'errore ed evitare l'uso del blocco
-	 * nella classe TestUser.
-	 * 
-	 * Modificato return (era "new User()" vuoto)
-	 * 
-	 * Modificato Il BufferedReader con il metodo statico Files.readAlLines(path) che restituisce
-	 * una List di String ciascuna con una linea. Utilizzato un ciclo for migiorato per la ricerca
-	 * dello User nel file user.csv.
-	 * 
-	 * Modifica: aggiunta di un argomento BigInteger findId per la ricerca: se il file è vuoto, 
-	 * il campo tmpUserId assume un valore BigInteger.zeroLenght e da luogo ad un flusso non gestito;
-	 * 
-	 */
-	public User get(BigInteger findId) throws IOException {
-		try {
-			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
-			User user = null;
-			for(String line:lines) {				
-				String[] fields = line.split(",");
-				BigInteger tmpUserId = new BigInteger(fields[0]);
-				if (tmpUserId.equals(findId)) {
-					user = new User();
-					user.setActive(Boolean.parseBoolean(fields[5]));
-					user.setEmail(fields[3]);
-					user.setFirstName(fields[1]);
-					user.setLastName(fields[2]);
-					user.setMobilePhone(fields[4]);
-					user.setNewsletter(Boolean.parseBoolean(fields[7]));
-					user.setPrivacyConsent(Boolean.parseBoolean(fields[6]));
-					user.setUserId(tmpUserId);
-				}
-			}
-			return user;
-		} catch (Exception e) {
-			throw new IOException();
-		}
-				
-	}
-	
 	/*
 	 * @return SortedSet users
 	 * 
-	 * Restituisce un TreeSet di User ordinato secondo userId:
-	 * Manca l'implementazione dell'interfaccia Comparator in una classe da utilizzare per l'ordinamento:
+	 * Restituisce un TreeSet di User ordinato secondo userId
 	 * 
-	 * public class UserComparator implements Comparator<User> {
-	 * 	@Override 
-	 * 		public int compare(User o1, User o2) {
-	 * 			return o1.getUserId().compareTo(o2.getUserId();
-	 * 		}
-	 * }
-	 * 
-	 * Costruire il TreeSet usando il comparator e il metodo Collections.syncronizedSortedSet
-	 * 
-	 * SortedSet users = Collections.syncronizedSortedSet(new TreeSet<User>(new UserComparator()));
 	 */
 	public SortedSet<User> getAll() throws IOException {
 		try {
@@ -254,23 +193,61 @@ public class User implements Persist, Comparable<User> {
 			throw new IOException();
 		}
 	}
-
-	/**
-
-	 * 
-	 * Salva un oggetto user nel file user.csv:
-	 * Se il file è vuoto, crea un nuovo utente con id=1
-	 * Se il file non è vuoto, controlla che userId sia maggiore di getLastId() e che getAll() non
-	 * contenga un utente con lo stesso userId: verificate le condizioni procede con lo store
-	 * In caso contrario si può procedere con l'update, non implementato.
-	 * L'implementazione dell'update richiede la possibilità di sovrascrivere una riga del file.
-	 * Il metodo get(userId) non è ancora stato utilizzato.
-	 * 
-	 */
 	
 	/**
 	 * Restituisce un nuovo oggetto User
 	 * 
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	
+	/**
+	 * 
+	 * Modifica: aggiunto blocco try/catch per gestire l'errore ed evitare l'uso del blocco
+	 * nella classe TestUser.
+	 * 
+	 * Modificato return (era "new User()" vuoto)
+	 * 
+	 * Modificato Il BufferedReader con il metodo statico Files.readAlLines(path) che restituisce
+	 * una List di String ciascuna con una linea. Utilizzato un ciclo for migiorato per la ricerca
+	 * dello User nel file user.csv.
+	 * 
+	 * Modifica: aggiunta di un argomento BigInteger findId per la ricerca: se il file è vuoto, 
+	 * il campo tmpUserId assume un valore BigInteger.zeroLenght e da luogo ad un flusso non gestito;
+	 * 
+	 */
+	
+	public User get(BigInteger findId) throws IOException {
+		try {
+			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
+			User user = null;
+			for(String line:lines) {				
+				String[] fields = line.split(",");
+				BigInteger tmpUserId = new BigInteger(fields[0]);
+				if (tmpUserId.equals(findId)) {
+					user = new User();
+					user.setActive(Boolean.parseBoolean(fields[5]));
+					user.setEmail(fields[3]);
+					user.setFirstName(fields[1]);
+					user.setLastName(fields[2]);
+					user.setMobilePhone(fields[4]);
+					user.setNewsletter(Boolean.parseBoolean(fields[7]));
+					user.setPrivacyConsent(Boolean.parseBoolean(fields[6]));
+					user.setUserId(tmpUserId);
+				}
+			}
+			return user;
+		} catch (Exception e) {
+			throw new IOException();
+		}
+				
+	}
+	
+	/**
+	 * Restituisce un nuovo oggetto User
+	 * In questa versione il ciclo while è infinito perchè il metodo readLine non restituisce mai null
+	 * ma una stringa vuota.
 	 * 
 	 * @return
 	 * @throws IOException

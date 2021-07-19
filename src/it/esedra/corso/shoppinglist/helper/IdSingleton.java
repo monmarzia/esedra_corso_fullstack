@@ -21,7 +21,11 @@ public final class IdSingleton {
 	public static BigInteger getIdUser() { // Id corrente: è già l'ultimo assegnato
 		return idUser;
 	}
-
+	/**
+	 * 
+	 * @return a new BigInteger idUser
+	 * 
+	 */
 	public static synchronized BigInteger newIdUser() { // Incrementa l'id corrente e restituisce il nuovo valore
 		return IdSingleton.idUser = idUser.add(BigInteger.ONE);
 	}
@@ -29,7 +33,11 @@ public final class IdSingleton {
 	public static BigInteger getIdShoppingList() {
 		return idShoppingList;
 	}
-
+	/**
+	 * 
+	 * @return a new BigInteger idShoppingList
+	 * 
+	 */
 	public static synchronized BigInteger newIdShoppingList() {
 		return IdSingleton.idShoppingList = idShoppingList.add(BigInteger.ONE);
 	}
