@@ -278,6 +278,11 @@ public class User implements Persist, Comparable<User> {
 		}
 	}
 	
+	public boolean addUser(User user) {
+		
+		return false;
+	}
+	
 	/**
 	 * Salva un oggetto user se non è già registrato il suo userId
 	 */
@@ -319,7 +324,7 @@ public class User implements Persist, Comparable<User> {
 			throw new IOException();
 		}
 	}
-
+	
 	@Override
 	public int compareTo(User o) {
 		return o.getUserId().compareTo(userId);
