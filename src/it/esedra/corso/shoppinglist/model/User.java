@@ -245,39 +245,37 @@ public class User implements Persist, Comparable<User> {
 	}
 	
 	/**
-	 * Restituisce un nuovo oggetto User
-	 * In questa versione il ciclo while è infinito perchè il metodo readLine non restituisce mai null
-	 * ma una stringa vuota.
+	 * Viene chiamato su un'istanza di User:
+	 * legge i records dal file csv e se trova un record con userId corrispondente
+	 * a quello dell'istanza chiamante, restituisce un nuovo user con i dati del record,
+	 * altrimenti restituisce user = null;
 	 * 
 	 * @return
 	 * @throws IOException
 	 */
 	public User get() throws IOException {
-		
-		BufferedReader br = Files.newBufferedReader(GetFileResource.get("user.csv", "shoppinglist").toPath());
-				
-		String line = br.readLine();
-		
-		User user = null;
-		
-		while (line != null) {
-			String[] fields = line.split(",");
-			BigInteger tmpUserId = new BigInteger(fields[0]);
-			if (tmpUserId.equals(this.getUserId())) {
-				user = new User();
-				user.setActive(Boolean.parseBoolean(fields[5]));
-				user.setEmail(fields[3]);
-				user.setFirstName(fields[1]);
-				user.setLastName(fields[2]);
-				user.setMobilePhone(fields[4]);
-				user.setNewsletter(Boolean.parseBoolean(fields[7]));
-				user.setPrivacyConsent(Boolean.parseBoolean(fields[6]));
-				user.setUserId(tmpUserId);
+		try {
+			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
+			User user = null;
+			for(String line:lines) {				
+				String[] fields = line.split(",");
+				BigInteger tmpUserId = new BigInteger(fields[0]);
+				if (tmpUserId.equals(this.getUserId())) {
+					user = new User();
+					user.setActive(Boolean.parseBoolean(fields[5]));
+					user.setEmail(fields[3]);
+					user.setFirstName(fields[1]);
+					user.setLastName(fields[2]);
+					user.setMobilePhone(fields[4]);
+					user.setNewsletter(Boolean.parseBoolean(fields[7]));
+					user.setPrivacyConsent(Boolean.parseBoolean(fields[6]));
+					user.setUserId(tmpUserId);
+				}
 			}
-			
+			return user;
+		} catch (Exception e) {
+			throw new IOException();
 		}
-		
-		return new User();
 	}
 	
 	/**
