@@ -329,7 +329,4 @@ public class User implements Persist, Comparable<User> {
 	public int compareTo(User o) {
 		return o.getUserId().compareTo(userId);
 	}
-
-	
-
 }
