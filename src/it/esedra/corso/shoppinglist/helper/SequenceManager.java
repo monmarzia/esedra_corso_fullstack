@@ -1,19 +1,29 @@
 package it.esedra.corso.shoppinglist.helper;
 
+import java.io.IOException;
 import java.math.BigInteger;
 
-public final class IdSingleton {
-	private static IdSingleton instance = getInstance();
+import it.esedra.corso.shoppinglist.model.User;
+
+public final class SequenceManager {
+	private static SequenceManager instance;
 	private static BigInteger idUser = new BigInteger("0");
 	private static BigInteger idShoppingList = new BigInteger("0");
 	
-	private IdSingleton() {
+	private SequenceManager() {
 
 	}
 	
-	public static IdSingleton getInstance() {
+	public static SequenceManager getInstance() throws IOException {
 		if(instance == null) {
-			instance = new IdSingleton();
+			instance = new SequenceManager();
+		}
+		try {
+			idUser = User.getLastId();
+//			idShoppingListId = SoppingListGetLastId();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IOException();
 		}
 		return instance;
 	}
@@ -27,7 +37,7 @@ public final class IdSingleton {
 	 * 
 	 */
 	public static synchronized BigInteger newIdUser() { // Incrementa l'id corrente e restituisce il nuovo valore
-		return IdSingleton.idUser = idUser.add(BigInteger.ONE);
+		return SequenceManager.idUser = idUser.add(BigInteger.ONE);
 	}
 
 	public static BigInteger getIdShoppingList() {
@@ -39,7 +49,7 @@ public final class IdSingleton {
 	 * 
 	 */
 	public static synchronized BigInteger newIdShoppingList() {
-		return IdSingleton.idShoppingList = idShoppingList.add(BigInteger.ONE);
+		return SequenceManager.idShoppingList = idShoppingList.add(BigInteger.ONE);
 	}
 	
 }

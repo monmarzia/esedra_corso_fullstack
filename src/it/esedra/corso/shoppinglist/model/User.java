@@ -13,7 +13,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
-import it.esedra.corso.shoppinglist.helper.IdSingleton;
+import it.esedra.corso.shoppinglist.helper.SequenceManager;
 
 /**
  * @author monica
@@ -136,7 +136,7 @@ public class User implements Persist, Comparable<User> {
 	 */
 	
 	public BigInteger newUserId() {
-		return userId = IdSingleton.newIdUser();
+		return userId = SequenceManager.newIdUser();
 	}
 	
 	public Map<BigInteger, User> addToStoredUsers (User user) {
@@ -150,7 +150,7 @@ public class User implements Persist, Comparable<User> {
 	 * Restituisce un TreeSet di User ordinato secondo userId
 	 * 
 	 */
-	public SortedSet<User> getAll() throws IOException {
+	public static SortedSet<User> getAll() throws IOException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
 			SortedSet<User> users = new TreeSet<User>();
@@ -183,10 +183,9 @@ public class User implements Persist, Comparable<User> {
 	 * @throws IOException
 	 */
 	
-	public synchronized BigInteger getLastId() throws IOException{
-		try {
-					
-			BigInteger lastId = (getAll().isEmpty())? this.getUserId() :  getAll().last().getUserId();
+	public synchronized static BigInteger getLastId() throws IOException{
+		try {					
+			BigInteger lastId = (getAll().isEmpty())? SequenceManager.newIdUser() :  getAll().last().getUserId();
 			return lastId;			
 		} catch (IOException e) {
 			e.printStackTrace();
