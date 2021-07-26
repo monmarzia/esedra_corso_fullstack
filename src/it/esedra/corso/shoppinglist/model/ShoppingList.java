@@ -10,7 +10,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.SortedSet;
+import java.util.TreeSet;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
 /**
@@ -33,6 +34,7 @@ public class ShoppingList implements Persist {
 	private User user; 
 	private BigInteger id; 
 	private String uniqueCode;
+
 	private final static Map<String, Integer> fieldsMap ;
 	static {		
 		HashMap<String, Integer> tmpMap = new HashMap<String, Integer>() ;
@@ -69,6 +71,20 @@ public class ShoppingList implements Persist {
 		this.uniqueCode = uniqueCode;
 	}
 	
+
+	private final static String[] campi = {		
+			"name",
+			"qty",
+			"unit",
+			"listName"
+	};
+	private final static HashMap<String, String> fieldsMap = new HashMap<>() ;
+	static {		
+		for(int i = 0 ; i < campi.length; i++) {
+			fieldsMap.put(campi[i],null ); // mi aggiunge alla mappa tutti i campi con le chiavi null cosÃ¬ dopo posso richiamare i campi e rimpiazzare il null con la chiave desiderata
+		}
+	}
+		
 	public List<Product> getProducts() {
 		return products;
 	}
@@ -86,17 +102,10 @@ public class ShoppingList implements Persist {
 		this.listName = listName;
 	}
 
-	/**
-	 * Restituisce un nuovo oggetto con il nome della lista e le proprietà del prodotto
-	 * 
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
 	
+
 	
-	
-	public ShoppingList get() throws IOException {
+public ShoppingList get() throws IOException {
 		
 		BufferedReader br = Files.newBufferedReader(GetFileResource.get("lista.csv", "shoppinglist").toPath());	
 		
@@ -152,5 +161,37 @@ public class ShoppingList implements Persist {
 		}
 
 	}
+	
+	public SortedSet<ShoppingList> getAll() throws IOException {
+		try {
+			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
+			SortedSet<User> users = new TreeSet<User>();
+			for(String line:lines) {				
+				ShoppingList shoppingList = new ShoppingList();
+				String[] fields = line.split(",");
+				if (!fields[0].equals("")) {
+					shoppingList = new ShoppingList();
+					shoppingList.setListName(fields[3]);
+					Product tmpProduct;
+					tmpProduct.setName(fields[0]);
+					tmpProduct.setQty(Integer.parseInt(fields[1]));
+					tmpProduct.setUnit(Unit.valueOf(fields[2]));
+					shoppingList.addProduct(tmpProduct);
+				}
+			}
+			return users;
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IOException();
+		}		
+	}
 
+	public void updateShoppingList() {
+
+	}
+	
+	public void deleteShoppingList() {
+	
+	}
+	
 }

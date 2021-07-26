@@ -3,8 +3,8 @@ package it.esedra.corso.shoppinglist.controller;
 import java.io.IOException;
 import java.math.BigInteger;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import javax.json.JsonException;
+import javax.json.JsonObject;
 
 import com.sun.net.httpserver.HttpExchange;
 
