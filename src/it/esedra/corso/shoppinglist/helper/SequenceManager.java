@@ -3,6 +3,7 @@ package it.esedra.corso.shoppinglist.helper;
 import java.io.IOException;
 import java.math.BigInteger;
 
+import it.esedra.corso.shoppinglist.model.ShoppingList;
 import it.esedra.corso.shoppinglist.model.User;
 
 public final class SequenceManager {
@@ -17,13 +18,13 @@ public final class SequenceManager {
 	public static SequenceManager getInstance() throws IOException {
 		if(instance == null) {
 			instance = new SequenceManager();
-		}
-		try {
-			idUser = User.getLastId();
-//			idShoppingListId = SoppingListGetLastId();
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IOException();
+			try {
+				idUser = User.getLastId();
+				idShoppingList = ShoppingList.getLastId();
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new IOException();
+			}
 		}
 		return instance;
 	}

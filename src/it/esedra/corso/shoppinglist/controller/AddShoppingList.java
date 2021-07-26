@@ -13,6 +13,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
+import it.esedra.corso.shoppinglist.model.Unit;
 
 public class AddShoppingList extends ShoppingListHandler {
 
@@ -32,7 +33,9 @@ public class AddShoppingList extends ShoppingListHandler {
 			JsonReader reader = Json.createReader(new StringReader(jsonStr));
 			JsonObject listaSpesaObject = reader.readObject();
 
-			JsonArray items = listaSpesaObject.get("items").asJsonArray();
+			String listName = listaSpesaObject.get(ShoppingList.Fields.listName.name()).toString();
+			
+			JsonArray items = listaSpesaObject.get("products").asJsonArray();
 
 			ShoppingList shoppingList = new ShoppingList();
 			for (Object o : items) {
@@ -40,10 +43,10 @@ public class AddShoppingList extends ShoppingListHandler {
 				Product item = new Product();
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
-				//item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
+				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
 				shoppingList.addProduct(item);
 			}
-
+			shoppingList.setListName(listName);
 			shoppingList.store();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,6 +1,5 @@
-  
 {
-	"items": [
+	"products": [
 		{
 			"name": "uova",
 			"qty": "2",
@@ -11,5 +10,7 @@
 			"qty": "1",
 			"unit": "L"
 		}
-	]
+	],
+	"listName" : "Nome 1",
+	"id": 1
 }

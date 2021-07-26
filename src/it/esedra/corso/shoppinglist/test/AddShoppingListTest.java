@@ -26,7 +26,7 @@ public class AddShoppingListTest {
 					.connectTimeout(Duration.ofSeconds(80)).build();
 					
 			//creo una request
-			HttpRequest request = HttpRequest.newBuilder().version(Version.HTTP_1_1).uri(URI.create("http://localhost:3000/add-shopping-list"))
+			HttpRequest request = HttpRequest.newBuilder().version(Version.HTTP_1_1).uri(URI.create("http://localhost:3005/add-shopping-list"))
 					.timeout(Duration.ofMinutes(2)).header("Content-Type", "application/json")
 					.POST(BodyPublishers.ofFile(GetFileResource.get("item.json", "test").toPath())).build();
 

@@ -53,7 +53,7 @@ public class AddUser extends ShoppingListHandler {
 						.setPrivacyConsent(Boolean.parseBoolean(isPrivacyConsent))
 						.setNewsletter(Boolean.parseBoolean(isNewsletter))
 						.build();
-				user.getSequence();
+				user.newUserId();
 				user.store();
 			}
 			// System.out.println(user.getUserId());
