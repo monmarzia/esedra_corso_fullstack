@@ -8,8 +8,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -29,32 +31,25 @@ public class User implements Persist, Comparable<User> {
 	private boolean isActive = false;
 	private boolean privacyConsent = false;
 	private boolean newsletter = false;
-	private final static String[] campi = {		
-			"userId",
-			"firstName",
-			"lastName",
-			"email",
-			"mobilePhone",
-			"isActive",
-			"isPrivacyConsent",
-			"isNewsletter",
-	};
-	private final static HashMap<String, String> fieldsMap = new HashMap<>() ;
+	private final static Map<String, Integer> fieldsMap ;
 	static {		
-		for(int i = 0 ; i < campi.length; i++) {
-			fieldsMap.put(campi[i],null ); // mi aggiunge alla mappa tutti i campi con le chiavi null così dopo posso richiamare i campi e rimpiazzare il null con la chiave desiderata
-		}
+		HashMap<String, Integer> tmpMap = new HashMap<String, Integer>() ;
+		tmpMap.put("userId", 0);
+		tmpMap.put("firstName", 1);
+		tmpMap.put("lastName", 2);
+		tmpMap.put("email", 3);
+		tmpMap.put("mobilePhone", 4);
+		tmpMap.put("isActive", 5);
+		tmpMap.put("isPrivacyConsent", 6);
+		tmpMap.put("isNewsletter", 7);
+		fieldsMap = Collections.unmodifiableMap(tmpMap);
+		
 	}
-	
-
-	
-
-
-	
 	
 	public User() {
 		
 	}
+	
 	
 	public User(String firstName, String lastName, String email, String mobilePhone, boolean isActive, boolean privacyConsent, boolean newsletter) {
 		this.firstName = firstName;
@@ -158,15 +153,7 @@ public class User implements Persist, Comparable<User> {
 		id = id.add(BigInteger.ONE);
 		return userId = id ;
 	}
-	
-	
-	public void aggiornaMappa(String[] fields) {
 		
-		for(int i = 0 ; i < campi.length; i++) {
-			fieldsMap.replace(campi[i],fields[i] );
-		}
-	}
-	
 	/**
 	 * Restituisce un nuovo oggetto User
 	 * 
@@ -190,23 +177,23 @@ public class User implements Persist, Comparable<User> {
 	 * il campo tmpUserId assume un valore BigInteger.zeroLenght e da luogo ad un flusso non gestito;
 	 * 
 	 */
+	
 	public User get(BigInteger findId) throws IOException {		
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
 			User user = null;
 			for(String line:lines) {
 				String[] fields = line.split(",") ;				
-				aggiornaMappa(fields);
-				BigInteger tmpUserId = new BigInteger(fieldsMap.get("userId"));
+				BigInteger tmpUserId = new BigInteger(fields[fieldsMap.get("userId")]);
 				if (tmpUserId.equals(findId)) {
 					user = new User();					
-					user.setFirstName(fieldsMap.get("firstName"));
-					user.setLastName(fieldsMap.get("lastName"));
-					user.setEmail(fieldsMap.get("email"));					
-					user.setMobilePhone(fieldsMap.get("mobilePhone"));
-					user.setActive(Boolean.parseBoolean(fieldsMap.get("isActive")));
-					user.setPrivacyConsent(Boolean.parseBoolean(fieldsMap.get("isPrivacyConsent")));
-					user.setNewsletter(Boolean.parseBoolean(fieldsMap.get("isNewsletter")));					
+					user.setFirstName(fields[fieldsMap.get("firstName")]);
+					user.setLastName(fields[fieldsMap.get("lastName")]);
+					user.setEmail(fields[fieldsMap.get("email")]);					
+					user.setMobilePhone(fields[fieldsMap.get("mobilePhone")]);
+					user.setActive(Boolean.parseBoolean(fields[fieldsMap.get("isActive")]));
+					user.setPrivacyConsent(Boolean.parseBoolean(fields[fieldsMap.get("isPrivacyConsent")]));
+					user.setNewsletter(Boolean.parseBoolean(fields[fieldsMap.get("isNewsletter")]));					
 					user.setUserId(tmpUserId);
 				}
 			}
@@ -241,17 +228,15 @@ public class User implements Persist, Comparable<User> {
 			for(String line:lines) {				
 				User user = null;
 				String[] fields = line.split(",");
-				aggiornaMappa(fields);
-				if (!fieldsMap.get("userId").equals("")) {
+				if (!fields[fieldsMap.get("userId")].equals("")) {
 					user = new User();
-					user.setUserId(new BigInteger(fieldsMap.get("userId")));
-					user.setFirstName(fieldsMap.get("firstName"));
-					user.setLastName(fieldsMap.get("lastName"));
-					user.setEmail(fieldsMap.get("email"));					
-					user.setMobilePhone(fieldsMap.get("mobilePhone"));
-					user.setActive(Boolean.parseBoolean(fieldsMap.get("isActive")));
-					user.setPrivacyConsent(Boolean.parseBoolean(fieldsMap.get("isPrivacyConsent")));
-					user.setNewsletter(Boolean.parseBoolean(fieldsMap.get("isNewsletter")));					
+					user.setFirstName(fields[fieldsMap.get("firstName")]);
+					user.setLastName(fields[fieldsMap.get("lastName")]);
+					user.setEmail(fields[fieldsMap.get("email")]);					
+					user.setMobilePhone(fields[fieldsMap.get("mobilePhone")]);
+					user.setActive(Boolean.parseBoolean(fields[fieldsMap.get("isActive")]));
+					user.setPrivacyConsent(Boolean.parseBoolean(fields[fieldsMap.get("isPrivacyConsent")]));
+					user.setNewsletter(Boolean.parseBoolean(fields[fieldsMap.get("isNewsletter")]));					
 					users.add(user);
 				}
 			}
@@ -311,17 +296,16 @@ public class User implements Persist, Comparable<User> {
 		
 		while (line != null) {
 			String[] fields = line.split(",");
-			aggiornaMappa(fields);		
-			BigInteger tmpUserId = new BigInteger(fieldsMap.get("userId"));
+			BigInteger tmpUserId = new BigInteger(fields[fieldsMap.get("userId")]);
 			if (tmpUserId.equals(this.getUserId())) {
 				user = new User();
-				user.setFirstName(fieldsMap.get("firstName"));
-				user.setLastName(fieldsMap.get("lastName"));
-				user.setEmail(fieldsMap.get("email"));					
-				user.setMobilePhone(fieldsMap.get("mobilePhone"));
-				user.setActive(Boolean.parseBoolean(fieldsMap.get("isActive")));
-				user.setPrivacyConsent(Boolean.parseBoolean(fieldsMap.get("isPrivacyConsent")));
-				user.setNewsletter(Boolean.parseBoolean(fieldsMap.get("isNewsletter")));				
+				user.setFirstName(fields[fieldsMap.get("firstName")]);
+				user.setLastName(fields[fieldsMap.get("lastName")]);
+				user.setEmail(fields[fieldsMap.get("email")]);					
+				user.setMobilePhone(fields[fieldsMap.get("mobilePhone")]);
+				user.setActive(Boolean.parseBoolean(fields[fieldsMap.get("isActive")]));
+				user.setPrivacyConsent(Boolean.parseBoolean(fields[fieldsMap.get("isPrivacyConsent")]));
+				user.setNewsletter(Boolean.parseBoolean(fields[fieldsMap.get("isNewsletter")]));					
 				user.setUserId(tmpUserId);
 			}
 			
