@@ -24,7 +24,7 @@ import it.esedra.corso.shoppinglist.helper.GetFileResource;
  * 	
  */
 
-public class ShoppingList implements Persist {
+public class TestShoppingListGetThomas implements Persist {
 
 	private List<Product> products = new ArrayList<Product>();
 	private String listName = new String();
@@ -34,8 +34,8 @@ public class ShoppingList implements Persist {
 	private final static String[] campi = {		
 			"name",
 			"qty",
-			"unit",
-			"listName"
+			"unit"
+		//	,"listName" non presente nel file
 	};
 	private final static HashMap<String, String> fieldsMap = new HashMap<>() ;
 	static {		
@@ -94,36 +94,38 @@ public class ShoppingList implements Persist {
 	 */
 	
 	
+	
+	
 public void aggiornaMappa(String[] fields) {
 		
 		for(int i = 0 ; i < campi.length; i++) {
 			fieldsMap.replace(campi[i],fields[i] );
 		}
 	}
+
+
+public static void main(String[] args) throws IOException {
+	TestShoppingListGetThomas prova = new TestShoppingListGetThomas();
+	prova.get();
+}
+
 	
 	
-	public ShoppingList get() throws IOException {
+	public void get() throws IOException {
 		
 		BufferedReader br = Files.newBufferedReader(GetFileResource.get("lista.csv", "shoppinglist").toPath());	
 		
 		String line = br.readLine();
-		ShoppingList shoppingList = new ShoppingList();
+		String[] fields = line.split(",");
+		aggiornaMappa(fields);									
+		System.out.println(fieldsMap.get("name"));
+		System.out.println(Integer.parseInt(fieldsMap.get("qty")));
+		System.out.println(Unit.valueOf(fieldsMap.get("unit")));
+		//System.out.println(fieldsMap.get("listName")); non presente nel file
+			
+			
 		
-		while (line != null) {
-			String[] fields = line.split(",");
-			BigInteger tmpId = new BigInteger("id");
-			Product tmpProduct = new Product();
-			aggiornaMappa(fields);
-			if (tmpId.equals(this.getId())) {
-				shoppingList = new ShoppingList();				
-				tmpProduct.setName(fieldsMap.get("name"));
-				tmpProduct.setQty(Integer.parseInt(fieldsMap.get("qty")));
-				tmpProduct.setUnit(Unit.valueOf(fieldsMap.get("unit")));
-				shoppingList.setListName(fieldsMap.get("listName"));
-				shoppingList.addProduct(tmpProduct);
-			}
-		}
-		return  shoppingList;
+		
 	}
 	
 	/**

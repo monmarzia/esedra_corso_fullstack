@@ -1,7 +1,7 @@
 package it.esedra.corso.shoppinglist.model;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+
+
 
 import java.io.BufferedReader;
 
@@ -10,8 +10,6 @@ import java.math.BigInteger;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
@@ -19,7 +17,7 @@ import it.esedra.corso.shoppinglist.helper.GetFileResource;
  * @author monica
  *
  */
-public class User implements Persist, Comparable<User> {
+public class TestUserGetThomas  {
 	private static BigInteger id = new BigInteger("0");
 	private BigInteger userId = id;
 	private String firstName;
@@ -45,18 +43,14 @@ public class User implements Persist, Comparable<User> {
 			fieldsMap.put(campi[i],null ); // mi aggiunge alla mappa tutti i campi con le chiavi null così dopo posso richiamare i campi e rimpiazzare il null con la chiave desiderata
 		}
 	}
-	
 
 	
-
-
-	
-	
-	public User() {
+	public TestUserGetThomas() {
 		
 	}
 	
-	public User(String firstName, String lastName, String email, String mobilePhone, boolean isActive, boolean privacyConsent, boolean newsletter) {
+
+	public TestUserGetThomas(String firstName, String lastName, String email, String mobilePhone, boolean isActive, boolean privacyConsent, boolean newsletter) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -71,15 +65,15 @@ public class User implements Persist, Comparable<User> {
 	 * @return new User()
 	 * restituisce un'istanza di User con i parametri nell'ordine
 	 */
-	public User build() {
-		return new User(firstName, lastName, email, mobilePhone, isActive, privacyConsent, newsletter);
+	public TestUserGetThomas build() {
+		return new TestUserGetThomas(firstName, lastName, email, mobilePhone, isActive, privacyConsent, newsletter);
 	}
 
 	public BigInteger getUserId() {
 		return userId;
 	}
 
-	public User setUserId(BigInteger userId) {
+	public TestUserGetThomas setUserId(BigInteger userId) {
 		this.userId = userId;
 		return this;
 	}
@@ -88,7 +82,7 @@ public class User implements Persist, Comparable<User> {
 		return firstName;
 	}
 
-	public User setFirstName(String firstName) {
+	public TestUserGetThomas setFirstName(String firstName) {
 		this.firstName = firstName;
 		return this;
 	}
@@ -97,7 +91,7 @@ public class User implements Persist, Comparable<User> {
 		return lastName;
 	}
 
-	public User setLastName(String lastName) {
+	public TestUserGetThomas setLastName(String lastName) {
 		this.lastName = lastName;
 		return this;
 	}
@@ -106,7 +100,7 @@ public class User implements Persist, Comparable<User> {
 		return email;
 	}
 	
-	public User setEmail(String email) {
+	public TestUserGetThomas setEmail(String email) {
 		this.email = email;
 		return this;
 	}
@@ -115,7 +109,7 @@ public class User implements Persist, Comparable<User> {
 		return privacyConsent;
 	}
 	
-	public User setPrivacyConsent(boolean privacyConsent) {
+	public TestUserGetThomas setPrivacyConsent(boolean privacyConsent) {
 		this.privacyConsent = privacyConsent;
 		return this;
 	}
@@ -124,7 +118,7 @@ public class User implements Persist, Comparable<User> {
 		return mobilePhone;
 	}
 
-	public User setMobilePhone(String mobilePhone) {
+	public TestUserGetThomas setMobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 		return this;
 	}
@@ -133,7 +127,7 @@ public class User implements Persist, Comparable<User> {
 		return isActive;
 	}
 
-	public User setActive(boolean isActive) {
+	public TestUserGetThomas setActive(boolean isActive) {
 		this.isActive = isActive;
 		return this;
 	}
@@ -142,7 +136,7 @@ public class User implements Persist, Comparable<User> {
 		return newsletter;
 	}
 
-	public User setNewsletter(boolean newsletter) {
+	public TestUserGetThomas setNewsletter(boolean newsletter) {
 		this.newsletter = newsletter;
 		return this;
 	}
@@ -167,39 +161,22 @@ public class User implements Persist, Comparable<User> {
 		}
 	}
 	
-	/**
-	 * Restituisce un nuovo oggetto User
-	 * 
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
+
+	public static void main(String[] args) throws IOException {
+		TestUserGetThomas prova = new TestUserGetThomas();
+		prova.getAll();
+	}
 	
-	/**
-	 * 
-	 * Modifica: aggiunto blocco try/catch per gestire l'errore ed evitare l'uso del blocco
-	 * nella classe TestUser.
-	 * 
-	 * Modificato return (era "new User()" vuoto)
-	 * 
-	 * Modificato Il BufferedReader con il metodo statico Files.readAlLines(path) che restituisce
-	 * una List di String ciascuna con una linea. Utilizzato un ciclo for migiorato per la ricerca
-	 * dello User nel file user.csv.
-	 * 
-	 * Modifica: aggiunta di un argomento BigInteger findId per la ricerca: se il file Ã¨ vuoto, 
-	 * il campo tmpUserId assume un valore BigInteger.zeroLenght e da luogo ad un flusso non gestito;
-	 * 
-	 */
-	public User get(BigInteger findId) throws IOException {		
+	public TestUserGetThomas get(BigInteger findId) throws IOException {		
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
-			User user = null;
+			TestUserGetThomas user = null;
 			for(String line:lines) {
 				String[] fields = line.split(",") ;				
 				aggiornaMappa(fields);
 				BigInteger tmpUserId = new BigInteger(fieldsMap.get("userId"));
 				if (tmpUserId.equals(findId)) {
-					user = new User();					
+					user = new TestUserGetThomas();					
 					user.setFirstName(fieldsMap.get("firstName"));
 					user.setLastName(fieldsMap.get("lastName"));
 					user.setEmail(fieldsMap.get("email"));					
@@ -234,28 +211,26 @@ public class User implements Persist, Comparable<User> {
 	 * 
 	 * SortedSet users = Collections.syncronizedSortedSet(new TreeSet<User>(new UserComparator()));
 	 */
-	public SortedSet<User> getAll() throws IOException {
+	public void getAll() throws IOException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
-			SortedSet<User> users = new TreeSet<User>();
+	
 			for(String line:lines) {				
-				User user = null;
 				String[] fields = line.split(",");
 				aggiornaMappa(fields);
-				if (!fieldsMap.get("userId").equals("")) {
-					user = new User();
-					user.setUserId(new BigInteger(fieldsMap.get("userId")));
-					user.setFirstName(fieldsMap.get("firstName"));
-					user.setLastName(fieldsMap.get("lastName"));
-					user.setEmail(fieldsMap.get("email"));					
-					user.setMobilePhone(fieldsMap.get("mobilePhone"));
-					user.setActive(Boolean.parseBoolean(fieldsMap.get("isActive")));
-					user.setPrivacyConsent(Boolean.parseBoolean(fieldsMap.get("isPrivacyConsent")));
-					user.setNewsletter(Boolean.parseBoolean(fieldsMap.get("isNewsletter")));					
-					users.add(user);
+				if (!fieldsMap.get("userId").equals("")) {					
+					System.out.println(new BigInteger(fieldsMap.get("userId")));
+					System.out.println(fieldsMap.get("firstName"));
+					System.out.println(fieldsMap.get("lastName"));
+					System.out.println(fieldsMap.get("email"));					
+					System.out.println(fieldsMap.get("mobilePhone"));
+					System.out.println(Boolean.parseBoolean(fieldsMap.get("isActive")));
+					System.out.println(Boolean.parseBoolean(fieldsMap.get("isPrivacyConsent")));
+					System.out.println(Boolean.parseBoolean(fieldsMap.get("isNewsletter")));				
+
 				}
 			}
-			return users;
+		
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new IOException();
@@ -268,17 +243,7 @@ public class User implements Persist, Comparable<User> {
 	 * @throws IOException
 	 */
 	
-	public synchronized BigInteger getLastId() throws IOException{
-		try {
-					
-			BigInteger lastId = (getAll().isEmpty())? this.getUserId() :  getAll().last().getUserId();
-			System.out.println("Chiamato getLastId(): lastId = " + lastId);
-			return lastId;			
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IOException();
-		}
-	}
+
 
 	/**
 
@@ -300,21 +265,21 @@ public class User implements Persist, Comparable<User> {
 	 * @return
 	 * @throws IOException
 	 */
-	public User get() throws IOException {
+	public TestUserGetThomas get() throws IOException {
 		
 		BufferedReader br = Files.newBufferedReader(GetFileResource.get("user.csv", "shoppinglist").toPath());
 		
 		
 		String line = br.readLine();
 		
-		User user = null;
+		TestUserGetThomas user = null;
 		
 		while (line != null) {
 			String[] fields = line.split(",");
 			aggiornaMappa(fields);		
 			BigInteger tmpUserId = new BigInteger(fieldsMap.get("userId"));
 			if (tmpUserId.equals(this.getUserId())) {
-				user = new User();
+				user = new TestUserGetThomas();
 				user.setFirstName(fieldsMap.get("firstName"));
 				user.setLastName(fieldsMap.get("lastName"));
 				user.setEmail(fieldsMap.get("email"));					
@@ -327,56 +292,16 @@ public class User implements Persist, Comparable<User> {
 			
 		}
 		
-		return new User();
+		return new TestUserGetThomas();
 	}
 	
 	/**
 	 * Salva un oggetto user
 	 */
   
-	public void store() throws IOException {
-		System.out.println("Chiamato store(): UserId =  " + this.getUserId());
-		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(GetFileResource.get("user.csv", "shoppinglist").toPath().toString(), true));
-			StringBuilder builder = new StringBuilder();
-			System.out.println("Condizione compareTo: " + (this.getUserId().compareTo(getLastId()) > 0));
-			if ((this.getUserId().equals(BigInteger.ONE) || this.getUserId().compareTo(getLastId()) > 0) && !getAll().contains(this)) {
-				builder.append(this.getUserId());
-				builder.append(",");
-				builder.append(this.getFirstName());
-				builder.append(",");
-				builder.append(this.getLastName());
-				builder.append(",");
-				builder.append(this.getEmail());
-				builder.append(",");
-				builder.append(this.getMobilePhone());
-				builder.append(",");
-				builder.append(this.isActive());
-				builder.append(",");
-				builder.append(this.isPrivacyConsent());
-				builder.append(",");
-				builder.append(this.isNewsletter());
-				builder.append(",");
-				builder.append(System.getProperty("line.separator"));
-				writer.write(builder.toString());
-				writer.flush();
-				writer.close();
-				System.out.println("User " + this.getFirstName() + " salvato");
-			} else {
-//				Implementazione del blocco per l'update o chiamata ad un metodo apposito
-				System.out.println("no user stored or updated!");
-			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new IOException();
-		}
-	}
 
-	@Override
-	public int compareTo(User o) {
-		return o.getUserId().compareTo(userId);
-	}
+
 
 	
 
