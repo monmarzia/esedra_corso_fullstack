@@ -13,12 +13,12 @@ import com.sun.net.httpserver.HttpExchange;
 
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
+import it.esedra.corso.shoppinglist.model.Unit;
 
-public class AddShoppingList extends ShoppingListHandler {
+public class UpdateShoppingList extends ShoppingListHandler {
 
 	@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
-
 		StringBuilder sb = new StringBuilder();
 		InputStream ios = exchange.getRequestBody();
 		int i;
@@ -40,7 +40,7 @@ public class AddShoppingList extends ShoppingListHandler {
 				Product item = new Product();
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
-				//item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
+				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
 				shoppingList.addProduct(item);
 			}
 
@@ -50,6 +50,6 @@ public class AddShoppingList extends ShoppingListHandler {
 			throw new IOException("Errore interno");
 		}
 
-		return "Lista aggiunta";
+		return "Lista aggiornata";
 	}
 }
