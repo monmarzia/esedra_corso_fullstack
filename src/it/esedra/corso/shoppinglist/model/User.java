@@ -1,27 +1,26 @@
 package it.esedra.corso.shoppinglist.model;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-
-import java.io.BufferedReader;
-
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
+import it.esedra.corso.shoppinglist.helper.SequenceManager;
 
 /**
  * @author monica
  *
  */
 public class User implements Persist, Comparable<User> {
-	private static BigInteger id = new BigInteger("0");
-	private BigInteger userId = id;
+	private BigInteger userId = new BigInteger("0");
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -29,7 +28,9 @@ public class User implements Persist, Comparable<User> {
 	private boolean isActive = false;
 	private boolean privacyConsent = false;
 	private boolean newsletter = false;
-	private final static String[] campi = {		
+	private Map<BigInteger, User> storedUsers = new HashMap<>();
+
+  private final static String[] campi = {		
 			"userId",
 			"firstName",
 			"lastName",
@@ -42,14 +43,9 @@ public class User implements Persist, Comparable<User> {
 	private final static HashMap<String, String> fieldsMap = new HashMap<>() ;
 	static {		
 		for(int i = 0 ; i < campi.length; i++) {
-			fieldsMap.put(campi[i],null ); // mi aggiunge alla mappa tutti i campi con le chiavi null cos� dopo posso richiamare i campi e rimpiazzare il null con la chiave desiderata
+			fieldsMap.put(campi[i],null ); // mi aggiunge alla mappa tutti i campi con le chiavi null così dopo posso richiamare i campi e rimpiazzare il null con la chiave desiderata
 		}
 	}
-	
-
-	
-
-
 	
 	
 	public User() {
@@ -147,16 +143,72 @@ public class User implements Persist, Comparable<User> {
 		return this;
 	}
 	
+	public Map<BigInteger, User> getStoredUsers() {
+		return storedUsers;
+	}
+
 	/**
 	 * 
 	 * @return userID incrementato di 1
-	 * 
-	 * Testato l'incremento: il secondo user ha userId = 2;
+	 *  Sostituito getSequence() con newUserId()
 	 */
 	
-	public BigInteger getSequence() {
-		id = id.add(BigInteger.ONE);
-		return userId = id ;
+	public BigInteger newUserId() {
+		return userId = SequenceManager.newIdUser();
+	}
+	
+	public Map<BigInteger, User> addToStoredUsers (User user) {
+		storedUsers.put(user.getUserId(), user);
+		return storedUsers;
+	}
+	
+	/*
+	 * @return SortedSet users
+	 * 
+	 * Restituisce un TreeSet di User ordinato secondo userId
+	 * 
+	 */
+	public static SortedSet<User> getAll() throws IOException {
+		try {
+			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
+			SortedSet<User> users = new TreeSet<User>();
+			for(String line:lines) {				
+				User user = null;
+				String[] fields = line.split(",");
+				if (!fields[0].equals("")) {
+					user = new User();
+					user.setActive(Boolean.parseBoolean(fields[5]));
+					user.setEmail(fields[3]);
+					user.setFirstName(fields[1]);
+					user.setLastName(fields[2]);
+					user.setMobilePhone(fields[4]);
+					user.setNewsletter(Boolean.parseBoolean(fields[7]));
+					user.setPrivacyConsent(Boolean.parseBoolean(fields[6]));
+					user.setUserId(new BigInteger(fields[0]));
+					users.add(user);
+				}
+			}
+			return users;
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IOException();
+		}		
+	}
+	
+	/**
+	 * 
+	 * @return l'id piÃ¹ in alto assegnato
+	 * @throws IOException
+	 */
+	
+	public synchronized static BigInteger getLastId() throws IOException{
+		try {					
+			BigInteger lastId = (getAll().isEmpty())? SequenceManager.newIdUser() :  getAll().last().getUserId();
+			return lastId;			
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IOException();
+		}
 	}
 	
 	
@@ -186,10 +238,11 @@ public class User implements Persist, Comparable<User> {
 	 * una List di String ciascuna con una linea. Utilizzato un ciclo for migiorato per la ricerca
 	 * dello User nel file user.csv.
 	 * 
-	 * Modifica: aggiunta di un argomento BigInteger findId per la ricerca: se il file è vuoto, 
+	 * Modifica: aggiunta di un argomento BigInteger findId per la ricerca: se il file Ã¨ vuoto, 
 	 * il campo tmpUserId assume un valore BigInteger.zeroLenght e da luogo ad un flusso non gestito;
 	 * 
 	 */
+	
 	public User get(BigInteger findId) throws IOException {		
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
@@ -217,29 +270,20 @@ public class User implements Persist, Comparable<User> {
 				
 	}
 	
-	/*
-	 * @return SortedSet users
+	/**
+	 * Viene chiamato su un'istanza di User:
+	 * legge i records dal file csv e se trova un record con userId corrispondente
+	 * a quello dell'istanza chiamante, restituisce un nuovo user con i dati del record,
+	 * altrimenti restituisce user = null;
 	 * 
-	 * Restituisce un TreeSet di User ordinato secondo userId:
-	 * Manca l'implementazione dell'interfaccia Comparator in una classe da utilizzare per l'ordinamento:
-	 * 
-	 * public class UserComparator implements Comparator<User> {
-	 * 	@Override 
-	 * 		public int compare(User o1, User o2) {
-	 * 			return o1.getUserId().compareTo(o2.getUserId();
-	 * 		}
-	 * }
-	 * 
-	 * Costruire il TreeSet usando il comparator e il metodo Collections.syncronizedSortedSet
-	 * 
-	 * SortedSet users = Collections.syncronizedSortedSet(new TreeSet<User>(new UserComparator()));
+	 * @return
+	 * @throws IOException
 	 */
-	public SortedSet<User> getAll() throws IOException {
+	public User get() throws IOException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get("user.csv", "shoppinglist").toPath());
-			SortedSet<User> users = new TreeSet<User>();
+			User user = null;
 			for(String line:lines) {				
-				User user = null;
 				String[] fields = line.split(",");
 				aggiornaMappa(fields);
 				if (!fieldsMap.get("userId").equals("")) {
@@ -255,44 +299,13 @@ public class User implements Persist, Comparable<User> {
 					users.add(user);
 				}
 			}
-			return users;
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IOException();
-		}		
-	}
-	
-	/**
-	 * 
-	 * @return l'id più in alto assegnato
-	 * @throws IOException
-	 */
-	
-	public synchronized BigInteger getLastId() throws IOException{
-		try {
-					
-			BigInteger lastId = (getAll().isEmpty())? this.getUserId() :  getAll().last().getUserId();
-			System.out.println("Chiamato getLastId(): lastId = " + lastId);
-			return lastId;			
-		} catch (IOException e) {
-			e.printStackTrace();
+			return user;
+		} catch (Exception e) {
 			throw new IOException();
 		}
 	}
-
-	/**
-
-	 * 
-	 * Salva un oggetto user nel file user.csv:
-	 * Se il file è vuoto, crea un nuovo utente con id=1
-	 * Se il file non è vuoto, controlla che userId sia maggiore di getLastId() e che getAll() non
-	 * contenga un utente con lo stesso userId: verificate le condizioni procede con lo store
-	 * In caso contrario si può procedere con l'update, non implementato.
-	 * L'implementazione dell'update richiede la possibilità di sovrascrivere una riga del file.
-	 * Il metodo get(userId) non è ancora stato utilizzato.
-	 * 
-	 */
 	
+
 	/**
 	 * Restituisce un nuovo oggetto User
 	 * 
@@ -326,20 +339,19 @@ public class User implements Persist, Comparable<User> {
 			}
 			
 		}
+
 		
-		return new User();
+		return false;
 	}
 	
 	/**
-	 * Salva un oggetto user
+	 * Salva un oggetto user se non Ã¨ giÃ  registrato il suo userId
 	 */
   
 	public void store() throws IOException {
-		System.out.println("Chiamato store(): UserId =  " + this.getUserId());
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(GetFileResource.get("user.csv", "shoppinglist").toPath().toString(), true));
 			StringBuilder builder = new StringBuilder();
-			System.out.println("Condizione compareTo: " + (this.getUserId().compareTo(getLastId()) > 0));
 			if ((this.getUserId().equals(BigInteger.ONE) || this.getUserId().compareTo(getLastId()) > 0) && !getAll().contains(this)) {
 				builder.append(this.getUserId());
 				builder.append(",");
@@ -362,6 +374,7 @@ public class User implements Persist, Comparable<User> {
 				writer.flush();
 				writer.close();
 				System.out.println("User " + this.getFirstName() + " salvato");
+				addToStoredUsers(this);
 			} else {
 //				Implementazione del blocco per l'update o chiamata ad un metodo apposito
 				System.out.println("no user stored or updated!");
@@ -372,12 +385,9 @@ public class User implements Persist, Comparable<User> {
 			throw new IOException();
 		}
 	}
-
+	
 	@Override
 	public int compareTo(User o) {
 		return o.getUserId().compareTo(userId);
 	}
-
-	
-
 }

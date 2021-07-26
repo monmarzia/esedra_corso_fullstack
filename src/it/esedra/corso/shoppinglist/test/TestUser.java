@@ -5,7 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.util.SortedSet;
+import java.math.BigInteger;
+import java.util.Map;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -49,14 +50,18 @@ public class TestUser {
 						.setPrivacyConsent(Boolean.parseBoolean(isPrivacyConsent))
 						.setNewsletter(Boolean.parseBoolean(isNewsletter))
 						.build();
-				user.getSequence();
+				user.newUserId();
 				user.store();
-				SortedSet<User> users = user.getAll();
-				for(User usr: users) {
-					if(usr != null) {
-						System.out.println(usr.getFirstName());
-					}
+				Map<BigInteger, User> users = user.getStoredUsers();
+				for(Map.Entry<BigInteger, User> entry: users.entrySet()) {
+					System.out.println("User id: " + entry.getKey() + " - Nome: " + entry.getValue().getFirstName());
 				}
+//				SortedSet<User> users = user.getAll();
+//				for(User usr: users) {
+//					if(usr != null) {
+//						System.out.println(usr.getFirstName());
+//					}
+//				}
 			}
 			
 		} catch (FileNotFoundException e) {
