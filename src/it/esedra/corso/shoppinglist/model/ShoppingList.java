@@ -6,11 +6,12 @@ import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
 /**
@@ -33,6 +34,17 @@ public class ShoppingList implements Persist {
 	private User user; 
 	private BigInteger id; 
 	private String uniqueCode;
+
+	private final static Map<String, Integer> fieldsMap ;
+	static {		
+		HashMap<String, Integer> tmpMap = new HashMap<String, Integer>() ;
+		tmpMap.put("name", 0);
+		tmpMap.put("qty", 1);
+		tmpMap.put("unit", 2);
+		tmpMap.put("listName", 3);
+		fieldsMap = Collections.unmodifiableMap(tmpMap);
+		
+	}
 
 	
 	public User getUser() {
@@ -90,21 +102,8 @@ public class ShoppingList implements Persist {
 		this.listName = listName;
 	}
 
-	/**
-	 * Restituisce un nuovo oggetto con il nome della lista e le proprietà del prodotto
-	 * 
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
 	
-public void aggiornaMappa(String[] fields) {
-		
-		for(int i = 0 ; i < campi.length; i++) {
-			fieldsMap.replace(campi[i],fields[i] );
-		}
 
-}
 	
 public ShoppingList get() throws IOException {
 		
@@ -117,14 +116,12 @@ public ShoppingList get() throws IOException {
 			String[] fields = line.split(",");
 			BigInteger tmpId = new BigInteger("id");
 			Product tmpProduct = new Product();
-			aggiornaMappa(fields);
 			if (tmpId.equals(this.getId())) {
 				shoppingList = new ShoppingList();				
-				tmpProduct.setName(fieldsMap.get("name"));
-				tmpProduct.setQty(Integer.parseInt(fieldsMap.get("qty")));
-				tmpProduct.setUnit(Unit.valueOf(fieldsMap.get("unit")));
-				shoppingList.setListName(fieldsMap.get("listName"));
-
+				tmpProduct.setName(fields[fieldsMap.get("name")]);
+				tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
+				tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
+				shoppingList.setListName(fields[fieldsMap.get("listName")]);
 				shoppingList.addProduct(tmpProduct);
 			}
 		}
