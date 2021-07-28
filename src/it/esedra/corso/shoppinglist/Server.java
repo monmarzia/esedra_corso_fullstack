@@ -10,8 +10,12 @@ import com.sun.net.httpserver.HttpServer;
 
 import it.esedra.corso.shoppinglist.controller.AddShoppingList;
 import it.esedra.corso.shoppinglist.controller.AddUser;
+import it.esedra.corso.shoppinglist.controller.DeleteShoppingList;
+import it.esedra.corso.shoppinglist.controller.DeleteUser;
+import it.esedra.corso.shoppinglist.controller.GetShoppingList;
 import it.esedra.corso.shoppinglist.controller.GetUser;
 import it.esedra.corso.shoppinglist.controller.UpdateShoppingList;
+import it.esedra.corso.shoppinglist.controller.UpdateUser;
 
 public class Server {
 
@@ -28,6 +32,10 @@ public class Server {
 		server.createContext("/add-user", new AddUser());
 		server.createContext("/get-user", new GetUser());
 		server.createContext("/update-shopping-list", new UpdateShoppingList());
+		server.createContext("/get-shopping-list", new GetShoppingList());
+		server.createContext("/update-user", new UpdateUser());
+		server.createContext("/delete-user", new DeleteUser());
+		server.createContext("/delete-shopping-list", new DeleteShoppingList());
 		server.setExecutor(null);
 		server.start();
 		System.out.println("Server started"); 

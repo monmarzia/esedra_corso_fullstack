@@ -138,6 +138,13 @@ public class ShoppingList implements Persist {
 
 			PrintWriter writer = new PrintWriter(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName));
 			StringBuilder builder = new StringBuilder();
+			builder.append(this.getId());
+			builder.append(ShoppingList.fieldSeparator);
+			builder.append(this.getListName());
+			builder.append(ShoppingList.fieldSeparator);
+			builder.append(this.getUniqueCode());
+			builder.append(ShoppingList.fieldSeparator);
+			builder.append(System.getProperty("line.separator"));
 			for (Product listaTemp : products) {
 				if (listaTemp == null) {
 					continue;

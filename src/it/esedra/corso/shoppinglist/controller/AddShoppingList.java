@@ -46,6 +46,7 @@ public class AddShoppingList extends ShoppingListHandler {
 				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
 				shoppingList.addProduct(item);
 			}
+			
 			shoppingList.setListName(listName);
 			shoppingList.store();
 		} catch (Exception e) {
