@@ -1,10 +1,11 @@
 package it.esedra.corso.shoppinglist.model;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.UUID;
+
+import it.esedra.corso.shoppinglist.exceptions.StoreException;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 import it.esedra.corso.shoppinglist.helper.SequenceManager;
 
@@ -36,7 +40,7 @@ public class ShoppingList implements Persist {
 	private static final String fieldSeparator = ",";
 
 	public static enum Fields {
-		listName
+		listName, id
 	}
 	
 	private final static Map<String, Integer> fieldsMap;
@@ -138,24 +142,27 @@ public class ShoppingList implements Persist {
 
 			PrintWriter writer = new PrintWriter(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName));
 			StringBuilder builder = new StringBuilder();
-			builder.append(this.getId());
-			builder.append(ShoppingList.fieldSeparator);
-			builder.append(this.getListName());
-			builder.append(ShoppingList.fieldSeparator);
-			builder.append(this.getUniqueCode());
-			builder.append(ShoppingList.fieldSeparator);
-			builder.append(System.getProperty("line.separator"));
+			
+			if (this.getUniqueCode() == null) {
+				this.setUniqueCode(ShoppingList.generateUniqueKey(this.getId(), this.getListName()));
+			}
+			
 			for (Product listaTemp : products) {
 				if (listaTemp == null) {
 					continue;
 				}
+				builder.append(this.getId());
+				builder.append(ShoppingList.fieldSeparator);
+				builder.append(this.getListName());
+				builder.append(ShoppingList.fieldSeparator);
+				builder.append(this.getUniqueCode());
+				builder.append(ShoppingList.fieldSeparator);
 				builder.append(listaTemp.getName());
 				builder.append(ShoppingList.fieldSeparator);
 				builder.append(listaTemp.getQty());
 				builder.append(ShoppingList.fieldSeparator);
 				builder.append(listaTemp.getUnit());
 				builder.append(ShoppingList.fieldSeparator);
-				builder.append(this.getListName());
 				builder.append(System.getProperty("line.separator"));
 
 			}
@@ -165,7 +172,8 @@ public class ShoppingList implements Persist {
 			writer.close();
 
 		} catch (Exception e) {
-			throw new IOException();
+			e.printStackTrace();
+			throw new IOException(e.getMessage());
 		}
 
 	}
@@ -203,4 +211,21 @@ public class ShoppingList implements Persist {
 
 	}
 
+	/**
+	 * Genera la unique key
+	 * @param id
+	 * @param name
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 */
+	private static String generateUniqueKey(BigInteger id, String name) throws StoreException {
+		try {
+			UUID uuid = UUID.randomUUID();
+			long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
+			return Long.toString(l);
+		} catch (Exception e) {
+			throw new StoreException(e.getMessage());
+		}
+		
+	}
 }

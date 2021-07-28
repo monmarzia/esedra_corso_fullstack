@@ -3,6 +3,7 @@ package it.esedra.corso.shoppinglist.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.math.BigInteger;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -34,6 +35,7 @@ public class AddShoppingList extends ShoppingListHandler {
 			JsonObject listaSpesaObject = reader.readObject();
 
 			String listName = listaSpesaObject.get(ShoppingList.Fields.listName.name()).toString();
+			BigInteger id = new BigInteger(listaSpesaObject.get(ShoppingList.Fields.id.name()).toString());
 			
 			JsonArray items = listaSpesaObject.get("products").asJsonArray();
 
@@ -46,7 +48,7 @@ public class AddShoppingList extends ShoppingListHandler {
 				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
 				shoppingList.addProduct(item);
 			}
-			
+			shoppingList.setId(id);
 			shoppingList.setListName(listName);
 			shoppingList.store();
 		} catch (Exception e) {
