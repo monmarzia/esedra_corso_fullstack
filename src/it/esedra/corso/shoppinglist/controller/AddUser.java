@@ -16,12 +16,9 @@ import it.esedra.corso.shoppinglist.model.User;
 
 public class AddUser extends ShoppingListHandler {
 
-	@Override
+@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
 
-		// è praticamente TestUser con un unica modifica
-		// MODIFICA InputStream inputUser = new
-		// FileInputStream(GetFileResource.get("user.json", "test"));
 		InputStream inputUser = exchange.getRequestBody(); // possibile avendo fatto partire AddUser tramite richiesta
 															// usando AddUserTest per postare sul body
 
@@ -56,7 +53,7 @@ public class AddUser extends ShoppingListHandler {
 						.setPrivacyConsent(Boolean.parseBoolean(isPrivacyConsent))
 						.setNewsletter(Boolean.parseBoolean(isNewsletter))
 						.build();
-				user.getSequence();
+				user.newUserId();
 				user.store();
 			}
 			// System.out.println(user.getUserId());
@@ -66,5 +63,6 @@ public class AddUser extends ShoppingListHandler {
 
 		return "Utente aggiunto";
 	}
+
 
 }

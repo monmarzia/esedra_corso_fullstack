@@ -26,7 +26,7 @@ public class Server {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		HttpServer server = HttpServer.create(new InetSocketAddress(3000), 0);
+		HttpServer server = HttpServer.create(new InetSocketAddress(3005), 0);
 		server.createContext("/", new DefaultHandler());
 		server.createContext("/add-shopping-list", new AddShoppingList());
 		server.createContext("/add-user", new AddUser());

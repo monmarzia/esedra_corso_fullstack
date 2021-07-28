@@ -33,7 +33,9 @@ public class AddShoppingList extends ShoppingListHandler {
 			JsonReader reader = Json.createReader(new StringReader(jsonStr));
 			JsonObject listaSpesaObject = reader.readObject();
 
-			JsonArray items = listaSpesaObject.get("items").asJsonArray();
+			String listName = listaSpesaObject.get(ShoppingList.Fields.listName.name()).toString();
+			
+			JsonArray items = listaSpesaObject.get("products").asJsonArray();
 
 			ShoppingList shoppingList = new ShoppingList();
 			for (Object o : items) {
@@ -45,6 +47,7 @@ public class AddShoppingList extends ShoppingListHandler {
 				shoppingList.addProduct(item);
 			}
 			
+			shoppingList.setListName(listName);
 			shoppingList.store();
 		} catch (Exception e) {
 			e.printStackTrace();
