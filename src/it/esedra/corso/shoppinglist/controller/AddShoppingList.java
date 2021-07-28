@@ -13,6 +13,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
+import it.esedra.corso.shoppinglist.model.Unit;
 
 public class AddShoppingList extends ShoppingListHandler {
 
@@ -40,10 +41,10 @@ public class AddShoppingList extends ShoppingListHandler {
 				Product item = new Product();
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
-				//item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
+				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
 				shoppingList.addProduct(item);
 			}
-
+			
 			shoppingList.store();
 		} catch (Exception e) {
 			e.printStackTrace();

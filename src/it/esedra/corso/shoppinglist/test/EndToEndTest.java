@@ -9,7 +9,10 @@ public class EndToEndTest {
 		AddShoppingListTest.execute();
 		GetUserTest.execute();
 		UpdateShoppingListTest.execute();
-
+		//GetShoppingListTest.execute();
+		UpdateUserTest.execute();
+		DeleteUserTest.execute();
+		DeleteShoppingListTest.execute();
 	}
 }
 

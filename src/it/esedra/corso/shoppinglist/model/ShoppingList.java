@@ -111,6 +111,13 @@ public class ShoppingList implements Persist {
 
 			PrintWriter writer = new PrintWriter(GetFileResource.get("lista.csv", "shoppinglist"));
 			StringBuilder builder = new StringBuilder();
+			builder.append(this.getId());
+			builder.append(",");
+			builder.append(this.getListName());
+			builder.append(",");
+			builder.append(this.getUniqueCode());
+			builder.append(",");
+			builder.append(System.getProperty("line.separator"));
 			for (Product listaTemp : products) {
 				if (listaTemp == null) {
 					continue;
@@ -121,7 +128,6 @@ public class ShoppingList implements Persist {
 				builder.append(",");
 				builder.append(listaTemp.getUnit());
 				builder.append(",");
-				builder.append(this.getListName());
 				builder.append(System.getProperty("line.separator"));
 
 			}

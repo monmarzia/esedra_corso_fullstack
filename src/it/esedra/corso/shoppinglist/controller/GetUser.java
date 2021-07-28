@@ -3,8 +3,7 @@ package it.esedra.corso.shoppinglist.controller;
 import java.io.IOException;
 import java.math.BigInteger;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import javax.json.Json;
 
 import com.sun.net.httpserver.HttpExchange;
 
@@ -21,17 +20,18 @@ public class GetUser extends ShoppingListHandler {
 		String userString = "";
 		
 		try {
-			userString = new JSONObject()
-			        .put("user", new JSONObject()
-			        		.put("isNewsletter", userGet.isNewsletter())
-			        		.put("isPrivacyConsent", userGet.isPrivacyConsent())
-			        		.put("isActive", userGet.isActive())
-			        		.put("mobilePhone", userGet.getMobilePhone())
-			        		.put("email", userGet.getEmail())
-			        		.put("lastName", userGet.getLastName())
-			        		.put("firstName", userGet.getFirstName()))
+			userString = Json.createObjectBuilder()
+			        .add("user", Json.createObjectBuilder()
+			        		.add("isNewsletter", userGet.isNewsletter())
+			        		.add("isPrivacyConsent", userGet.isPrivacyConsent())
+			        		.add("isActive", userGet.isActive())
+			        		.add("mobilePhone", userGet.getMobilePhone())
+			        		.add("email", userGet.getEmail())
+			        		.add("lastName", userGet.getLastName())
+			        		.add("firstName", userGet.getFirstName()).build())
+			        		.build()
 			        		.toString();
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
