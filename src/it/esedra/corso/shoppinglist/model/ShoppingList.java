@@ -53,29 +53,29 @@ public class ShoppingList implements Persist {
 		fieldsMap = Collections.unmodifiableMap(tmpMap);
 
 	}
+	
+	public ShoppingList(List<Product> products, String listName, User user, BigInteger id, String uniqueCode) {
+		this.products = products;
+		this.listName = listName;
+		this.user = user;
+		this.id = id;
+		this.uniqueCode = uniqueCode;
+	}
+	
+	private ShoppingList() {	
+
+	}
 
 	public User getUser() {
 		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public BigInteger getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
-		this.id = id;
-	}
-
 	public String getUniqueCode() {
 		return uniqueCode;
-	}
-
-	public void setUniqueCode(String uniqueCode) {
-		this.uniqueCode = uniqueCode;
 	}
 
 	public List<Product> getProducts() {
@@ -84,14 +84,6 @@ public class ShoppingList implements Persist {
 
 	public String getListName() {
 		return listName;
-	}
-
-	public void addProduct(Product product) {
-		this.products.add(product);
-	}
-
-	public void setListName(String listName) {
-		this.listName = listName;
 	}
 
 	/**
@@ -114,23 +106,23 @@ public class ShoppingList implements Persist {
 	public ShoppingList get(ShoppingList inShoppingList) throws IOException {
 
 		List<String> lines = Files.readAllLines(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName).toPath());
-
-		ShoppingList shoppingList = new ShoppingList();
-
+		ShoppingListBuilder builder = null;
 		for (String line : lines) {
 			String[] fields = line.split(ShoppingList.fieldSeparator);
-			BigInteger tmpId = new BigInteger("id");
-			Product tmpProduct = new Product();
-			if (tmpId.equals(this.getId())) {
-				shoppingList = new ShoppingList();
+			
+			if (inShoppingList.getUniqueCode().equals(fields[fieldsMap.get(uniqueCode)])) {
+				if(builder == null) {
+					builder = ShoppingListBuilder.builder();
+					builder.uniqueCode(fields[fieldsMap.get(uniqueCode)]).listName(fields[fieldsMap.get(Fields.listName.name())]);
+				}
+				Product tmpProduct = new Product();
 				tmpProduct.setName(fields[fieldsMap.get("name")]);
 				tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-				tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
-				shoppingList.setListName(fields[fieldsMap.get(Fields.listName.name())]);
-				shoppingList.addProduct(tmpProduct);
+				tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));								
+				builder.addProduct(tmpProduct);
 			}
 		}
-		return shoppingList;
+		return builder.build();
 	}
 
 	/**
