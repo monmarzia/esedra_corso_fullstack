@@ -111,7 +111,7 @@ public class ShoppingList implements Persist {
 
 	}
 
-	public ShoppingList get() throws IOException {
+	public ShoppingList get(ShoppingList inShoppingList) throws IOException {
 
 		List<String> lines = Files.readAllLines(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName).toPath());
 

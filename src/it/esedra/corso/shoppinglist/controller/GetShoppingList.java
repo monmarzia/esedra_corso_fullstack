@@ -1,6 +1,7 @@
 package it.esedra.corso.shoppinglist.controller;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 import javax.json.Json;
@@ -8,36 +9,29 @@ import javax.json.JsonArray;
 
 import com.sun.net.httpserver.HttpExchange;
 
-import it.esedra.corso.shoppinglist.model.Product;
-import it.esedra.corso.shoppinglist.model.ShoppingList;
+import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
 public class GetShoppingList extends ShoppingListHandler {
 
 	@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
-
-		ShoppingList shoppingList = new ShoppingList();
-
-		shoppingList = shoppingList.get();
-
-		String shoppingListString = "";
-
-		List<Product> products = shoppingList.getProducts();
-
+		
+		String response = "";
+		
 		try {
+			String uri = exchange.getRequestURI().toString();
 
-			JsonArray array = Json.createArrayBuilder().build();
+			String[] fieldsUri = uri.split("/");
 
-			for (Product p : products) {
-				array.add(Json.createObjectBuilder().add("name", p.getName()).add("qty", p.getQty()).build());
-			}
+			String uniqueCode = fieldsUri[fieldsUri.length - 1];
 
-			shoppingListString = Json.createObjectBuilder().add("list", array).build().toString();
+			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return shoppingListString;
+		return response;
 	}
 
 }
