@@ -70,14 +70,6 @@ public class User implements Persist, Comparable<User> {
 		this.newsletter = newsletter;
 	}
 
-	/**
-	 * 
-	 * @return new User() restituisce un'istanza di User con i parametri nell'ordine
-	 */
-	public User build() {
-		return new User(firstName, lastName, email, mobilePhone, isActive, privacyConsent, newsletter);
-	}
-
 	public BigInteger getUserId() {
 		return userId;
 	}
@@ -91,63 +83,31 @@ public class User implements Persist, Comparable<User> {
 		return firstName;
 	}
 
-	public User setFirstName(String firstName) {
-		this.firstName = firstName;
-		return this;
-	}
-
 	public String getLastName() {
 		return lastName;
 	}
 
-	public User setLastName(String lastName) {
-		this.lastName = lastName;
-		return this;
-	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	public User setEmail(String email) {
-		this.email = email;
-		return this;
-	}
 
 	public boolean isPrivacyConsent() {
 		return privacyConsent;
 	}
 
-	public User setPrivacyConsent(boolean privacyConsent) {
-		this.privacyConsent = privacyConsent;
-		return this;
-	}
 
 	public String getMobilePhone() {
 		return mobilePhone;
-	}
-
-	public User setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
-		return this;
 	}
 
 	public boolean isActive() {
 		return isActive;
 	}
 
-	public User setActive(boolean isActive) {
-		this.isActive = isActive;
-		return this;
-	}
-
 	public boolean isNewsletter() {
 		return newsletter;
-	}
-
-	public User setNewsletter(boolean newsletter) {
-		this.newsletter = newsletter;
-		return this;
 	}
 
 	public Map<BigInteger, User> getStoredUsers() {
@@ -206,18 +166,22 @@ public class User implements Persist, Comparable<User> {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(User.fileName, User.folderName).toPath());
 			User user = null;
+			UserBuilder userBuilder = null;
 			for (String line : lines) {
 				String[] fields = line.split(User.fieldSeparator);
 				BigInteger tmpUserId = new BigInteger(fields[fieldsMap.get(Fields.userId.name())]);
 				if (tmpUserId.equals(findId)) {
-					user = new User();
-					user.setFirstName(fields[fieldsMap.get(Fields.firstName.name())]);
-					user.setLastName(fields[fieldsMap.get(Fields.lastName.name())]);
-					user.setEmail(fields[fieldsMap.get(Fields.email.name())]);
-					user.setMobilePhone(fields[fieldsMap.get(Fields.mobilePhone.name())]);
-					user.setActive(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isActive.name())]));
-					user.setPrivacyConsent(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isPrivacyConsent.name())]));
-					user.setNewsletter(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isNewsletter.name())]));
+					if(userBuilder == null) {
+						userBuilder = UserBuilder.builder();
+						userBuilder.setFirstName(fields[fieldsMap.get(Fields.firstName.name())]);
+						userBuilder.setLastName(fields[fieldsMap.get(Fields.lastName.name())]);
+						userBuilder.setEmail(fields[fieldsMap.get(Fields.email.name())]);
+						userBuilder.setMobilePhone(fields[fieldsMap.get(Fields.mobilePhone.name())]);
+						userBuilder.setActive(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isActive.name())]));
+						userBuilder.setPrivacyConsent(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isPrivacyConsent.name())]));
+						userBuilder.setNewsletter(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isNewsletter.name())]));
+					}
+					user = userBuilder.build();
 					user.setUserId(tmpUserId);
 				}
 			}

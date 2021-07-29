@@ -47,7 +47,7 @@ public class UpdateUser extends ShoppingListHandler {
 						.setMobilePhone(mobilePhone).setActive(Boolean.parseBoolean(isActive))
 						.setPrivacyConsent(Boolean.parseBoolean(isPrivacyConsent))
 						.setNewsletter(Boolean.parseBoolean(isNewsletter)).build();
-				user.getSequence();
+				user.newUserId();
 				user.store();
 			}
 
