@@ -1,7 +1,6 @@
 package it.esedra.corso.shoppinglist.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 
 import javax.json.Json;
@@ -9,15 +8,17 @@ import javax.json.JsonArray;
 
 import com.sun.net.httpserver.HttpExchange;
 
-import it.esedra.corso.shoppinglist.helper.GetFileResource;
+import it.esedra.corso.shoppinglist.model.Product;
+import it.esedra.corso.shoppinglist.model.ShoppingList;
+import it.esedra.corso.shoppinglist.model.ShoppingListBuilder;
 
 public class GetShoppingList extends ShoppingListHandler {
 
 	@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
-		
+
 		String response = "";
-		
+
 		try {
 			String uri = exchange.getRequestURI().toString();
 
@@ -25,7 +26,25 @@ public class GetShoppingList extends ShoppingListHandler {
 
 			String uniqueCode = fieldsUri[fieldsUri.length - 1];
 
-			
+			ShoppingList shoppingListService = ShoppingListBuilder.builder().build();
+					
+			ShoppingList shoppingList = shoppingListService.get(ShoppingListBuilder.builder().uniqueCode(uniqueCode).build());
+
+			JsonArray arrayProducts = Json.createArrayBuilder().build();
+
+			List<Product> products = shoppingList.getProducts();
+
+			for (Product product : products) {
+				arrayProducts.add(
+						Json.createObjectBuilder()
+						.add("name", product.getName())
+						.add("qty", product.getQty())
+						.add("unit", product.getUnit().name()).build());
+			}
+
+			response = Json.createObjectBuilder().add("products", arrayProducts)
+					.add("listName", shoppingList.getListName()).add("id", shoppingList.getId())
+					.add("uniqueCode", shoppingList.getUniqueCode()).build().toString();
 
 		} catch (Exception e) {
 			e.printStackTrace();
