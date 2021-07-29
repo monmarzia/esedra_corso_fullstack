@@ -45,13 +45,13 @@ public class AddUser extends ShoppingListHandler {
 				String isPrivacyConsent = tmpUser.getString("isPrivacyConsent");
 				String isNewsletter = tmpUser.getString("isNewsletter");
 				user = new User()
-						.setFirstName(firstName)
-						.setLastName(lastName)
-						.setEmail(email)
-						.setMobilePhone(mobilePhone)
-						.setActive(Boolean.parseBoolean(isActive))
-						.setPrivacyConsent(Boolean.parseBoolean(isPrivacyConsent))
-						.setNewsletter(Boolean.parseBoolean(isNewsletter))
+						.firstName(firstName)
+						.lastName(lastName)
+						.email(email)
+						.mobilePhone(mobilePhone)
+						.active(Boolean.parseBoolean(isActive))
+						.privacyConsent(Boolean.parseBoolean(isPrivacyConsent))
+						.newsletter(Boolean.parseBoolean(isNewsletter))
 						.build();
 				user.newUserId();
 				user.store();

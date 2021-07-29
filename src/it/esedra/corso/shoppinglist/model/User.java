@@ -59,8 +59,9 @@ public class User implements Persist, Comparable<User> {
 
 	}
 
-	public User(String firstName, String lastName, String email, String mobilePhone, boolean isActive,
-			boolean privacyConsent, boolean newsletter) {
+	public User(BigInteger userId, String firstName, String lastName, String email, String mobilePhone,
+			boolean isActive, boolean privacyConsent, boolean newsletter) {
+		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -87,16 +88,13 @@ public class User implements Persist, Comparable<User> {
 		return lastName;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
 
-
 	public boolean isPrivacyConsent() {
 		return privacyConsent;
 	}
-
 
 	public String getMobilePhone() {
 		return mobilePhone;
@@ -165,27 +163,24 @@ public class User implements Persist, Comparable<User> {
 	public User get(BigInteger findId) throws IOException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(User.fileName, User.folderName).toPath());
-			User user = null;
-			UserBuilder userBuilder = null;
 			for (String line : lines) {
 				String[] fields = line.split(User.fieldSeparator);
 				BigInteger tmpUserId = new BigInteger(fields[fieldsMap.get(Fields.userId.name())]);
 				if (tmpUserId.equals(findId)) {
-					if(userBuilder == null) {
-						userBuilder = UserBuilder.builder();
-						userBuilder.setFirstName(fields[fieldsMap.get(Fields.firstName.name())]);
-						userBuilder.setLastName(fields[fieldsMap.get(Fields.lastName.name())]);
-						userBuilder.setEmail(fields[fieldsMap.get(Fields.email.name())]);
-						userBuilder.setMobilePhone(fields[fieldsMap.get(Fields.mobilePhone.name())]);
-						userBuilder.setActive(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isActive.name())]));
-						userBuilder.setPrivacyConsent(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isPrivacyConsent.name())]));
-						userBuilder.setNewsletter(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isNewsletter.name())]));
-					}
-					user = userBuilder.build();
-					user.setUserId(tmpUserId);
+					return UserBuilder.builder().firstName(fields[fieldsMap.get(Fields.firstName.name())])
+							.lastName(fields[fieldsMap.get(Fields.lastName.name())])
+							.email(fields[fieldsMap.get(Fields.email.name())])
+							.mobilePhone(fields[fieldsMap.get(Fields.mobilePhone.name())])
+							.active(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isActive.name())]))
+							.privacyConsent(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isPrivacyConsent.name())]))
+							.userId(tmpUserId)
+							.newsletter(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isNewsletter.name())]))
+							.build();
+
 				}
 			}
-			return user;
+
+			return null;
 		} catch (Exception e) {
 			throw new IOException();
 		}
@@ -218,15 +213,15 @@ public class User implements Persist, Comparable<User> {
 				User user = null;
 				String[] fields = line.split(User.fieldSeparator);
 				if (!fields[fieldsMap.get(Fields.userId.name())].equals("")) {
-					user = new User();
-					user.setFirstName(fields[fieldsMap.get(Fields.firstName.name())]);
-					user.setLastName(fields[fieldsMap.get(Fields.lastName.name())]);
-					user.setEmail(fields[fieldsMap.get(Fields.email.name())]);
-					user.setMobilePhone(fields[fieldsMap.get(Fields.mobilePhone.name())]);
-					user.setActive(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isActive.name())]));
-					user.setPrivacyConsent(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isPrivacyConsent.name())]));
-					user.setNewsletter(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isNewsletter.name())]));
-					users.add(user);
+
+					users.add(UserBuilder.builder().firstName(fields[fieldsMap.get(Fields.firstName.name())])
+							.lastName(fields[fieldsMap.get(Fields.lastName.name())])
+							.email(fields[fieldsMap.get(Fields.email.name())])
+							.mobilePhone(fields[fieldsMap.get(Fields.mobilePhone.name())])
+							.active(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isActive.name())]))
+							.privacyConsent(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isPrivacyConsent.name())]))
+							.newsletter(Boolean.parseBoolean(fields[fieldsMap.get(Fields.isNewsletter.name())]))
+							.userId(new BigInteger(fields[fieldsMap.get(Fields.userId.name())])).build());
 				}
 			}
 			return users;

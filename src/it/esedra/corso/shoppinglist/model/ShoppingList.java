@@ -40,9 +40,9 @@ public class ShoppingList implements Persist {
 	private static final String fieldSeparator = ",";
 
 	public static enum Fields {
-		listName, id
+		listName, id, uniqueCode
 	}
-	
+
 	private final static Map<String, Integer> fieldsMap;
 	static {
 		HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
@@ -53,7 +53,7 @@ public class ShoppingList implements Persist {
 		fieldsMap = Collections.unmodifiableMap(tmpMap);
 
 	}
-	
+
 	public ShoppingList(List<Product> products, String listName, User user, BigInteger id, String uniqueCode) {
 		this.products = products;
 		this.listName = listName;
@@ -61,8 +61,8 @@ public class ShoppingList implements Persist {
 		this.id = id;
 		this.uniqueCode = uniqueCode;
 	}
-	
-	private ShoppingList() {	
+
+	private ShoppingList() {
 
 	}
 
@@ -105,20 +105,22 @@ public class ShoppingList implements Persist {
 
 	public ShoppingList get(ShoppingList inShoppingList) throws IOException {
 
-		List<String> lines = Files.readAllLines(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName).toPath());
+		List<String> lines = Files
+				.readAllLines(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName).toPath());
 		ShoppingListBuilder builder = null;
 		for (String line : lines) {
 			String[] fields = line.split(ShoppingList.fieldSeparator);
-			
-			if (inShoppingList.getUniqueCode().equals(fields[fieldsMap.get(uniqueCode)])) {
-				if(builder == null) {
+
+			if (inShoppingList.getUniqueCode().equals(fields[fieldsMap.get(Fields.uniqueCode.name())])) {
+				if (builder == null) {
 					builder = ShoppingListBuilder.builder();
-					builder.uniqueCode(fields[fieldsMap.get(uniqueCode)]).listName(fields[fieldsMap.get(Fields.listName.name())]);
+					builder.uniqueCode(fields[fieldsMap.get(uniqueCode)])
+							.listName(fields[fieldsMap.get(Fields.listName.name())]);
 				}
 				Product tmpProduct = new Product();
 				tmpProduct.setName(fields[fieldsMap.get("name")]);
 				tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-				tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));								
+				tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
 				builder.addProduct(tmpProduct);
 			}
 		}
@@ -134,11 +136,11 @@ public class ShoppingList implements Persist {
 
 			PrintWriter writer = new PrintWriter(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName));
 			StringBuilder builder = new StringBuilder();
-			
+
 			if (this.getUniqueCode() == null) {
-				this.setUniqueCode(ShoppingList.generateUniqueKey(this.getId(), this.getListName()));
+				this.uniqueCode = ShoppingList.generateUniqueKey(this.getId(), this.getListName());
 			}
-			
+
 			for (Product listaTemp : products) {
 				if (listaTemp == null) {
 					continue;
@@ -174,19 +176,23 @@ public class ShoppingList implements Persist {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName).toPath());
 			SortedSet<ShoppingList> shoppingLists = new TreeSet<ShoppingList>();
+			ShoppingListBuilder builder = null;
 			for (String line : lines) {
-				ShoppingList shoppingList = new ShoppingList();
 				String[] fields = line.split(ShoppingList.fieldSeparator);
 				if (!fields[0].equals("")) {
-					shoppingList = new ShoppingList();
-					shoppingList.setListName(fields[fieldsMap.get(Fields.listName.name())]);
+					if(builder == null) {
+						builder = ShoppingListBuilder.builder();
+						builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
+							.listName(fields[fieldsMap.get(Fields.listName.name())]);
+					}
 					Product tmpProduct = new Product();
 					tmpProduct.setName(fields[fieldsMap.get("name")]);
 					tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
-					shoppingList.addProduct(tmpProduct);
+					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));								
+					builder.addProduct(tmpProduct);
 				}
-				shoppingLists.add(shoppingList);
+				shoppingLists.add(builder.build());
+
 			}
 			return shoppingLists;
 		} catch (IOException e) {
@@ -205,6 +211,7 @@ public class ShoppingList implements Persist {
 
 	/**
 	 * Genera la unique key
+	 * 
 	 * @param id
 	 * @param name
 	 * @return
@@ -218,6 +225,6 @@ public class ShoppingList implements Persist {
 		} catch (Exception e) {
 			throw new StoreException(e.getMessage());
 		}
-		
+
 	}
 }

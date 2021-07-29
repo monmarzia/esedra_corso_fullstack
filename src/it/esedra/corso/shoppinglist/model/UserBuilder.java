@@ -3,6 +3,7 @@ package it.esedra.corso.shoppinglist.model;
 import java.math.BigInteger;
 
 public class UserBuilder {
+	private BigInteger userId;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -32,41 +33,46 @@ public class UserBuilder {
 	}
 	
 	public User build() {
-		return new User(firstName, lastName, email, mobilePhone, isActive,
+		return new User(userId, firstName, lastName, email, mobilePhone, isActive,
 			privacyConsent, newsletter);
 	}
 
-	public UserBuilder setFirstName(String firstName) {
+	public UserBuilder firstName(String firstName) {
 		this.firstName = firstName;
 		return this;
 	}
 
-	public UserBuilder setLastName(String lastName) {
+	public UserBuilder userId(BigInteger userId) {
+		this.userId = userId;
+		return this;
+	}
+	
+	public UserBuilder lastName(String lastName) {
 		this.lastName = lastName;
 		return this;
 	}
 
-	public UserBuilder setEmail(String email) {
+	public UserBuilder email(String email) {
 		this.email = email;
 		return this;
 	}
 
-	public UserBuilder setMobilePhone(String mobilePhone) {
+	public UserBuilder mobilePhone(String mobilePhone) {
 		this.mobilePhone = mobilePhone;
 		return this;
 	}
 
-	public UserBuilder setActive(boolean isActive) {
+	public UserBuilder active(boolean isActive) {
 		this.isActive = isActive;		
 		return this;
 	}
 
-	public UserBuilder setPrivacyConsent(boolean privacyConsent) {
+	public UserBuilder privacyConsent(boolean privacyConsent) {
 		this.privacyConsent = privacyConsent;
 		return this;
 	}
 
-	public UserBuilder setNewsletter(boolean newsletter) {
+	public UserBuilder newsletter(boolean newsletter) {
 		this.newsletter = newsletter;
 		return this;
 	}
