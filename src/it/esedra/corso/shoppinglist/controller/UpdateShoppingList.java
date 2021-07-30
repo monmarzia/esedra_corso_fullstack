@@ -13,6 +13,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
+import it.esedra.corso.shoppinglist.model.ShoppingListBuilder;
 import it.esedra.corso.shoppinglist.model.Unit;
 
 public class UpdateShoppingList extends ShoppingListHandler {
@@ -34,14 +35,15 @@ public class UpdateShoppingList extends ShoppingListHandler {
 
 			JsonArray items = listaSpesaObject.get("items").asJsonArray();
 
-			ShoppingList shoppingList = new ShoppingList();
+			ShoppingList shoppingList = ShoppingListBuilder.builder().build();
 			for (Object o : items) {
 				JsonObject tmpObj = (JsonObject) o;
 				Product item = new Product();
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
 				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
-				shoppingList.addProduct(item);
+				ShoppingList shoppingListService = ShoppingListBuilder.builder().addProduct(item).build();
+				shoppingList = shoppingListService;
 			}
 
 			shoppingList.store();
