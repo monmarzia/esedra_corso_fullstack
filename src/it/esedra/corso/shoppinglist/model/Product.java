@@ -25,6 +25,11 @@ public class Product {
 	private String description;
 	private static BigInteger id = new BigInteger("1");
 
+	
+	public static enum Fields {
+		name, qty, unit
+	}
+	
 	/**
 	 * @return id incrementato di 1
 	 */
