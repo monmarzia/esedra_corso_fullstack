@@ -15,6 +15,7 @@ import javax.json.JsonReader;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 import it.esedra.corso.shoppinglist.model.User;
+import it.esedra.corso.shoppinglist.model.UserBuilder;
 
 public class TestUser {
 
@@ -34,21 +35,15 @@ public class TestUser {
 			JsonArray userArr = userJson.get("users").asJsonArray();
 			for(Object el: userArr) {
 				JsonObject tmpUser = (JsonObject)(el);
-				String firstName = tmpUser.getString("firstName");
-				String lastName = tmpUser.getString("lastName");
-				String email = tmpUser.getString("email");
-				String mobilePhone = tmpUser.getString("mobilePhone");
-				String isActive = tmpUser.getString("isActive");
-				String isPrivacyConsent = tmpUser.getString("isPrivacyConsent");
-				String isNewsletter = tmpUser.getString("isNewsletter");
-				user = new User()
-						.firstName(firstName)
-						.lastName(lastName)
-						.email(email)
-						.mobilePhone(mobilePhone)
-						.active(Boolean.parseBoolean(isActive))
-						.privacyConsent(Boolean.parseBoolean(isPrivacyConsent))
-						.newsletter(Boolean.parseBoolean(isNewsletter))
+				
+				user = UserBuilder.builder()
+						.firstName(tmpUser.getString("firstName"))
+						.lastName(tmpUser.getString("lastName"))
+						.email(tmpUser.getString("email"))
+						.mobilePhone(tmpUser.getString("mobilePhone"))
+						.active(Boolean.parseBoolean(tmpUser.getString("isActive")))
+						.privacyConsent(Boolean.parseBoolean(tmpUser.getString("isPrivacyConsent")))
+						.newsletter(Boolean.parseBoolean(tmpUser.getString("isNewsletter")))
 						.build();
 				user.newUserId();
 				user.store();

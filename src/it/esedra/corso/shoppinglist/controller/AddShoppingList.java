@@ -14,6 +14,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
+import it.esedra.corso.shoppinglist.model.ShoppingListBuilder;
 import it.esedra.corso.shoppinglist.model.Unit;
 
 public class AddShoppingList extends ShoppingListHandler {
@@ -39,18 +40,17 @@ public class AddShoppingList extends ShoppingListHandler {
 			
 			JsonArray items = listaSpesaObject.get("products").asJsonArray();
 
-			ShoppingList shoppingList = new ShoppingList();
+			ShoppingListBuilder shoppingListBuilder = ShoppingListBuilder.builder();
+			
 			for (Object o : items) {
 				JsonObject tmpObj = (JsonObject) o;
 				Product item = new Product();
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
 				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
-				shoppingList.addProduct(item);
+				shoppingListBuilder.addProduct(item);
 			}
-			shoppingList.setId(id);
-			shoppingList.setListName(listName);
-			shoppingList.store();
+			shoppingListBuilder.id(id).listName(listName).build().store();		
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException("Errore interno");
