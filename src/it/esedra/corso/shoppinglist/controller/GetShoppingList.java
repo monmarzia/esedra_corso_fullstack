@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 
 import com.sun.net.httpserver.HttpExchange;
 
@@ -30,20 +31,21 @@ public class GetShoppingList extends ShoppingListHandler {
 					
 			ShoppingList shoppingList = shoppingListService.get(ShoppingListBuilder.builder().uniqueCode(uniqueCode).build());
 
-			JsonArray arrayProducts = Json.createArrayBuilder().build();
-
+			JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 			List<Product> products = shoppingList.getProducts();
 
 			for (Product product : products) {
-				arrayProducts.add(
+				arrayBuilder.add(
 						Json.createObjectBuilder()
 						.add("name", product.getName())
 						.add("qty", product.getQty())
 						.add("unit", product.getUnit().name()).build());
 			}
 
-			response = Json.createObjectBuilder().add("products", arrayProducts)
-					.add("listName", shoppingList.getListName()).add("id", shoppingList.getId())
+			response = Json.createObjectBuilder()
+					.add("products", arrayBuilder.build())
+					.add("listName", shoppingList.getListName())
+					.add("id", shoppingList.getId())
 					.add("uniqueCode", shoppingList.getUniqueCode()).build().toString();
 
 		} catch (Exception e) {

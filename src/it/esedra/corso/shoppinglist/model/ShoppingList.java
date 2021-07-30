@@ -46,10 +46,12 @@ public class ShoppingList implements Persist {
 	private final static Map<String, Integer> fieldsMap;
 	static {
 		HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
-		tmpMap.put("name", 0);
-		tmpMap.put("qty", 1);
-		tmpMap.put("unit", 2);
-		tmpMap.put(Fields.listName.name(), 3);
+		tmpMap.put(Fields.id.name(), 0);
+		tmpMap.put(Fields.listName.name(), 1);
+		tmpMap.put(Fields.uniqueCode.name(), 2);
+		tmpMap.put(Product.Fields.name.name(), 3);
+		tmpMap.put(Product.Fields.qty.name(), 4);
+		tmpMap.put(Product.Fields.unit.name(), 5);
 		fieldsMap = Collections.unmodifiableMap(tmpMap);
 
 	}
@@ -114,8 +116,9 @@ public class ShoppingList implements Persist {
 			if (inShoppingList.getUniqueCode().equals(fields[fieldsMap.get(Fields.uniqueCode.name())])) {
 				if (builder == null) {
 					builder = ShoppingListBuilder.builder();
-					builder.uniqueCode(fields[fieldsMap.get(uniqueCode)])
-							.listName(fields[fieldsMap.get(Fields.listName.name())]);
+					builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
+							.listName(fields[fieldsMap.get(Fields.listName.name())])
+							.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
 				}
 				Product tmpProduct = new Product();
 				tmpProduct.setName(fields[fieldsMap.get("name")]);
