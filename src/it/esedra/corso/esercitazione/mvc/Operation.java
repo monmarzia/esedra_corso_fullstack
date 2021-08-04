@@ -11,5 +11,9 @@ public interface Operation<T> {
 
 	public void find(T t) throws OperationException;
 	
+	public T bind(String[] params) throws OperationException;
+	
 	public void process(String[] params) throws OperationException;
+	
+	public void processHandler(String action, T t) throws OperationException;
 }

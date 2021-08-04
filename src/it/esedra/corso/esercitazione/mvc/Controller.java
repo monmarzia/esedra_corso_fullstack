@@ -21,5 +21,4 @@ public class Controller {
 				throw new Exception("unknown type");
 		}
 	}
-	
 }
