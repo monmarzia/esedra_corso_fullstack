@@ -1,24 +1,25 @@
 package it.esedra.corso.shoppinglist.model;
 
-import java.io.IOException;
 import java.util.SortedSet;
+
+import it.esedra.corso.shoppinglist.exceptions.DaoException;
 
 public class UserDao implements Dao{
 
 	@Override
-	public Object get(Object t) throws IOException {
+	public Object get(Object t) throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void store() throws IOException {
+	public void store() throws DaoException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public SortedSet getAll() throws IOException {
+	public SortedSet getAll() throws DaoException {
 		// TODO Auto-generated method stub
 		return null;
 	}
