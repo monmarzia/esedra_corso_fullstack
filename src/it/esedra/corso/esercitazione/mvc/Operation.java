@@ -13,7 +13,13 @@ public interface Operation<T> {
 	
 	public T bind(String[] params) throws OperationException;
 	
+	public void validate(String[] params) throws ValidateException;
+	
 	public void process(String[] params) throws OperationException;
 	
-	public void processHandler(String action, T t) throws OperationException;
+	public void processHandler(String action, T t) throws OperationException;	
+	
+    }
+    
+    
 }

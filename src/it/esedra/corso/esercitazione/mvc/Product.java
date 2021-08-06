@@ -10,6 +10,8 @@ public class Product {
 	}
 
 	private String name = new String();
+	private BigInteger id = null;
+	private BigDecimal price = null;
 
 	public String getName() {
 		return name;
@@ -35,6 +37,5 @@ public class Product {
 		this.price = price;
 	}
 
-	private BigInteger id = null;
-	private BigDecimal price = null;
+	
 }
