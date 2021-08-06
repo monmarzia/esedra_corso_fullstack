@@ -14,6 +14,10 @@ import java.time.Duration;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
 public class UpdateShoppingListTest {
+	
+	public static void main(String[] args) {
+		execute();
+	}
 
 	public static void execute() {
 		try {

@@ -30,6 +30,8 @@ public class AddUser extends ShoppingListHandler {
 		}
 		String jsonStr = sb.toString();
 		
+		System.out.println(jsonStr);
+		
 		User user = null;
 
 		try {
