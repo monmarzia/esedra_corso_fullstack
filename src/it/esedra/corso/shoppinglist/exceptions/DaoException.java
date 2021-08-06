@@ -1,8 +1,6 @@
 package it.esedra.corso.shoppinglist.exceptions;
 
-import java.io.IOException;
-
-public class DaoException extends IOException{
+public class DaoException extends Exception{
 	
 	public DaoException(String message) {
 		super(message);

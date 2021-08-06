@@ -1,12 +1,14 @@
 package it.esedra.corso.shoppinglist.model;
 
-import java.io.IOException;
+import java.math.BigInteger;
 import java.util.SortedSet;
 
+import it.esedra.corso.shoppinglist.exceptions.DaoException;
+
 public interface Dao <T>{
-	public T get(T t) throws IOException;
-	public void store() throws IOException;
-	public SortedSet<T> getAll() throws IOException;
-	public void update();
-	public void delete();
+	public void save(T t) throws DaoException;
+	public T get(BigInteger id) throws DaoException;
+	public void delete(BigInteger id) throws DaoException;
+	public SortedSet<T> find(T t) throws DaoException;
+
 }

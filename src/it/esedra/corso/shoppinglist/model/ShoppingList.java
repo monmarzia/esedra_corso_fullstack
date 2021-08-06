@@ -42,7 +42,7 @@ public class ShoppingList implements Persist {
 	public static enum Fields {
 		listName, id, uniqueCode
 	}
-
+	@Deprecated
 	private final static Map<String, Integer> fieldsMap;
 	static {
 		HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
