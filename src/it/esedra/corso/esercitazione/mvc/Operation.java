@@ -22,4 +22,4 @@ public interface Operation<T> {
     }
     
     
-}
+
