@@ -119,6 +119,7 @@ public class ShoppingListDao implements Dao<ShoppingList>{
 //			}
 //		}
 //		return builder.build();
+		return null;
 	}
 
 }
