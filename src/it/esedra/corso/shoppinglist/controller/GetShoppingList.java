@@ -4,16 +4,24 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.json.Json;
-import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import it.esedra.corso.esercitazione.mvc.ValidateException;
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 import it.esedra.corso.shoppinglist.model.ShoppingListBuilder;
+import it.esedra.corso.shoppinglist.model.Validate;
 
-public class GetShoppingList extends ShoppingListHandler {
+public class GetShoppingList extends ShoppingListHandler implements Validate {
+	
+	// TODO validate uniqueCode
+	
+	@Override
+	public void validate(String params) throws ValidateException {
+		
+	}
 
 	@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
@@ -26,6 +34,8 @@ public class GetShoppingList extends ShoppingListHandler {
 			String[] fieldsUri = uri.split("/");
 
 			String uniqueCode = fieldsUri[fieldsUri.length - 1];
+			
+			validate(uniqueCode);
 
 			ShoppingList shoppingListService = ShoppingListBuilder.builder().build();
 					

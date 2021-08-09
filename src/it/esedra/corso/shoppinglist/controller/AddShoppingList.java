@@ -12,13 +12,42 @@ import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import it.esedra.corso.esercitazione.mvc.ValidateException;
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 import it.esedra.corso.shoppinglist.model.ShoppingListBuilder;
 import it.esedra.corso.shoppinglist.model.Unit;
+import it.esedra.corso.shoppinglist.model.Validate;
 
-public class AddShoppingList extends ShoppingListHandler {
+public class AddShoppingList extends ShoppingListHandler implements Validate {
 
+	@Override
+	public void validate(String params) throws ValidateException {
+		JsonReader reader = Json.createReader(new StringReader(params));
+		JsonObject listaSpesaObject = reader.readObject();
+		try {
+			Integer.parseInt(listaSpesaObject.get(ShoppingList.Fields.id.name()).toString());
+		} catch (NumberFormatException e) {
+			throw new ValidateException("L'id inserito non è un intero");
+		}
+		
+		JsonArray items = listaSpesaObject.get("products").asJsonArray();
+		
+		for (Object o : items) {
+			JsonObject tmpObj = (JsonObject) o;
+			try {
+				Integer.parseInt(tmpObj.get("qty").toString());
+			} catch (NumberFormatException e) {
+				throw new ValidateException("La quantità inserita non è un intero");
+			}
+			
+			if (tmpObj.get("unit").toString()) {
+				throw new ValidateException("L'unità di misura non è corretta");
+			}
+		}
+	}
+
+	
 	@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
 
@@ -30,6 +59,12 @@ public class AddShoppingList extends ShoppingListHandler {
 		}
 
 		String jsonStr = sb.toString();
+		
+		try {
+			validate(jsonStr);
+		} catch (ValidateException e1) {
+			e1.printStackTrace();
+		}
 
 		try {
 			JsonReader reader = Json.createReader(new StringReader(jsonStr));
