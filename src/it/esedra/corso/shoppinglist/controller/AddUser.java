@@ -67,40 +67,7 @@ public class AddUser extends ShoppingListHandler implements Validate {
 
 	@Override
 	public void validate(String params) throws ValidateException {
-		JsonReader reader = Json.createReader(new StringReader(params));
-		JsonObject userJson = reader.readObject();
-		JsonArray userArr = userJson.get("users").asJsonArray();
-		for (Object el : userArr) {
-			JsonObject tmpUser = (JsonObject) (el);
-			if (ValidateHelper.validateUserName(tmpUser.get("firstName").toString())) {
-				throw new ValidateException("Non è un nome valido per un utente");
-			}
-			if (ValidateHelper.validateUserName(tmpUser.get("lastName").toString())) {
-				throw new ValidateException("Non è un cognome valido per un utente");
-			}
-
-			if (ValidateHelper.validateEmail(tmpUser.get("email").toString())) {
-				throw new ValidateException("Non è un'email valida");
-			}
-
-			try {
-				Integer.parseInt(tmpUser.get("mobilePhone").toString());
-			} catch (NumberFormatException e) {
-				throw new ValidateException("La quantità inserita non è un intero");
-			}
-			
-			if (!Boolean.parseBoolean(tmpUser.get("isActive").toString())) {
-				throw new ValidateException("isActive non è boolean");
-			}
-			if (!Boolean.parseBoolean(tmpUser.get("isPrivacyConsent").toString())) {
-				throw new ValidateException("isPrivacyConsent non è boolean");
-			}
-			if (!Boolean.parseBoolean(tmpUser.get("isNewsletter").toString())) {
-				throw new ValidateException("isNewsletter non è boolean");
-			}
-
-
-		}
+		ValidateHelper.validateUser(params);
 	}
 
 }
