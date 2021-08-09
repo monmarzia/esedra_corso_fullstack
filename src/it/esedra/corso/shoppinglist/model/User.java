@@ -35,7 +35,7 @@ public class User implements Persist, Comparable<User> {
 	private static final String folderName = "shoppinglist";
 	private static final String fieldSeparator = ",";
 
-	private enum Fields {
+	public static enum Fields {
 		userId, firstName, lastName, email, mobilePhone, isActive, isPrivacyConsent, isNewsletter
 	}
 
@@ -160,6 +160,7 @@ public class User implements Persist, Comparable<User> {
 	 * 
 	 */
 
+	@Deprecated
 	public User get(BigInteger findId) throws IOException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(User.fileName, User.folderName).toPath());
@@ -205,6 +206,7 @@ public class User implements Persist, Comparable<User> {
 	 * SortedSet users = Collections.syncronizedSortedSet(new TreeSet<User>(new
 	 * UserComparator()));
 	 */
+	@Deprecated
 	public static SortedSet<User> getAll() throws IOException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(User.fileName, User.folderName).toPath());
@@ -234,7 +236,7 @@ public class User implements Persist, Comparable<User> {
 	/**
 	 * Salva un oggetto user se non registrato il suo userId
 	 */
-
+	@Deprecated
 	public void store() throws IOException {
 		try {
 			BufferedWriter writer = new BufferedWriter(
