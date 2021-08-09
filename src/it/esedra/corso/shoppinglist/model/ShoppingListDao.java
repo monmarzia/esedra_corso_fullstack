@@ -15,6 +15,7 @@ import java.util.TreeSet;
 import java.util.UUID;
 
 import it.esedra.corso.shoppinglist.exceptions.DaoException;
+import it.esedra.corso.shoppinglist.helper.AESHelper;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 import it.esedra.corso.shoppinglist.model.ShoppingList.Fields;
 
@@ -121,9 +122,7 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 	 */
 	private static String generateUniqueKey(BigInteger id, String name) throws DaoException {
 		try {
-			UUID uuid = UUID.randomUUID();
-			long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
-			return Long.toString(l);
+			return AESHelper.encrypt(id + name, "EsedraShoppingList");
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}

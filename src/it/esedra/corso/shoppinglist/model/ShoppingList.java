@@ -15,7 +15,10 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.UUID;
 
+import javax.crypto.Cipher;
+
 import it.esedra.corso.shoppinglist.exceptions.StoreException;
+import it.esedra.corso.shoppinglist.helper.AESHelper;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 import it.esedra.corso.shoppinglist.helper.SequenceManager;
 
@@ -223,9 +226,7 @@ public class ShoppingList implements Persist {
 	@Deprecated
 	private static String generateUniqueKey(BigInteger id, String name) throws StoreException {
 		try {
-			UUID uuid = UUID.randomUUID();
-			long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
-			return Long.toString(l);
+			return AESHelper.encrypt(id + name, "EsedraShoppingList");
 		} catch (Exception e) {
 			throw new StoreException(e.getMessage());
 		}
