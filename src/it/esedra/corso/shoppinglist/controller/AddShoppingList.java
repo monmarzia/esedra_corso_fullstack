@@ -12,12 +12,21 @@ import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import it.esedra.corso.esercitazione.mvc.ValidateException;
+import it.esedra.corso.shoppinglist.helper.ValidateHelper;
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 import it.esedra.corso.shoppinglist.model.ShoppingListBuilder;
 import it.esedra.corso.shoppinglist.model.Unit;
+import it.esedra.corso.shoppinglist.model.Validate;
 
-public class AddShoppingList extends ShoppingListHandler {
+public class AddShoppingList extends ShoppingListHandler implements Validate {
+
+	@Override
+	public void validate(String params) throws ValidateException {
+		ValidateHelper.validateShoppingList(params);
+
+	}
 
 	@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
@@ -32,16 +41,22 @@ public class AddShoppingList extends ShoppingListHandler {
 		String jsonStr = sb.toString();
 
 		try {
+			validate(jsonStr);
+		} catch (ValidateException e1) {
+			e1.printStackTrace();
+		}
+
+		try {
 			JsonReader reader = Json.createReader(new StringReader(jsonStr));
 			JsonObject listaSpesaObject = reader.readObject();
 
 			String listName = listaSpesaObject.get(ShoppingList.Fields.listName.name()).toString();
 			BigInteger id = new BigInteger(listaSpesaObject.get(ShoppingList.Fields.id.name()).toString());
-			
+
 			JsonArray items = listaSpesaObject.get("products").asJsonArray();
 
 			ShoppingListBuilder shoppingListBuilder = ShoppingListBuilder.builder();
-			
+
 			for (Object o : items) {
 				JsonObject tmpObj = (JsonObject) o;
 				Product item = new Product();
@@ -50,7 +65,7 @@ public class AddShoppingList extends ShoppingListHandler {
 				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
 				shoppingListBuilder.addProduct(item);
 			}
-			shoppingListBuilder.id(id).listName(listName).build().store();		
+			shoppingListBuilder.id(id).listName(listName).build().store();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException("Errore interno");

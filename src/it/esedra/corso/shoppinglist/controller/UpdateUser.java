@@ -12,10 +12,13 @@ import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import it.esedra.corso.esercitazione.mvc.ValidateException;
+import it.esedra.corso.shoppinglist.helper.ValidateHelper;
 import it.esedra.corso.shoppinglist.model.User;
 import it.esedra.corso.shoppinglist.model.UserBuilder;
+import it.esedra.corso.shoppinglist.model.Validate;
 
-public class UpdateUser extends ShoppingListHandler {
+public class UpdateUser extends ShoppingListHandler implements Validate {
 
 	@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
@@ -29,6 +32,12 @@ public class UpdateUser extends ShoppingListHandler {
 		}
 		String jsonStr = sb.toString();
 
+		try {
+			validate(jsonStr);
+		} catch (ValidateException e1) {
+			e1.printStackTrace();
+		}
+
 		User user = null;
 
 		try {
@@ -38,16 +47,12 @@ public class UpdateUser extends ShoppingListHandler {
 			for (Object el : userArr) {
 				JsonObject tmpUser = (JsonObject) (el);
 
-				
-				user = UserBuilder.builder()
-						.firstName(tmpUser.getString("firstName"))
-						.lastName(tmpUser.getString("lastName"))
-						.email(tmpUser.getString("email"))
+				user = UserBuilder.builder().firstName(tmpUser.getString("firstName"))
+						.lastName(tmpUser.getString("lastName")).email(tmpUser.getString("email"))
 						.mobilePhone(tmpUser.getString("mobilePhone"))
 						.active(Boolean.parseBoolean(tmpUser.getString("isActive")))
 						.privacyConsent(Boolean.parseBoolean(tmpUser.getString("isPrivacyConsent")))
-						.newsletter(Boolean.parseBoolean(tmpUser.getString("isNewsletter")))
-						.build();
+						.newsletter(Boolean.parseBoolean(tmpUser.getString("isNewsletter"))).build();
 				user.newUserId();
 				user.store();
 			}
@@ -57,6 +62,11 @@ public class UpdateUser extends ShoppingListHandler {
 		}
 
 		return "Utente aggiornato";
+	}
+
+	@Override
+	public void validate(String params) throws ValidateException {
+		ValidateHelper.validateUser(params);
 	}
 
 }

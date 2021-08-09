@@ -11,12 +11,20 @@ import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 
+import it.esedra.corso.esercitazione.mvc.ValidateException;
+import it.esedra.corso.shoppinglist.helper.ValidateHelper;
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 import it.esedra.corso.shoppinglist.model.ShoppingListBuilder;
 import it.esedra.corso.shoppinglist.model.Unit;
+import it.esedra.corso.shoppinglist.model.Validate;
 
-public class UpdateShoppingList extends ShoppingListHandler {
+public class UpdateShoppingList extends ShoppingListHandler implements Validate {
+
+	@Override
+	public void validate(String params) throws ValidateException {
+		ValidateHelper.validateShoppingList(params);
+	}
 
 	@Override
 	public String handleRequest(HttpExchange exchange) throws IOException {
@@ -28,6 +36,12 @@ public class UpdateShoppingList extends ShoppingListHandler {
 		}
 
 		String jsonStr = sb.toString();
+
+		try {
+			validate(jsonStr);
+		} catch (ValidateException e1) {
+			e1.printStackTrace();
+		}
 
 		try {
 			JsonReader reader = Json.createReader(new StringReader(jsonStr));
@@ -54,4 +68,5 @@ public class UpdateShoppingList extends ShoppingListHandler {
 
 		return "Lista aggiornata";
 	}
+
 }
