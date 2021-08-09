@@ -1,6 +1,7 @@
 package it.esedra.corso.shoppinglist.model;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
@@ -16,13 +17,13 @@ import it.esedra.corso.shoppinglist.exceptions.DaoException;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 import it.esedra.corso.shoppinglist.model.ShoppingList.Fields;
 
-public class ShoppingListDao implements Dao<ShoppingList>{
+public class ShoppingListDao implements Dao<ShoppingList> {
 
 	private String uniqueCode;
 	private static final String fileName = "lista.csv";
 	private static final String folderName = "shoppinglist";
 	private static final String fieldSeparator = ",";
-	
+
 	private final static Map<String, Integer> fieldsMap;
 	static {
 		HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
@@ -35,12 +36,16 @@ public class ShoppingListDao implements Dao<ShoppingList>{
 		fieldsMap = Collections.unmodifiableMap(tmpMap);
 	}
 	
+	/**
+	 * TODO Implemetare Delete
+	 */
+	
 	@Override
 	public void delete(BigInteger id) throws DaoException {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
 	public SortedSet<ShoppingList> find(ShoppingList shoppingList) throws DaoException {
 		try {
@@ -50,15 +55,15 @@ public class ShoppingListDao implements Dao<ShoppingList>{
 			for (String line : lines) {
 				String[] fields = line.split(fieldSeparator);
 				if (!fields[0].equals("")) {
-					if(builder == null) {
+					if (builder == null) {
 						builder = ShoppingListBuilder.builder();
 						builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
-							.listName(fields[fieldsMap.get(Fields.listName.name())]);
+								.listName(fields[fieldsMap.get(Fields.listName.name())]);
 					}
 					Product tmpProduct = new Product();
 					tmpProduct.setName(fields[fieldsMap.get("name")]);
 					tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));								
+					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
 					builder.addProduct(tmpProduct);
 				}
 				shoppingLists.add((ShoppingList) builder.build());
@@ -68,7 +73,7 @@ public class ShoppingListDao implements Dao<ShoppingList>{
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new DaoException(e.getMessage());
-		}		
+		}
 	}
 
 	/**
@@ -90,36 +95,76 @@ public class ShoppingListDao implements Dao<ShoppingList>{
 		}
 	}
 
+	/**
+	 * TODO Implementare la parte Update
+	 */
+	
 	@Override
 	public void save(ShoppingList t) throws DaoException {
-		// TODO Auto-generated method stub
-		
+		try {
+
+			PrintWriter writer = new PrintWriter(GetFileResource.get(fileName, folderName));
+			StringBuilder builder = new StringBuilder();
+
+//			if (t.getUniqueCode() == null) {
+//				t.getUniqueCode = ShoppingList.generateUniqueKey(this.getId(), this.getListName());
+//			}
+
+			for (Product listaTemp : t.getProducts()) {
+				if (listaTemp == null) {
+					continue;
+				}
+				builder.append(t.getId());
+				builder.append(fieldSeparator);
+				builder.append(t.getListName());
+				builder.append(fieldSeparator);
+				builder.append(t.getUniqueCode());
+				builder.append(fieldSeparator);
+				builder.append(listaTemp.getName());
+				builder.append(fieldSeparator);
+				builder.append(listaTemp.getQty());
+				builder.append(fieldSeparator);
+				builder.append(listaTemp.getUnit());
+				builder.append(fieldSeparator);
+				builder.append(System.getProperty("line.separator"));
+
+			}
+			writer.write(builder.toString());
+			writer.flush();
+			writer.close();
+
+		} catch (Exception e) {
+			throw new DaoException(e.getMessage());
+		}
 	}
 
 	@Override
 	public ShoppingList get(BigInteger id) throws DaoException {
-//		List<String> lines = Files
-//				.readAllLines(GetFileResource.get(fileName, folderName).toPath());
-//		ShoppingListBuilder builder = null;
-//		for (String line : lines) {
-//			String[] fields = line.split(fieldSeparator);
-//
-//			if (inShoppingList.getUniqueCode().equals(fields[fieldsMap.get(Fields.uniqueCode.name())])) {
-//				if (builder == null) {
-//					builder = ShoppingListBuilder.builder();
-//					builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
-//							.listName(fields[fieldsMap.get(Fields.listName.name())])
-//							.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
-//				}
-//				Product tmpProduct = new Product();
-//				tmpProduct.setName(fields[fieldsMap.get("name")]);
-//				tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-//				tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
-//				builder.addProduct(tmpProduct);
-//			}
-//		}
-//		return builder.build();
-		return null;
+		try {
+			List<String> lines = Files.readAllLines(GetFileResource.get(fileName, folderName).toPath());
+			ShoppingListBuilder builder = null;
+			for (String line : lines) {
+				String[] fields = line.split(fieldSeparator);
+
+				if (id.equals(new BigInteger(fields[fieldsMap.get(Fields.id.name())]))) {
+					if (builder == null) {
+						builder = ShoppingListBuilder.builder();
+						builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
+								.listName(fields[fieldsMap.get(Fields.listName.name())])
+								.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
+					}
+					Product tmpProduct = new Product();
+					tmpProduct.setName(fields[fieldsMap.get("name")]);
+					tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
+					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
+					builder.addProduct(tmpProduct);
+				}
+			}
+			return builder.build();
+		} catch (Exception e) {
+			throw new DaoException(e.getMessage());
+		}
+
 	}
 
 }
