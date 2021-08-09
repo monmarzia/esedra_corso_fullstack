@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
-import java.nio.ByteBuffer;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.UUID;
 
 import it.esedra.corso.shoppinglist.exceptions.DaoException;
 import it.esedra.corso.shoppinglist.helper.AESHelper;
@@ -122,7 +122,7 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 	 */
 	private static String generateUniqueKey(BigInteger id, String name) throws DaoException {
 		try {
-			return AESHelper.encrypt(id + name, "EsedraShoppingList");
+			return URLEncoder.encode(AESHelper.encrypt(id + name, "EsedraShoppingList"), StandardCharsets.UTF_8.toString());
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}

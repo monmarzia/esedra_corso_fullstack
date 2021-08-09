@@ -3,7 +3,8 @@ package it.esedra.corso.shoppinglist.model;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
-import java.nio.ByteBuffer;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -13,9 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.UUID;
-
-import javax.crypto.Cipher;
 
 import it.esedra.corso.shoppinglist.exceptions.StoreException;
 import it.esedra.corso.shoppinglist.helper.AESHelper;
@@ -226,7 +224,7 @@ public class ShoppingList implements Persist {
 	@Deprecated
 	private static String generateUniqueKey(BigInteger id, String name) throws StoreException {
 		try {
-			return AESHelper.encrypt(id + name, "EsedraShoppingList");
+			return URLEncoder.encode(AESHelper.encrypt(id + name, "EsedraShoppingList"), StandardCharsets.UTF_8.toString());
 		} catch (Exception e) {
 			throw new StoreException(e.getMessage());
 		}
