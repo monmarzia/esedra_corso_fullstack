@@ -140,6 +140,11 @@ public class ValidateHelper {
 		return isStringContainsSpecialCharacter;
 	}
 
+	public static boolean validateId(String inputString) {
+		// TODO validate uniqueCode
+		return true;
+	}
+	
 	public static boolean validateUniqueCode(String inputString) {
 		// TODO validate uniqueCode
 		return true;
