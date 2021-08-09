@@ -10,9 +10,12 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
+import org.apache.commons.lang3.EnumUtils;
+
 import com.sun.net.httpserver.HttpExchange;
 
 import it.esedra.corso.esercitazione.mvc.ValidateException;
+import it.esedra.corso.shoppinglist.helper.ValidateHelper;
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 import it.esedra.corso.shoppinglist.model.ShoppingListBuilder;
@@ -41,10 +44,19 @@ public class AddShoppingList extends ShoppingListHandler implements Validate {
 				throw new ValidateException("La quantità inserita non è un intero");
 			}
 			
-			if (tmpObj.get("unit").toString()) {
+			if (!EnumUtils.isValidEnum(Unit.class, tmpObj.get("unit").toString())) {
 				throw new ValidateException("L'unità di misura non è corretta");
 			}
+			
+			if (ValidateHelper.validateProductName(tmpObj.get("name").toString())) {
+				throw new ValidateException("Non è un nome valido per un prodotto");
+			}
 		}
+		
+		if (ValidateHelper.validateListName(listaSpesaObject.get(ShoppingList.Fields.listName.name()).toString())) {
+			throw new ValidateException("Non è un nome valido per un prodotto");
+		}
+		
 	}
 
 	
