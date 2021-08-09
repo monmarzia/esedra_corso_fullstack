@@ -42,7 +42,7 @@ public class ShoppingList implements Persist {
 	public static enum Fields {
 		listName, id, uniqueCode
 	}
-
+	@Deprecated
 	private final static Map<String, Integer> fieldsMap;
 	static {
 		HashMap<String, Integer> tmpMap = new HashMap<String, Integer>();
@@ -93,7 +93,6 @@ public class ShoppingList implements Persist {
 	 * @return l'id piÃ¹ in alto assegnato
 	 * @throws IOException
 	 */
-
 	public static synchronized BigInteger getLastId() throws IOException {
 		try {
 			BigInteger lastId = (getAll().isEmpty()) ? SequenceManager.newIdUser() : getAll().last().getId();
@@ -104,7 +103,7 @@ public class ShoppingList implements Persist {
 		}
 
 	}
-
+	@Deprecated
 	public ShoppingList get(ShoppingList inShoppingList) throws IOException {
 
 		List<String> lines = Files
@@ -133,6 +132,7 @@ public class ShoppingList implements Persist {
 	/**
 	 * Salva un oggetto
 	 */
+	@Deprecated
 	public void store() throws IOException {
 
 		try {
@@ -174,7 +174,7 @@ public class ShoppingList implements Persist {
 		}
 
 	}
-
+	@Deprecated
 	public static SortedSet<ShoppingList> getAll() throws IOException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName).toPath());
@@ -203,11 +203,11 @@ public class ShoppingList implements Persist {
 			throw new IOException();
 		}
 	}
-
+	@Deprecated
 	public void updateShoppingList() {
 
 	}
-
+	@Deprecated
 	public void deleteShoppingList() {
 
 	}
@@ -220,6 +220,7 @@ public class ShoppingList implements Persist {
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
+	@Deprecated
 	private static String generateUniqueKey(BigInteger id, String name) throws StoreException {
 		try {
 			UUID uuid = UUID.randomUUID();
