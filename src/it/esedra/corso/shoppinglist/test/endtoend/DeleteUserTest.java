@@ -1,4 +1,4 @@
-package it.esedra.corso.shoppinglist.test;
+package it.esedra.corso.shoppinglist.test.endtoend;
 
 import java.io.IOException;
 import java.net.URI;

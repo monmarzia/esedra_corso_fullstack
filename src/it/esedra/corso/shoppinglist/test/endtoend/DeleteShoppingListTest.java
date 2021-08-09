@@ -1,20 +1,17 @@
-package it.esedra.corso.shoppinglist.test;
+package it.esedra.corso.shoppinglist.test.endtoend;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpClient.Version;
-import java.net.http.HttpRequest.BodyPublishers;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 
-import it.esedra.corso.shoppinglist.helper.GetFileResource;
+public class DeleteShoppingListTest {
 
-public class UpdateUserTest {
-	
 	public static void execute() {
 		try {
 			// server client
@@ -23,9 +20,9 @@ public class UpdateUserTest {
 
 			// creo una request
 			HttpRequest request = HttpRequest.newBuilder().version(Version.HTTP_1_1)
-					.uri(URI.create("http://localhost:3000/update-user")).timeout(Duration.ofMinutes(2))
+					.uri(URI.create("http://localhost:3000/delete-shopping-list")).timeout(Duration.ofMinutes(2))
 					.header("Content-Type", "application/json")
-					.PUT(BodyPublishers.ofFile(GetFileResource.get("user.json", "test").toPath())).build();
+					.DELETE().build();
 
 			HttpResponse<String> response;
 

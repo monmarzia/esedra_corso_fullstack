@@ -1,4 +1,4 @@
-package it.esedra.corso.shoppinglist.test;
+package it.esedra.corso.shoppinglist.test.endtoend;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,7 +13,7 @@ import java.time.Duration;
 
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
-public class UpdateShoppingListTest {
+public class AddUserTest {
 
 	public static void execute() {
 		try {
@@ -23,9 +23,9 @@ public class UpdateShoppingListTest {
 
 			// creo una request
 			HttpRequest request = HttpRequest.newBuilder().version(Version.HTTP_1_1)
-					.uri(URI.create("http://localhost:3000/update-shopping-list")).timeout(Duration.ofMinutes(2))
+					.uri(URI.create("http://localhost:3000/add-user")).timeout(Duration.ofMinutes(2))
 					.header("Content-Type", "application/json")
-					.PUT(BodyPublishers.ofFile(GetFileResource.get("item.json", "test").toPath())).build();
+					.POST(BodyPublishers.ofFile(GetFileResource.get("user.json", "test").toPath())).build();
 
 			HttpResponse<String> response;
 
@@ -39,5 +39,4 @@ public class UpdateShoppingListTest {
 		}
 
 	}
-
 }

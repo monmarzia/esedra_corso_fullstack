@@ -1,4 +1,4 @@
-package it.esedra.corso.shoppinglist.test;
+package it.esedra.corso.shoppinglist.test.endtoend;
 
 public class EndToEndTest {
 	public static void main(String args[]) {

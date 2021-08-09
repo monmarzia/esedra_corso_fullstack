@@ -1,4 +1,4 @@
-package it.esedra.corso.shoppinglist.test;
+package it.esedra.corso.shoppinglist.test.endtoend;
 
 import java.io.IOException;
 import java.net.URI;
@@ -6,11 +6,14 @@ import java.net.http.HttpClient;
 import java.net.http.HttpClient.Redirect;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 
-public class GetUserTest {
+import it.esedra.corso.shoppinglist.helper.GetFileResource;
+
+public class AddShoppingListTest {
 
 	public static void main(String[] args) {
 		execute();
@@ -23,8 +26,9 @@ public class GetUserTest {
 					.connectTimeout(Duration.ofSeconds(80)).build();
 					
 			//creo una request
-			HttpRequest request = HttpRequest.newBuilder().version(Version.HTTP_1_1).uri(URI.create("http://localhost:3000/get-user"))
-					.timeout(Duration.ofMinutes(2)).GET().build();
+			HttpRequest request = HttpRequest.newBuilder().version(Version.HTTP_1_1).uri(URI.create("http://localhost:3000/add-shopping-list"))
+					.timeout(Duration.ofMinutes(2)).header("Content-Type", "application/json")
+					.POST(BodyPublishers.ofFile(GetFileResource.get("item.json", "test").toPath())).build();
 
 			HttpResponse<String> response;
 
@@ -32,7 +36,7 @@ public class GetUserTest {
 
 			System.out.println(response.statusCode());
 			System.out.println(response.body());
-
+			
 		
 
 

@@ -1,4 +1,4 @@
-package it.esedra.corso.shoppinglist.test;
+package it.esedra.corso.shoppinglist.test.unit;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
