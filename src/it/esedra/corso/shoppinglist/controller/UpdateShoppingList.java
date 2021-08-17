@@ -47,7 +47,7 @@ public class UpdateShoppingList extends ShoppingListHandler implements Validate 
 			JsonReader reader = Json.createReader(new StringReader(jsonStr));
 			JsonObject listaSpesaObject = reader.readObject();
 
-			JsonArray items = listaSpesaObject.get("items").asJsonArray();
+			JsonArray items = listaSpesaObject.get("products").asJsonArray();
 
 			ShoppingList shoppingList = ShoppingListBuilder.builder().build();
 			for (Object o : items) {
