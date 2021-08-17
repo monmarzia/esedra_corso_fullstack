@@ -125,6 +125,8 @@ public class ShoppingList implements Persist {
 				tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
 				tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
 				builder.addProduct(tmpProduct);
+				
+				System.out.println("ciao");
 			}
 		}
 		return builder.build();
