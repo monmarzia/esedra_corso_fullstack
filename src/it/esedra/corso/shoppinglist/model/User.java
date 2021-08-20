@@ -30,13 +30,14 @@ public class User implements Persist, Comparable<User> {
 	private boolean isActive = false;
 	private boolean privacyConsent = false;
 	private boolean newsletter = false;
+	private String uniqueCode;
 	private final static Map<String, Integer> fieldsMap;
 	private static final String fileName = "user.csv";
 	private static final String folderName = "shoppinglist";
 	private static final String fieldSeparator = ",";
 
 	private enum Fields {
-		userId, firstName, lastName, email, mobilePhone, isActive, isPrivacyConsent, isNewsletter
+		userId, firstName, lastName, email, mobilePhone, isActive, isPrivacyConsent, isNewsletter, uniqueCode
 	}
 
 	static {
@@ -49,6 +50,7 @@ public class User implements Persist, Comparable<User> {
 		tmpMap.put(Fields.isActive.name(), 5);
 		tmpMap.put(Fields.isPrivacyConsent.name(), 6);
 		tmpMap.put(Fields.isNewsletter.name(), 7);
+		tmpMap.put(Fields.uniqueCode.name(), 8);
 		fieldsMap = Collections.unmodifiableMap(tmpMap);
 
 	}
@@ -60,7 +62,7 @@ public class User implements Persist, Comparable<User> {
 	}
 
 	public User(BigInteger userId, String firstName, String lastName, String email, String mobilePhone,
-			boolean isActive, boolean privacyConsent, boolean newsletter) {
+			boolean isActive, boolean privacyConsent, boolean newsletter, String uniqueCode) {
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -69,6 +71,7 @@ public class User implements Persist, Comparable<User> {
 		this.isActive = isActive;
 		this.privacyConsent = privacyConsent;
 		this.newsletter = newsletter;
+		this.uniqueCode = uniqueCode;
 	}
 
 	public BigInteger getUserId() {
@@ -106,6 +109,10 @@ public class User implements Persist, Comparable<User> {
 
 	public boolean isNewsletter() {
 		return newsletter;
+	}
+	
+	public String getUniqueCode() {
+		return uniqueCode;
 	}
 
 	public Map<BigInteger, User> getStoredUsers() {

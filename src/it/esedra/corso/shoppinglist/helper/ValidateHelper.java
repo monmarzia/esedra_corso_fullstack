@@ -32,7 +32,7 @@ public class ValidateHelper {
 			JsonObject tmpObj = (JsonObject) o;
 
 			try {
-				Integer.parseInt(tmpObj.get("qty").toString().replace("\"", ""));
+				Integer.parseInt(tmpObj.get("qty").toString().replaceAll("^.|.$", ""));
 			} catch (NumberFormatException e) {
 				throw new ValidateException("La quantità inserita non è un intero");
 			}
