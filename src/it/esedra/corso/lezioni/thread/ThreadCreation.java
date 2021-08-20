@@ -1,4 +1,4 @@
-package it.esedra.corso.lezioni;
+package it.esedra.corso.lezioni.thread;
 
 public class ThreadCreation implements Runnable {
 	public ThreadCreation() {

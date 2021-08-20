@@ -1,4 +1,4 @@
-package it.esedra.corso.lezioni;
+package it.esedra.corso.lezioni.thread;
 
 public class ThreadExists {
 	public static void main(String args[]) {
