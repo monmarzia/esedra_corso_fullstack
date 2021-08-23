@@ -1,21 +1,21 @@
 package it.esedra.corso.esercitazioneB.thomasmarchese;
 
 class DataBase {
-	private int x ;
-	private int y ;
-	
+	private int x;
+	private int y;
+
 	public DataBase(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
 	synchronized void stampa(int risultato, String msg) {
-		
 		System.out.println(msg + risultato);
 	}
 
 	public int getX() {
-		return x;	}
+		return x;
+	}
 
 	public void setX(int x) {
 		this.x = x;
@@ -27,12 +27,11 @@ class DataBase {
 
 	public void setY(int y) {
 		this.y = y;
-	}	
-	
+	}
+
 }
 
 class Somma implements Runnable {
-	
 	private DataBase dati;
 
 	public Somma(DataBase dati) {
@@ -45,24 +44,21 @@ class Somma implements Runnable {
 	}
 }
 
-
 class Moltiplicazione implements Runnable {
-	
 	private DataBase dati;
-	
+
 	public Moltiplicazione(DataBase dati) {
 		this.dati = dati;
 		new Thread(this).start();
 	}
 
 	public void run() {
-	
+
 		dati.stampa(dati.getX() * dati.getY(), "Moltiplicazione : ");
 	}
 }
 
 class Divisione implements Runnable {
-	
 	private DataBase dati;
 
 	public Divisione(DataBase dati) {
@@ -75,10 +71,9 @@ class Divisione implements Runnable {
 	}
 }
 
-
-public class Synch {
+public class Operazioni {
 	public static void main(String args[]) {
-		DataBase dati = new DataBase(15,5);
+		DataBase dati = new DataBase(15, 5);
 		new Somma(dati);
 		new Moltiplicazione(dati);
 		new Divisione(dati);
