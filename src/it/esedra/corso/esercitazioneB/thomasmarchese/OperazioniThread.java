@@ -71,7 +71,7 @@ class Divisione implements Runnable {
 	}
 }
 
-public class Operazioni {
+public class OperazioniThread {
 	public static void main(String args[]) {
 		DataBase dati = new DataBase(15, 5);
 		new Somma(dati);
