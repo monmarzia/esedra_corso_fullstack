@@ -1,8 +1,13 @@
 package it.esedra.corso.esercitazioneB.thomasmarchese;
 
 class DataBase {
-	private int x = 15;
-	private int y = 5;
+	private int x ;
+	private int y ;
+	
+	public DataBase(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	synchronized void stampa(int risultato, String msg) {
 		
@@ -22,9 +27,7 @@ class DataBase {
 
 	public void setY(int y) {
 		this.y = y;
-	}
-	
-	
+	}	
 	
 }
 
@@ -75,7 +78,7 @@ class Divisione implements Runnable {
 
 public class Synch {
 	public static void main(String args[]) {
-		DataBase dati = new DataBase();
+		DataBase dati = new DataBase(15,5);
 		new Somma(dati);
 		new Moltiplicazione(dati);
 		new Divisione(dati);
