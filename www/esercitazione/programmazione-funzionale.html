@@ -1,0 +1,49 @@
+<html>
+
+<body>
+
+<script type="text/javascript">
+
+
+(function foo() {
+	
+	var x = 10;
+	var k = 20;
+	
+	function bar() {
+		
+		var z = x;
+		var k = 1000;
+		//scope dinamico = 10; scope statico = 10
+		console.log(z);
+		foobar();
+		
+	}
+	
+	function baz() {
+		var j = k;
+		//scope dinamico = 10; scope statico = 20
+		console.log(j);
+	}
+	
+	function foobar() {
+		var k = 10;
+		baz();
+	}
+	
+	bar();
+	
+})()
+
+function multiplyBy(m) {
+	return function(n) { return m * n; }
+}
+
+multiplyBy(10)(5); //risultato 50
+
+
+</script>
+
+</body>
+</html>
+
