@@ -11,9 +11,10 @@ public class UserBuilder {
 	private boolean isActive = false;
 	private boolean privacyConsent = false;
 	private boolean newsletter = false;
+	private String uniqueCode;
 	
 	public UserBuilder(String firstName, String lastName, String email, String mobilePhone, boolean isActive,
-			boolean privacyConsent, boolean newsletter) {
+			boolean privacyConsent, boolean newsletter, String uniqueCode) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -22,6 +23,7 @@ public class UserBuilder {
 		this.isActive = isActive;
 		this.privacyConsent = privacyConsent;
 		this.newsletter = newsletter;
+		this.uniqueCode = uniqueCode;
 	}
 	
 	public UserBuilder() {
@@ -34,7 +36,7 @@ public class UserBuilder {
 	
 	public User build() {
 		return new User(userId, firstName, lastName, email, mobilePhone, isActive,
-			privacyConsent, newsletter);
+			privacyConsent, newsletter, uniqueCode);
 	}
 
 	public UserBuilder firstName(String firstName) {
@@ -74,6 +76,11 @@ public class UserBuilder {
 
 	public UserBuilder newsletter(boolean newsletter) {
 		this.newsletter = newsletter;
+		return this;
+	}
+	
+	public UserBuilder uniqueCode(String uniqueCode) {
+		this.uniqueCode = uniqueCode;
 		return this;
 	}
 	

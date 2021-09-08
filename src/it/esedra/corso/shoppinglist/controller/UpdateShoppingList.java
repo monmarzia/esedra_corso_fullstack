@@ -3,6 +3,7 @@ package it.esedra.corso.shoppinglist.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.math.BigInteger;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -47,20 +48,22 @@ public class UpdateShoppingList extends ShoppingListHandler implements Validate 
 			JsonReader reader = Json.createReader(new StringReader(jsonStr));
 			JsonObject listaSpesaObject = reader.readObject();
 
-			JsonArray items = listaSpesaObject.get("items").asJsonArray();
+			String listName = listaSpesaObject.get(ShoppingList.Fields.listName.name()).toString();
+			BigInteger id = new BigInteger(listaSpesaObject.get(ShoppingList.Fields.id.name()).toString());
 
-			ShoppingList shoppingList = ShoppingListBuilder.builder().build();
+			JsonArray items = listaSpesaObject.get("products").asJsonArray();
+
+			ShoppingListBuilder shoppingListBuilder = ShoppingListBuilder.builder();
+
 			for (Object o : items) {
 				JsonObject tmpObj = (JsonObject) o;
 				Product item = new Product();
 				item.setName(tmpObj.getString("name"));
 				item.setQty(Integer.parseInt(tmpObj.getString("qty")));
 				item.setUnit(Unit.valueOf(tmpObj.getString("unit")));
-				ShoppingList shoppingListService = ShoppingListBuilder.builder().addProduct(item).build();
-				shoppingList = shoppingListService;
+				shoppingListBuilder.addProduct(item);
 			}
-
-			shoppingList.store();
+			shoppingListBuilder.id(id).listName(listName).build().store();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException("Errore interno");

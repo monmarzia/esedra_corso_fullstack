@@ -30,23 +30,25 @@ public class ValidateHelper {
 
 		for (Object o : items) {
 			JsonObject tmpObj = (JsonObject) o;
+
 			try {
-				Integer.parseInt(tmpObj.get("qty").toString());
+				Integer.parseInt(tmpObj.get("qty").toString().replaceAll("^.|.$", ""));
 			} catch (NumberFormatException e) {
 				throw new ValidateException("La quantità inserita non è un intero");
 			}
 
-			if (!EnumUtils.isValidEnum(Unit.class, tmpObj.get("unit").toString())) {
+			if (!EnumUtils.isValidEnum(Unit.class, tmpObj.get("unit").toString().replaceAll("^.|.$", ""))) {
 				throw new ValidateException("L'unità di misura non è corretta");
 			}
 
-			if (ValidateHelper.validateProductName(tmpObj.get("name").toString())) {
+			if (ValidateHelper.validateProductName(tmpObj.get("name").toString().replaceAll("^.|.$", ""))) {
 				throw new ValidateException("Non è un nome valido per un prodotto");
 			}
 		}
 
-		if (ValidateHelper.validateListName(listaSpesaObject.get(ShoppingList.Fields.listName.name()).toString())) {
-			throw new ValidateException("Non è un nome valido per un prodotto");
+		if (ValidateHelper.validateListName(listaSpesaObject
+				.get(ShoppingList.Fields.listName.name()).toString().replaceAll("^.|.$", "").replace(" ", ""))) {
+			throw new ValidateException("Non è un nome valido per una lista");
 		}
 
 	}
@@ -57,30 +59,30 @@ public class ValidateHelper {
 		JsonArray userArr = userJson.get("users").asJsonArray();
 		for (Object el : userArr) {
 			JsonObject tmpUser = (JsonObject) (el);
-			if (ValidateHelper.validateUserName(tmpUser.get("firstName").toString())) {
+			if (ValidateHelper.validateUserName(tmpUser.get("firstName").toString().replaceAll("^.|.$", ""))) {
 				throw new ValidateException("Non è un nome valido per un utente");
 			}
-			if (ValidateHelper.validateUserName(tmpUser.get("lastName").toString())) {
+			if (ValidateHelper.validateUserName(tmpUser.get("lastName").toString().replaceAll("^.|.$", ""))) {
 				throw new ValidateException("Non è un cognome valido per un utente");
 			}
 
-			if (ValidateHelper.validateEmail(tmpUser.get("email").toString())) {
+			if (ValidateHelper.validateEmail(tmpUser.get("email").toString().replaceAll("^.|.$", ""))) {
 				throw new ValidateException("Non è un'email valida");
 			}
 
 			try {
-				Integer.parseInt(tmpUser.get("mobilePhone").toString());
+				Integer.parseInt(tmpUser.get("mobilePhone").toString().replaceAll("^.|.$", ""));
 			} catch (NumberFormatException e) {
 				throw new ValidateException("La quantità inserita non è un intero");
 			}
 
-			if (!Boolean.parseBoolean(tmpUser.get("isActive").toString())) {
+			if (Boolean.parseBoolean(tmpUser.get("isActive").toString().replaceAll("^.|.$", "")) != false && Boolean.parseBoolean(tmpUser.get("isActive").toString().replaceAll("^.|.$", "")) != true) {
 				throw new ValidateException("isActive non è boolean");
 			}
-			if (!Boolean.parseBoolean(tmpUser.get("isPrivacyConsent").toString())) {
+			if (Boolean.parseBoolean(tmpUser.get("isPrivacyConsent").toString().replaceAll("^.|.$", "")) != false && Boolean.parseBoolean(tmpUser.get("isPrivacyConsent").toString().replaceAll("^.|.$", "")) != true) {
 				throw new ValidateException("isPrivacyConsent non è boolean");
 			}
-			if (!Boolean.parseBoolean(tmpUser.get("isNewsletter").toString())) {
+			if (Boolean.parseBoolean(tmpUser.get("isNewsletter").toString().replaceAll("^.|.$", "")) != false && Boolean.parseBoolean(tmpUser.get("isNewsletter").toString().replaceAll("^.|.$", "")) != true) {
 				throw new ValidateException("isNewsletter non è boolean");
 			}
 
@@ -129,7 +131,7 @@ public class ValidateHelper {
 
 	public static boolean validateEmail(String inputString) {
 
-		Pattern pattern = Pattern.compile("[^(.+)@(.+)$]");
+		Pattern pattern = Pattern.compile("[^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$]");
 		Matcher matcher = pattern.matcher(inputString);
 		boolean isStringContainsSpecialCharacter = matcher.find();
 		if (isStringContainsSpecialCharacter)
@@ -144,7 +146,7 @@ public class ValidateHelper {
 		// TODO validate uniqueCode
 		return true;
 	}
-	
+
 	public static boolean validateUniqueCode(String inputString) {
 		// TODO validate uniqueCode
 		return true;
