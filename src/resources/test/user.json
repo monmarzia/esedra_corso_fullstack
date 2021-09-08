@@ -6,7 +6,7 @@
 			"email": "mariobianchi@example.com",
 			"mobilePhone": "333444555",
 			"isActive": "true",
-			"isPrivacyConsent": "true",
+			"isPrivacyConsent": "false",
 			"isNewsletter": "true"
 		},
 		{
@@ -16,16 +16,16 @@
 			"mobilePhone": "444666222",
 			"isActive": "true",
 			"isPrivacyConsent": "true",
-			"isNewsletter": "true"				
+			"isNewsletter": "false"				
 		},
 		{
 			"firstName": "Filippo",
 			"lastName": "Rossi",
 			"email": "filipporossi@example.com",
 			"mobilePhone": "777444666",
-			"isActive": "true",
+			"isActive": "false",
 			"isPrivacyConsent": "true",
-			"isNewsletter": "false"				
+			"isNewsletter": "true"				
 		}
 		
 	]

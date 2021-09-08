@@ -1,15 +1,8 @@
 package it.esedra.corso.shoppinglist;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.StringReader;
 import java.net.InetSocketAddress;
-
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -23,7 +16,6 @@ import it.esedra.corso.shoppinglist.controller.GetShoppingList;
 import it.esedra.corso.shoppinglist.controller.GetUser;
 import it.esedra.corso.shoppinglist.controller.UpdateShoppingList;
 import it.esedra.corso.shoppinglist.controller.UpdateUser;
-import it.esedra.corso.shoppinglist.helper.GetFileResource;
 
 public class Server {
 
