@@ -1,26 +1,11 @@
 package it.esedra.corso.shoppinglist.test.unit;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.math.BigInteger;
-import java.util.Map;
-
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-
-import it.esedra.corso.shoppinglist.helper.GetFileResource;
-import it.esedra.corso.shoppinglist.model.User;
-import it.esedra.corso.shoppinglist.model.UserBuilder;
 
 public class TestUser {
 
 	public static void main(String[] args) throws IOException {
-		try {
+		/*try {
 			StringBuilder sb = new StringBuilder();
 			InputStream inputUser = new FileInputStream(GetFileResource.get("user.json", "test"));
 			User user = null;
@@ -61,7 +46,7 @@ public class TestUser {
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }

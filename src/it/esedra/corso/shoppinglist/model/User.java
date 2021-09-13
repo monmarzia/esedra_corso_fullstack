@@ -1,6 +1,5 @@
 package it.esedra.corso.shoppinglist.model;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +12,7 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import it.esedra.corso.shoppinglist.model.Persist;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 import it.esedra.corso.shoppinglist.helper.SequenceManager;
 
@@ -36,13 +36,12 @@ public class User implements Persist, Comparable<User> {
 	private static final String folderName = "shoppinglist";
 	private static final String fieldSeparator = ",";
 
-<<<<<<< HEAD
 	public static enum Fields {
 		userId, firstName, lastName, email, mobilePhone, isActive, isPrivacyConsent, isNewsletter
-=======
-	private enum Fields {
-		userId, firstName, lastName, email, mobilePhone, isActive, isPrivacyConsent, isNewsletter, uniqueCode
->>>>>>> 8f070e1cb511511032cff124b878240b75226c4f
+//=======
+//	private enum Fields {
+//		userId, firstName, lastName, email, mobilePhone, isActive, isPrivacyConsent, isNewsletter, uniqueCode
+//>>>>>>> 8f070e1cb511511032cff124b878240b75226c4f
 	}
 
 	static {
@@ -55,7 +54,7 @@ public class User implements Persist, Comparable<User> {
 		tmpMap.put(Fields.isActive.name(), 5);
 		tmpMap.put(Fields.isPrivacyConsent.name(), 6);
 		tmpMap.put(Fields.isNewsletter.name(), 7);
-		tmpMap.put(Fields.uniqueCode.name(), 8);
+//		tmpMap.put(Fields.uniqueCode.name(), 8);
 		fieldsMap = Collections.unmodifiableMap(tmpMap);
 
 	}

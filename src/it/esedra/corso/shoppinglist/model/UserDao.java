@@ -15,6 +15,7 @@ import java.util.TreeSet;
 import it.esedra.corso.shoppinglist.exceptions.DaoException;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 import it.esedra.corso.shoppinglist.model.User.Fields;
+import it.esedra.corso.shoppinglist.model.User;
 
 public class UserDao implements Dao<User>{
 
@@ -106,7 +107,6 @@ public class UserDao implements Dao<User>{
 	/**
 	 * TODO Implementare Delete
 	 */
-	@Override
 	public void delete(BigInteger id) throws DaoException {
 		// TODO Auto-generated method stub
 		

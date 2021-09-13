@@ -34,6 +34,7 @@
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/lezioni/stream/Snippet.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/lib/Planet.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/shoppinglist/exceptions/package-info.java
+/home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/lezioni/springboot/GreetingController.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/esercitazioneB/monicamarziani/Serbatoio.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/esercitazioneB/antonellomaiorano/TestRifornimento.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/lezioni/lambda/UtilFunction.java
@@ -162,6 +163,7 @@
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/shoppinglist/controller/ShoppingListHandler.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/lezioni/collections/Esercizio1.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/shoppinglist/model/Product.java
+/home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/lezioni/springboot/Greeting.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/lezioni/thread/ThreadCreation.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/lezioni/Singleton.java
 /home/bauhausk/workspace-java/esedra_corso_fullstack/src/it/esedra/corso/shoppinglist/test/endtoend/EndToEndTest.java
