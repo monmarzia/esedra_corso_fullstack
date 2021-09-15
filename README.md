@@ -75,5 +75,10 @@ poi per lanciare il server
 node server.js 
 ```
 
+colonna|colonna
+-------|-------
+val 1| val 2
+val 3| val3
+
 per raggiungere il server 
 http://localhost:3000
