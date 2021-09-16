@@ -29,7 +29,7 @@ import it.esedra.corso.shoppinglist.helper.SequenceManager;
  * 
  */
 
-public class ShoppingList implements Persist {
+public class ShoppingList {
 
 	private List<Product> products = new ArrayList<Product>();
 	private String listName = new String();

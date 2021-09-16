@@ -200,4 +200,10 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 
 	}
 
+	@Override
+	public SortedSet<ShoppingList> getAll() throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
