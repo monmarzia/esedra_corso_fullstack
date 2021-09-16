@@ -68,11 +68,17 @@ Nella cartella www eseguire il comando
 ```bash
 npm install
 ```
+[NPM JS](https://www.npmjs.com/) home page di npm js
 
 poi per lanciare il server
 ```bash
 node server.js 
 ```
+
+colonna|colonna
+-------|-------
+val 1| val 2
+val 3| val3
 
 per raggiungere il server 
 http://localhost:3000
