@@ -95,13 +95,8 @@ public class ShoppingList {
 	 * @throws IOException
 	 */
 	public static synchronized BigInteger getLastId() throws IOException {
-		try {
-			BigInteger lastId = (getAll().isEmpty()) ? SequenceManager.newIdUser() : getAll().last().getId();
+			BigInteger lastId = null;//(getAll().isEmpty()) ? SequenceManager.newIdUser() : getAll().last().getId();
 			return lastId;
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new IOException();
-		}
 
 	}
 	@Deprecated

@@ -55,10 +55,10 @@ public class AddUser extends ShoppingListHandler implements Validate {
 						.privacyConsent(Boolean.parseBoolean(tmpUser.getString("isPrivacyConsent")))
 						.newsletter(Boolean.parseBoolean(tmpUser.getString("isNewsletter"))).build();
 				user.newUserId();
-				user.store();
+				//user.store();
 			}
 			// System.out.println(user.getUserId());
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
