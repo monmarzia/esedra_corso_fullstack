@@ -1,0 +1,17 @@
+{
+	"products": [
+		{
+			"name": "uova",
+			"qty": "2",
+			"unit": "NUMBER"
+		},
+		{
+			"name": "latte",
+			"qty": "1",
+			"unit": "L"
+		}
+	],
+	"listName" : "Nome 1",
+	"id": 1,
+	"uniqueCode": "7016999857666733112"
+}

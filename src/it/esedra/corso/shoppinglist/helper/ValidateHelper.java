@@ -11,7 +11,7 @@ import javax.json.JsonReader;
 
 import org.apache.commons.lang3.EnumUtils;
 
-import it.esedra.corso.esercitazione.mvc.ValidateException;
+import it.esedra.corso.shoppinglist.exceptions.ValidateException;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 import it.esedra.corso.shoppinglist.model.Unit;
 
@@ -23,7 +23,7 @@ public class ValidateHelper {
 		try {
 			Integer.parseInt(listaSpesaObject.get(ShoppingList.Fields.id.name()).toString());
 		} catch (NumberFormatException e) {
-			throw new ValidateException("L'id inserito non è un intero");
+			throw new ValidateException("L'id inserito non ï¿½ un intero");
 		}
 
 		JsonArray items = listaSpesaObject.get("products").asJsonArray();
@@ -34,21 +34,21 @@ public class ValidateHelper {
 			try {
 				Integer.parseInt(tmpObj.get("qty").toString().replaceAll("^.|.$", ""));
 			} catch (NumberFormatException e) {
-				throw new ValidateException("La quantità inserita non è un intero");
+				throw new ValidateException("La quantitï¿½ inserita non ï¿½ un intero");
 			}
 
 			if (!EnumUtils.isValidEnum(Unit.class, tmpObj.get("unit").toString().replaceAll("^.|.$", ""))) {
-				throw new ValidateException("L'unità di misura non è corretta");
+				throw new ValidateException("L'unitï¿½ di misura non ï¿½ corretta");
 			}
 
 			if (ValidateHelper.validateProductName(tmpObj.get("name").toString().replaceAll("^.|.$", ""))) {
-				throw new ValidateException("Non è un nome valido per un prodotto");
+				throw new ValidateException("Non ï¿½ un nome valido per un prodotto");
 			}
 		}
 
 		if (ValidateHelper.validateListName(listaSpesaObject
 				.get(ShoppingList.Fields.listName.name()).toString().replaceAll("^.|.$", "").replace(" ", ""))) {
-			throw new ValidateException("Non è un nome valido per una lista");
+			throw new ValidateException("Non ï¿½ un nome valido per una lista");
 		}
 
 	}
@@ -60,30 +60,30 @@ public class ValidateHelper {
 		for (Object el : userArr) {
 			JsonObject tmpUser = (JsonObject) (el);
 			if (ValidateHelper.validateUserName(tmpUser.get("firstName").toString().replaceAll("^.|.$", ""))) {
-				throw new ValidateException("Non è un nome valido per un utente");
+				throw new ValidateException("Non ï¿½ un nome valido per un utente");
 			}
 			if (ValidateHelper.validateUserName(tmpUser.get("lastName").toString().replaceAll("^.|.$", ""))) {
-				throw new ValidateException("Non è un cognome valido per un utente");
+				throw new ValidateException("Non ï¿½ un cognome valido per un utente");
 			}
 
 			if (ValidateHelper.validateEmail(tmpUser.get("email").toString().replaceAll("^.|.$", ""))) {
-				throw new ValidateException("Non è un'email valida");
+				throw new ValidateException("Non ï¿½ un'email valida");
 			}
 
 			try {
 				Integer.parseInt(tmpUser.get("mobilePhone").toString().replaceAll("^.|.$", ""));
 			} catch (NumberFormatException e) {
-				throw new ValidateException("La quantità inserita non è un intero");
+				throw new ValidateException("La quantitï¿½ inserita non ï¿½ un intero");
 			}
 
 			if (Boolean.parseBoolean(tmpUser.get("isActive").toString().replaceAll("^.|.$", "")) != false && Boolean.parseBoolean(tmpUser.get("isActive").toString().replaceAll("^.|.$", "")) != true) {
-				throw new ValidateException("isActive non è boolean");
+				throw new ValidateException("isActive non ï¿½ boolean");
 			}
 			if (Boolean.parseBoolean(tmpUser.get("isPrivacyConsent").toString().replaceAll("^.|.$", "")) != false && Boolean.parseBoolean(tmpUser.get("isPrivacyConsent").toString().replaceAll("^.|.$", "")) != true) {
-				throw new ValidateException("isPrivacyConsent non è boolean");
+				throw new ValidateException("isPrivacyConsent non ï¿½ boolean");
 			}
 			if (Boolean.parseBoolean(tmpUser.get("isNewsletter").toString().replaceAll("^.|.$", "")) != false && Boolean.parseBoolean(tmpUser.get("isNewsletter").toString().replaceAll("^.|.$", "")) != true) {
-				throw new ValidateException("isNewsletter non è boolean");
+				throw new ValidateException("isNewsletter non ï¿½ boolean");
 			}
 
 		}
