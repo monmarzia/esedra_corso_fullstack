@@ -113,4 +113,4 @@ Per verificare il funzionamento, con il bottone destro dalla root del progetto s
 - Run As: Maven-clean
 - Run As: Maven-install
 
-Con il primo comando si pulisce il progetto dalla precedente installazione di Maven e con la seconda si installano le dependencies del progetto.
+Con il primo comando viene rimosso il contenuto della cartella target e con la seconda si dovrebbe creare nella cartella target il file .jar del progetto, se non ci sono errori che ne impediscono il build.
