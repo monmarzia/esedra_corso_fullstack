@@ -43,6 +43,10 @@ public final class SequenceManager {
 	public BigInteger getCurrentIdUser() { // Id corrente: è già l'ultimo assegnato
 		return getInstance().idUser;
 	}
+	
+	public BigInteger getIdShoppingList() {
+		return getInstance().idShoppingList;
+	}
 
 	/**
 	 * 
@@ -53,9 +57,7 @@ public final class SequenceManager {
 		return getInstance().idUser = idUser.add(BigInteger.ONE);
 	}
 
-	public BigInteger getIdShoppingList() {
-		return getInstance().idShoppingList;
-	}
+	
 
 	/**
 	 * 
@@ -63,7 +65,7 @@ public final class SequenceManager {
 	 * @throws IOException
 	 * 
 	 */
-	public static synchronized BigInteger newIdShoppingList() throws IOException {
+	public synchronized BigInteger newIdShoppingList() throws IOException {
 		SequenceManager.getInstance().idShoppingList = SequenceManager.getInstance().idShoppingList.add(BigInteger.ONE);
 		return SequenceManager.getInstance().idShoppingList;
 	}
@@ -82,6 +84,16 @@ public final class SequenceManager {
 		BigInteger lastId = (users.isEmpty()) ? SequenceManager.getInstance().getNewIdUser()
 				: users.stream().sorted((u1, u2) -> u1.getUserId().compareTo(u2.getUserId())).reduce((f, s) -> s)
 						.orElse(null).getUserId();
+		return lastId;
+	}
+	
+	public static synchronized BigInteger findLastShoppingListId(Collection<ShoppingList> shoppingList) throws IOException {
+		if (shoppingList == null) {
+			shoppingList = new ArrayList<ShoppingList>();
+		}
+		BigInteger lastId = (shoppingList.isEmpty()) ? SequenceManager.getInstance().newIdShoppingList()
+				: shoppingList.stream().sorted((u1, u2) -> u1.getId().compareTo(u2.getId())).reduce((f, s) -> s)
+						.orElse(null).getId();
 		return lastId;
 
 	}

@@ -7,12 +7,18 @@ import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import it.esedra.corso.shoppinglist.exceptions.DaoException;
 import it.esedra.corso.shoppinglist.helper.AESHelper;
@@ -25,6 +31,7 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 	private static final String fileName = "lista.csv";
 	private static final String folderName = "shoppinglist";
 	private static final String fieldSeparator = ",";
+	private final static Logger logger = LoggerFactory.getLogger(ShoppingListDao.class.getName());
 
 	private final static Map<String, Integer> fieldsMap;
 	static {
@@ -37,22 +44,22 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 		tmpMap.put(Product.Fields.unit.name(), 5);
 		fieldsMap = Collections.unmodifiableMap(tmpMap);
 	}
-	
+
 	/**
 	 * TODO Implemetare Delete
 	 */
-	
+
 	@Override
 	public void delete(BigInteger id) throws DaoException {
 		File db = null;
 		File dbclone = null;
 		try {
-			//cerco tutti i shopping list
+			// cerco tutti i shopping list
 			SortedSet<ShoppingList> shoppingLists = this.find(new ShoppingListBuilder().build());
-			//rinominiamo il file
-			//prendo il file del db
+			// rinominiamo il file
+			// prendo il file del db
 			db = new File(GetFileResource.get(fileName, folderName).toPath().toString());
-			//clono il file del db
+			// clono il file del db
 			dbclone = new File(GetFileResource.get(fileName, folderName).toPath().toString() + ".temp");
 			// ma prima verifico che non esista già
 			if (dbclone.exists()) {
@@ -60,23 +67,23 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 			}
 			// clono effettettivamente il file del db
 			db.renameTo(dbclone);
-			///elimino il file del db
+			/// elimino il file del db
 			db.delete();
-			//lo riscrivo da zero
+			// lo riscrivo da zero
 			for (ShoppingList line : shoppingLists) {
-				//se il id corrisponde a quello in input non lo scrivo
+				// se il id corrisponde a quello in input non lo scrivo
 				if (!line.getId().equals(id)) {
 					this.save(line);
-				}				
+				}
 			}
 		} catch (Exception e) {
-			//cancello il file nuovo del db 
+			// cancello il file nuovo del db
 			db.delete();
-			//ripristino il vecchio file del db
+			// ripristino il vecchio file del db
 			dbclone.renameTo(db);
 			throw new DaoException(e.getMessage());
 		} finally {
-			//eliminio il clone che avevo fatto per salvare i dati in caso di errore
+			// eliminio il clone che avevo fatto per salvare i dati in caso di errore
 			dbclone.delete();
 		}
 	}
@@ -89,7 +96,8 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 			ShoppingListBuilder builder = null;
 			for (String line : lines) {
 				String[] fields = line.split(fieldSeparator);
-				if (!fields[0].equals("")) {
+				if (fields[fieldsMap.get(Fields.id.name())].equals(shoppingList.getId().toString())
+						|| fields[fieldsMap.get(Fields.listName.name())].equals(shoppingList.getListName())) {
 					if (builder == null) {
 						builder = ShoppingListBuilder.builder();
 						builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
@@ -122,7 +130,8 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 	 */
 	private static String generateUniqueKey(BigInteger id, String name) throws DaoException {
 		try {
-			return URLEncoder.encode(AESHelper.encrypt(id + name, "EsedraShoppingList"), StandardCharsets.UTF_8.toString());
+			return URLEncoder.encode(AESHelper.encrypt(id + name, "EsedraShoppingList"),
+					StandardCharsets.UTF_8.toString());
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}
@@ -131,7 +140,7 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 	/**
 	 * TODO Implementare la parte Update
 	 */
-	
+
 	@Override
 	public void save(ShoppingList t) throws DaoException {
 		try {
@@ -175,25 +184,28 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 	public ShoppingList get(BigInteger id) throws DaoException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(fileName, folderName).toPath());
-			ShoppingListBuilder builder = null;
-			for (String line : lines) {
-				String[] fields = line.split(fieldSeparator);
-
-				if (id.equals(new BigInteger(fields[fieldsMap.get(Fields.id.name())]))) {
-					if (builder == null) {
-						builder = ShoppingListBuilder.builder();
-						builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
-								.listName(fields[fieldsMap.get(Fields.listName.name())])
-								.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
-					}
-					Product tmpProduct = new Product();
-					tmpProduct.setName(fields[fieldsMap.get("name")]);
-					tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
-					builder.addProduct(tmpProduct);
-				}
-			}
-			return builder.build();
+			ShoppingList shoppingList = null;
+			
+			//shoppingList = lines.stream().map(ShoppingList::builderShoppingList).filter(null)
+			
+//			for (String line : lines) {
+//				String[] fields = line.split(fieldSeparator);
+//
+//				if (id.equals(new BigInteger(fields[fieldsMap.get(Fields.id.name())]))) {
+//					if (builder == null) {
+//						builder = ShoppingListBuilder.builder();
+//						builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
+//								.listName(fields[fieldsMap.get(Fields.listName.name())])
+//								.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
+//					}
+//					Product tmpProduct = new Product();
+//					tmpProduct.setName(fields[fieldsMap.get("name")]);
+//					tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
+//					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
+//					builder.addProduct(tmpProduct);
+//				}
+//			}
+			return shoppingList;
 		} catch (Exception e) {
 			throw new DaoException(e.getMessage());
 		}
@@ -201,9 +213,34 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 	}
 
 	@Override
-	public SortedSet<ShoppingList> getAll() throws DaoException {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<ShoppingList> getAll() throws DaoException {
+		try {
+			List<String> lines = Files.readAllLines(GetFileResource.get(fileName, folderName).toPath());
+			Collection<ShoppingList> shoppingLists = new ArrayList<ShoppingList>();
+
+			// shoppingLists = lines.stream().map(ShoppingList::builderShoppingList).collect(Collectors.toList());
+
+//			for (String line : lines) {
+//				String[] fields = line.split(fieldSeparator);
+//
+//				if (builder == null) {
+//					builder = ShoppingListBuilder.builder();
+//					builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
+//							.listName(fields[fieldsMap.get(Fields.listName.name())])
+//							.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
+//				}
+//				Product tmpProduct = new Product();
+//				tmpProduct.setName(fields[fieldsMap.get("name")]);
+//				tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
+//				tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
+//				builder.addProduct(tmpProduct);
+//				shoppingLists.add(builder.build());
+//			}
+			return shoppingLists;
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+			throw new DaoException(e);
+		}
 	}
 
 }
