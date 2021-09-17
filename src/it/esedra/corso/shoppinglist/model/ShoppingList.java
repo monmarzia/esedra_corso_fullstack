@@ -19,6 +19,7 @@ import it.esedra.corso.shoppinglist.exceptions.StoreException;
 import it.esedra.corso.shoppinglist.helper.AESHelper;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
 import it.esedra.corso.shoppinglist.helper.SequenceManager;
+import it.esedra.corso.shoppinglist.model.ShoppingList.Fields;
 
 /**
  * 
@@ -43,6 +44,7 @@ public class ShoppingList {
 	public static enum Fields {
 		listName, id, uniqueCode
 	}
+
 	@Deprecated
 	private final static Map<String, Integer> fieldsMap;
 	static {
@@ -95,10 +97,32 @@ public class ShoppingList {
 	 * @throws IOException
 	 */
 	public static synchronized BigInteger getLastId() throws IOException {
-			BigInteger lastId = null;//(getAll().isEmpty()) ? SequenceManager.newIdUser() : getAll().last().getId();
-			return lastId;
+		BigInteger lastId = null;// (getAll().isEmpty()) ? SequenceManager.newIdUser() : getAll().last().getId();
+		return lastId;
 
 	}
+
+	public static ShoppingList builderShoppingList (String shoppingList) {
+		String[] fields = shoppingList.split(fieldSeparator);
+		ShoppingListBuilder builder = null;
+
+		if (builder == null) {
+			builder = ShoppingListBuilder.builder();
+			builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
+					.listName(fields[fieldsMap.get(Fields.listName.name())])
+					.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
+		}
+		Product tmpProduct = new Product();
+		tmpProduct.setName(fields[fieldsMap.get("name")]);
+		tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
+		tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
+		builder.addProduct(tmpProduct);
+		
+		return builder.build();
+	}
+
+	
+
 	@Deprecated
 	public ShoppingList get(ShoppingList inShoppingList) throws IOException {
 
@@ -170,24 +194,26 @@ public class ShoppingList {
 		}
 
 	}
+
 	@Deprecated
 	public static SortedSet<ShoppingList> getAll() throws IOException {
 		try {
-			List<String> lines = Files.readAllLines(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName).toPath());
+			List<String> lines = Files
+					.readAllLines(GetFileResource.get(ShoppingList.fileName, ShoppingList.folderName).toPath());
 			SortedSet<ShoppingList> shoppingLists = new TreeSet<ShoppingList>();
 			ShoppingListBuilder builder = null;
 			for (String line : lines) {
 				String[] fields = line.split(ShoppingList.fieldSeparator);
 				if (!fields[0].equals("")) {
-					if(builder == null) {
+					if (builder == null) {
 						builder = ShoppingListBuilder.builder();
 						builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
-							.listName(fields[fieldsMap.get(Fields.listName.name())]);
+								.listName(fields[fieldsMap.get(Fields.listName.name())]);
 					}
 					Product tmpProduct = new Product();
 					tmpProduct.setName(fields[fieldsMap.get("name")]);
 					tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));								
+					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
 					builder.addProduct(tmpProduct);
 				}
 				shoppingLists.add(builder.build());
@@ -199,10 +225,12 @@ public class ShoppingList {
 			throw new IOException();
 		}
 	}
+
 	@Deprecated
 	public void updateShoppingList() {
 
 	}
+
 	@Deprecated
 	public void deleteShoppingList() {
 
@@ -219,7 +247,8 @@ public class ShoppingList {
 	@Deprecated
 	private static String generateUniqueKey(BigInteger id, String name) throws StoreException {
 		try {
-			return URLEncoder.encode(AESHelper.encrypt(id + name, "EsedraShoppingList"), StandardCharsets.UTF_8.toString());
+			return URLEncoder.encode(AESHelper.encrypt(id + name, "EsedraShoppingList"),
+					StandardCharsets.UTF_8.toString());
 		} catch (Exception e) {
 			throw new StoreException(e.getMessage());
 		}
