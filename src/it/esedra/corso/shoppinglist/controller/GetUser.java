@@ -1,14 +1,12 @@
 package it.esedra.corso.shoppinglist.controller;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 import javax.json.Json;
-import javax.json.JsonArrayBuilder;
 
 import com.sun.net.httpserver.HttpExchange;
 
-import it.esedra.corso.esercitazione.mvc.ValidateException;
+import it.esedra.corso.shoppinglist.exceptions.ValidateException;
 import it.esedra.corso.shoppinglist.model.User;
 import it.esedra.corso.shoppinglist.model.UserBuilder;
 import it.esedra.corso.shoppinglist.model.Validate;

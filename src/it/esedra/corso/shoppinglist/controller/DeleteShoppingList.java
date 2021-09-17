@@ -10,7 +10,7 @@ import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 
-import it.esedra.corso.esercitazione.mvc.ValidateException;
+import it.esedra.corso.shoppinglist.exceptions.ValidateException;
 import it.esedra.corso.shoppinglist.model.ShoppingList;
 import it.esedra.corso.shoppinglist.model.Validate;
 
@@ -29,7 +29,7 @@ public class DeleteShoppingList extends ShoppingListHandler implements Validate 
 		try {
 			new BigInteger(listaSpesaObject.get(ShoppingList.Fields.id.name()).toString());  
 		} catch (Exception e) {
-			throw new ValidateException("L'id inserito non è un intero");
+			throw new ValidateException("L'id inserito non ï¿½ un intero");
 		}
 		
 

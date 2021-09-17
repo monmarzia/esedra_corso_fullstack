@@ -12,7 +12,7 @@ import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 
-import it.esedra.corso.esercitazione.mvc.ValidateException;
+import it.esedra.corso.shoppinglist.exceptions.ValidateException;
 import it.esedra.corso.shoppinglist.helper.ValidateHelper;
 import it.esedra.corso.shoppinglist.model.Product;
 import it.esedra.corso.shoppinglist.model.ShoppingList;

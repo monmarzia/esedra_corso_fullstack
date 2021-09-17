@@ -1,6 +1,5 @@
 package it.esedra.corso.shoppinglist.controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -12,7 +11,7 @@ import javax.json.JsonReader;
 
 import com.sun.net.httpserver.HttpExchange;
 
-import it.esedra.corso.esercitazione.mvc.ValidateException;
+import it.esedra.corso.shoppinglist.exceptions.ValidateException;
 import it.esedra.corso.shoppinglist.helper.ValidateHelper;
 import it.esedra.corso.shoppinglist.model.User;
 import it.esedra.corso.shoppinglist.model.UserBuilder;
