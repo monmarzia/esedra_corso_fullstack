@@ -83,7 +83,7 @@ public class User {
 	public boolean isNewsletter() {
 		return newsletter;
 	}
-
+	
 	public String getUniqueCode() {
 		return uniqueCode;
 	}
