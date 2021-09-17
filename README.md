@@ -79,11 +79,18 @@ http://localhost:3000
 
 ### MAVEN
 #### Installazione Maven:
-Scaricare la versione più recente del binary di Maven: [](https://maven.apache.org/download.cgi) nella versione compessa .zip o .tar.gz
+Scaricare la versione più recente del binary di Maven: [DOVNLOAD](https://maven.apache.org/download.cgi) 
+
+selezionare la versione compessa .zip o .tar.gz
+
 Scompattarla in un percorso predefinito nel proprio sistema operativo.
+
 Aggiungere la subdirectory /bin della cartella appena scaricata alla propria variabile di sistema $PATH.
-Per info sull'installazione consultare la guida: [](https://maven.apache.org/install.html)
+
+Per info sull'installazione consultare la guida: [INSTALL](https://maven.apache.org/install.html)
+
 Anche la variabile di ambiente $JAVA_HOME deve essere configurata correttamente perchè Maven funzioni.
+
 Verificare che l'installazione sia andata a buon fine:
 ```bash
 mvn -v
@@ -99,9 +106,11 @@ Convertire il progetto Java in Eclipse in progetto Maven: con il tasto destro su
 La procedura crea automaticamente un file pom.xml con le istruzioni di base per il progetto. Queste andranno poi integrate con i plugins e le dependencies del progetto.
 
 Da notare nel file pom.xml l'indicazione del parent project a "spring-boot-starter-parent" e le dependencies "spring-boot-starter" e "spring-boot-starter.test":
+
 Saranno queste impostazioni che scaricheranno le librerie che integrano SpringBoot nel progetto.
 
 Per verificare il funzionamento, con il bottone destro dalla root del progetto selezionare:
 - Run As: Maven-clean
 - Run As: Maven-install
+
 Con il primo comando si pulisce il progetto dalla precedente installazione di Maven e con la seconda si installano le dependencies del progetto.
