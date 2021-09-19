@@ -16,3 +16,4 @@ src/.DS_Store
 *.projects
 *.prefs
 *.project
+/target/
