@@ -166,7 +166,14 @@ public class UserDao implements Dao<User> {
 			///elimino il file del db
 			db.delete();
 			//lo riscrivo da zero
-			users.stream().filter(u -> !u.getUserId().equals(id)).forEach(u -> save(u));
+			users.stream().filter(u -> !u.getUserId().equals(id)).forEach(u -> {
+				try {
+					save(u);
+				} catch (DaoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			});
 			//se il id corrisponde a quello in input non lo scrivo
 		} catch (Exception e) {
 			//cancello il file nuovo del db 
