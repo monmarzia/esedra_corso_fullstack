@@ -14,12 +14,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import it.esedra.corso.shoppinglist.exceptions.StoreException;
 import it.esedra.corso.shoppinglist.helper.AESHelper;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
-import it.esedra.corso.shoppinglist.helper.SequenceManager;
-import it.esedra.corso.shoppinglist.model.ShoppingList.Fields;
 
 /**
  * 
@@ -102,26 +101,37 @@ public class ShoppingList {
 
 	}
 
-	public static ShoppingList builderShoppingList (String shoppingList) {
-		String[] fields = shoppingList.split(fieldSeparator);
-		ShoppingListBuilder builder = null;
+	public static ShoppingList builderShoppingList(List<String[]> shoppingList) {
 
-		if (builder == null) {
-			builder = ShoppingListBuilder.builder();
-			builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
-					.listName(fields[fieldsMap.get(Fields.listName.name())])
-					.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
-		}
-		Product tmpProduct = new Product();
-		tmpProduct.setName(fields[fieldsMap.get("name")]);
-		tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-		tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
-		builder.addProduct(tmpProduct);
+		ShoppingListBuilder builder = ShoppingListBuilder.builder();
 		
+		builder.listName(shoppingList.get(0)[fieldsMap.get(Fields.listName.name())])
+			.id(new BigInteger(shoppingList.get(0)[fieldsMap.get(Fields.id.name())]))
+			.uniqueCode(shoppingList.get(0)[fieldsMap.get(Fields.uniqueCode.name())]);
+		
+		builder.products(shoppingList.stream().map(s -> new Product(s[fieldsMap.get(Product.Fields.name.name())],
+				Integer.parseInt(s[fieldsMap.get(Product.Fields.qty.name())]),
+				Unit.valueOf(s[fieldsMap.get(Product.Fields.unit.name())]))).collect(Collectors.toList()));
+
 		return builder.build();
 	}
 
-	
+//		String[] fields = shoppingList.split(fieldSeparator);
+//		ShoppingListBuilder builder = null;
+//
+//		if (builder == null) {
+//			builder = ShoppingListBuilder.builder();
+//			builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
+//					.listName(fields[fieldsMap.get(Fields.listName.name())])
+//					.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
+//		}
+//		Product tmpProduct = new Product();
+//		tmpProduct.setName(fields[fieldsMap.get("name")]);
+//		tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
+//		tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
+//		builder.addProduct(tmpProduct);
+//		
+//		return builder.build();
 
 	@Deprecated
 	public ShoppingList get(ShoppingList inShoppingList) throws IOException {

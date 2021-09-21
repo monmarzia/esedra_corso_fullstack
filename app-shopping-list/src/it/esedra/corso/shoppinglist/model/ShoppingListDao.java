@@ -7,13 +7,13 @@ import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -185,9 +185,10 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(fileName, folderName).toPath());
 			ShoppingList shoppingList = null;
-			
-			//shoppingList = lines.stream().map(ShoppingList::builderShoppingList).filter(null)
-			
+
+			// shoppingList =
+			// lines.stream().map(ShoppingList::builderShoppingList).filter(null)
+
 //			for (String line : lines) {
 //				String[] fields = line.split(fieldSeparator);
 //
@@ -214,33 +215,29 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 
 	@Override
 	public Collection<ShoppingList> getAll() throws DaoException {
+		Collection<ShoppingList> shoppingList = this.rowConverter(this.fetchRows());
+
+		return shoppingList;
+
+	}
+
+	private List<String[]> fetchRows() throws DaoException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(fileName, folderName).toPath());
-			Collection<ShoppingList> shoppingLists = new ArrayList<ShoppingList>();
 
-			// shoppingLists = lines.stream().map(ShoppingList::builderShoppingList).collect(Collectors.toList());
-
-//			for (String line : lines) {
-//				String[] fields = line.split(fieldSeparator);
-//
-//				if (builder == null) {
-//					builder = ShoppingListBuilder.builder();
-//					builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
-//							.listName(fields[fieldsMap.get(Fields.listName.name())])
-//							.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
-//				}
-//				Product tmpProduct = new Product();
-//				tmpProduct.setName(fields[fieldsMap.get("name")]);
-//				tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-//				tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
-//				builder.addProduct(tmpProduct);
-//				shoppingLists.add(builder.build());
-//			}
-			return shoppingLists;
+			return lines.stream().map(s -> s.split(fieldSeparator)).collect(Collectors.toList());
 		} catch (IOException e) {
-			logger.error(e.getMessage());
 			throw new DaoException(e);
 		}
+	}
+
+	public static Collection<ShoppingList> rowConverter(List<String[]> csvRows) {
+		Collection<List<String[]>> st = csvRows.stream().collect(Collectors
+				.groupingBy(s -> s[fieldsMap.get(Fields.uniqueCode.name())], TreeMap::new, Collectors.toList()))
+				.values();
+
+		return st.stream().map(ShoppingList::builderShoppingList).collect(Collectors.toList());
+
 	}
 
 }

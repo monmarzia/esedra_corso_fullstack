@@ -19,6 +19,16 @@ public class Product {
 	public static enum Fields {
 		name, qty, unit
 	}
+	
+	public Product () {
+		
+	}
+	
+	public Product (String name, Integer qty, Unit unit) {
+		this.name = name;
+		this.qty = qty;
+		this.unit = unit;
+	}
 
 	/**
 	 * @return id incrementato di 1

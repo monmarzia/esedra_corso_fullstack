@@ -64,6 +64,11 @@ public class ShoppingListBuilder {
 		this.listName = listName;
 		return this;
 	}
+	
+	public ShoppingListBuilder products(List<Product> products) {
+		this.products = products;
+		return this;
+	}
 
 
 
