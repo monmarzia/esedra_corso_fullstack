@@ -182,42 +182,20 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 
 	@Override
 	public ShoppingList get(BigInteger id) throws DaoException {
-		try {
-			List<String> lines = Files.readAllLines(GetFileResource.get(fileName, folderName).toPath());
-			ShoppingList shoppingList = null;
+		Collection<ShoppingList> shoppingLists = ShoppingListDao.rowConverter(this.fetchRows());
 
-			// shoppingList =
-			// lines.stream().map(ShoppingList::builderShoppingList).filter(null)
+		ShoppingList shoppingList = shoppingLists.stream().filter(s -> s.getId().equals(id))
+				.collect(Collectors.toList()).get(0);
 
-//			for (String line : lines) {
-//				String[] fields = line.split(fieldSeparator);
-//
-//				if (id.equals(new BigInteger(fields[fieldsMap.get(Fields.id.name())]))) {
-//					if (builder == null) {
-//						builder = ShoppingListBuilder.builder();
-//						builder.uniqueCode(fields[fieldsMap.get(Fields.uniqueCode.name())])
-//								.listName(fields[fieldsMap.get(Fields.listName.name())])
-//								.id(new BigInteger(fields[fieldsMap.get(Fields.id.name())]));
-//					}
-//					Product tmpProduct = new Product();
-//					tmpProduct.setName(fields[fieldsMap.get("name")]);
-//					tmpProduct.setQty(Integer.parseInt(fields[fieldsMap.get("qty")]));
-//					tmpProduct.setUnit(Unit.valueOf(fields[fieldsMap.get("unit")]));
-//					builder.addProduct(tmpProduct);
-//				}
-//			}
-			return shoppingList;
-		} catch (Exception e) {
-			throw new DaoException(e.getMessage());
-		}
+		return shoppingList;
 
 	}
 
 	@Override
 	public Collection<ShoppingList> getAll() throws DaoException {
-		Collection<ShoppingList> shoppingList = this.rowConverter(this.fetchRows());
+		Collection<ShoppingList> shoppingLists = ShoppingListDao.rowConverter(this.fetchRows());
 
-		return shoppingList;
+		return shoppingLists;
 
 	}
 

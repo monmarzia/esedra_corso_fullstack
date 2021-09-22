@@ -11,8 +11,7 @@ public class ShoppingListBuilder {
 	private User user;
 	private BigInteger id;
 	private String uniqueCode;
-	
-	
+
 	public ShoppingListBuilder(List<Product> products, String listName, User user, BigInteger id, String uniqueCode) {
 		this.products = products;
 		this.listName = listName;
@@ -20,15 +19,15 @@ public class ShoppingListBuilder {
 		this.id = id;
 		this.uniqueCode = uniqueCode;
 	}
-	
+
 	public ShoppingListBuilder() {
-		
+
 	}
 
 	public static ShoppingListBuilder builder() {
 		return new ShoppingListBuilder();
 	}
-	
+
 	public ShoppingList build() {
 		return new ShoppingList(products, listName, user, id, uniqueCode);
 	}
@@ -42,18 +41,15 @@ public class ShoppingListBuilder {
 		return this;
 	}
 
-
 	public ShoppingListBuilder id(BigInteger id) {
 		this.id = id;
 		return this;
 	}
 
-
 	public ShoppingListBuilder uniqueCode(String uniqueCode) {
 		this.uniqueCode = uniqueCode;
 		return this;
 	}
-
 
 	public ShoppingListBuilder addProduct(Product product) {
 		this.products.add(product);
@@ -64,13 +60,10 @@ public class ShoppingListBuilder {
 		this.listName = listName;
 		return this;
 	}
-	
+
 	public ShoppingListBuilder products(List<Product> products) {
 		this.products = products;
 		return this;
 	}
 
-
-
 }
-
