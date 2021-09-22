@@ -14,7 +14,6 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-
 public class MyServer {
 
 	public static void main(String[] args) throws Exception {
