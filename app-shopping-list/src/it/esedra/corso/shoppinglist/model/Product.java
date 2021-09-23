@@ -3,10 +3,9 @@ package it.esedra.corso.shoppinglist.model;
 import java.math.BigInteger;
 
 /**
- * Gli elementi di queso modello sono: Descrizione Quantità Prezzo Unità
- * Identificativo univoco numerico sequenziale TODO: valutare se rinominare in
- * "Product" TODO: valutare l'utlizzo di un'enum al posto di "unit" TODO:
- * Implementare identificatore numerico BigInteger,
+ * Entity Gli elementi di queso modello sono: Descrizione Quantità Prezzo Unità
+ * Identificativo univoco numerico sequenziale TODO: Implementare identificatore
+ * numerico BigInteger,
  */
 
 public class Product {
@@ -14,27 +13,19 @@ public class Product {
 	private Integer qty;
 	private Unit unit;
 	private String description;
-	private static BigInteger id = new BigInteger("1");
 
 	public static enum Fields {
 		name, qty, unit
 	}
-	
-	public Product () {
-		
+
+	public Product() {
+
 	}
-	
-	public Product (String name, Integer qty, Unit unit) {
+
+	public Product(String name, Integer qty, Unit unit) {
 		this.name = name;
 		this.qty = qty;
 		this.unit = unit;
-	}
-
-	/**
-	 * @return id incrementato di 1
-	 */
-	public BigInteger getSequence() {
-		return id.add(new BigInteger("1"));
 	}
 
 	/**
@@ -63,10 +54,6 @@ public class Product {
 		return name;
 	}
 
-//	public BigInteger getId() {
-//		return id;
-//	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -79,38 +66,4 @@ public class Product {
 		this.unit = unit;
 	}
 
-//	public void setId(BigInteger id) {
-//		this.id = id;
-//	}
-
-	/**
-	 * Restituisce un nuovo oggetto Product
-	 * 
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-//	public Product get() throws IOException {
-//		
-//		BufferedReader br = Files.newBufferedReader(GetFileResource.get("lista.csv", "shoppinglist").toPath());
-//		
-//		
-//		String line = br.readLine();
-//		
-//		Product product = null;
-//		
-//		while (line != null) {
-//			String[] fields = line.split(",");
-//			BigInteger tmpId = new BigInteger(fields[4]);
-//			if (tmpId.equals(this.getId())) {
-//				product = new Product();
-//				product.setName(fields[0]);
-//				product.setQty(Integer.parseInt(fields[1]));
-//				product.setUnit(Unit.valueOf(fields[2]));
-//				product.setDescription(fields[3]);
-//				product.setId(tmpId);
-//			}	
-//		}
-//		return new Product();
-//	}
 }

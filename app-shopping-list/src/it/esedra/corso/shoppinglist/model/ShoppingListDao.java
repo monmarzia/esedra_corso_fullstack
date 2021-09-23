@@ -44,18 +44,17 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 		tmpMap.put(Product.Fields.unit.name(), 5);
 		fieldsMap = Collections.unmodifiableMap(tmpMap);
 	}
-
+	
 	/**
-	 * TODO Implemetare Delete
+	 * Delete a shopping list
 	 */
-
 	@Override
 	public void delete(BigInteger id) throws DaoException {
 		File db = null;
 		File dbclone = null;
 		try {
 			// cerco tutti i shopping list
-			SortedSet<ShoppingList> shoppingLists = this.find(new ShoppingListBuilder().build());
+			Collection<ShoppingList> shoppingLists = this.getAll();
 			// rinominiamo il file
 			// prendo il file del db
 			db = new File(GetFileResource.get(fileName, folderName).toPath().toString());
@@ -191,6 +190,9 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 
 	}
 
+	/**
+	 * Returns a <code>Collection<ShoppingList></code> from CSV
+	 */
 	@Override
 	public Collection<ShoppingList> getAll() throws DaoException {
 		Collection<ShoppingList> shoppingLists = ShoppingListDao.rowConverter(this.fetchRows());
@@ -199,6 +201,12 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 
 	}
 
+	/**
+	 * Get a rows from CSV as <code>List<String[]></code>
+	 * 
+	 * @return a row as String[]
+	 * @throws DaoException
+	 */
 	private List<String[]> fetchRows() throws DaoException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(fileName, folderName).toPath());
@@ -209,6 +217,12 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 		}
 	}
 
+	/**
+	 * Convert a row a String[] into <code>Collection<ShoppingList></code>
+	 * 
+	 * @param csvRows
+	 * @return a Collection of ShoppingList instances
+	 */
 	public static Collection<ShoppingList> rowConverter(List<String[]> csvRows) {
 		Collection<List<String[]>> st = csvRows.stream().collect(Collectors
 				.groupingBy(s -> s[fieldsMap.get(Fields.uniqueCode.name())], TreeMap::new, Collectors.toList()))

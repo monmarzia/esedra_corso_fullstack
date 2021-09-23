@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import it.esedra.corso.shoppinglist.helper.SequenceManager;
 
 /**
+ * Entity User
  * @author monica
  *
  */
