@@ -1,8 +1,9 @@
 package it.esedra.corso.shoppinglist.model;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -23,15 +24,19 @@ import org.slf4j.LoggerFactory;
 import it.esedra.corso.shoppinglist.exceptions.DaoException;
 import it.esedra.corso.shoppinglist.helper.AESHelper;
 import it.esedra.corso.shoppinglist.helper.GetFileResource;
-import it.esedra.corso.shoppinglist.model.ShoppingList.Fields;
+import it.esedra.corso.shoppinglist.helper.SequenceManager;
 
 public class ShoppingListDao implements Dao<ShoppingList> {
 
 	private String uniqueCode;
-	private static final String fileName = "lista.csv";
+	private static final String fileName = "shoppinglist.csv";
 	private static final String folderName = "shoppinglist";
 	private static final String fieldSeparator = ",";
 	private final static Logger logger = LoggerFactory.getLogger(ShoppingListDao.class.getName());
+
+	public static enum Fields {
+		listName, id, uniqueCode
+	}
 
 	private final static Map<String, Integer> fieldsMap;
 	static {
@@ -39,22 +44,20 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 		tmpMap.put(Fields.id.name(), 0);
 		tmpMap.put(Fields.listName.name(), 1);
 		tmpMap.put(Fields.uniqueCode.name(), 2);
-		tmpMap.put(Product.Fields.name.name(), 3);
-		tmpMap.put(Product.Fields.qty.name(), 4);
-		tmpMap.put(Product.Fields.unit.name(), 5);
 		fieldsMap = Collections.unmodifiableMap(tmpMap);
 	}
-	
+
 	/**
-	 * Delete a shopping list
+	 * TODO Implemetare Delete
 	 */
+
 	@Override
 	public void delete(BigInteger id) throws DaoException {
 		File db = null;
 		File dbclone = null;
 		try {
 			// cerco tutti i shopping list
-			Collection<ShoppingList> shoppingLists = this.getAll();
+			SortedSet<ShoppingList> shoppingLists = this.find(new ShoppingListBuilder().build());
 			// rinominiamo il file
 			// prendo il file del db
 			db = new File(GetFileResource.get(fileName, folderName).toPath().toString());
@@ -109,7 +112,6 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 					builder.addProduct(tmpProduct);
 				}
 				shoppingLists.add((ShoppingList) builder.build());
-
 			}
 			return shoppingLists;
 		} catch (IOException e) {
@@ -144,40 +146,44 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 	public void save(ShoppingList t) throws DaoException {
 		try {
 
-			PrintWriter writer = new PrintWriter(GetFileResource.get(fileName, folderName));
+			BufferedWriter writer = new BufferedWriter(
+					new FileWriter(GetFileResource.get(fileName, folderName).toPath().toString(), true));
 			StringBuilder builder = new StringBuilder();
 
 //			if (t.getUniqueCode() == null) {
 //				t.getUniqueCode = ShoppingList.generateUniqueKey(this.getId(), this.getListName());
 //			}
 
-			for (Product listaTemp : t.getProducts()) {
-				if (listaTemp == null) {
-					continue;
-				}
+			if ((t.getId().equals(BigInteger.ONE)
+					|| t.getId().compareTo(SequenceManager.getInstance().getCurrentIdShoppingList()) > 0)
+					&& !find(t).contains(t)) {
 				builder.append(t.getId());
 				builder.append(fieldSeparator);
 				builder.append(t.getListName());
 				builder.append(fieldSeparator);
+				builder.append(t.getUser());
+				builder.append(fieldSeparator);
 				builder.append(t.getUniqueCode());
 				builder.append(fieldSeparator);
-				builder.append(listaTemp.getName());
-				builder.append(fieldSeparator);
-				builder.append(listaTemp.getQty());
-				builder.append(fieldSeparator);
-				builder.append(listaTemp.getUnit());
-				builder.append(fieldSeparator);
 				builder.append(System.getProperty("line.separator"));
+				writer.write(builder.toString());
+				writer.flush();
+				writer.close();
+				logger.info("ShoppingList " + t.getListName() + " salvata");
 
+			} else {
+				logger.warn("no shoppingList stored or updated!");
 			}
-			writer.write(builder.toString());
-			writer.flush();
-			writer.close();
-
 		} catch (Exception e) {
+			logger.error(e.getMessage());
 			throw new DaoException(e.getMessage());
 		}
 	}
+
+	/**
+	 * TODO: Rivedere il ritorno di un'istanza di ShoppingList al post di una
+	 * Collection
+	 */
 
 	@Override
 	public ShoppingList get(BigInteger id) throws DaoException {
@@ -190,9 +196,6 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 
 	}
 
-	/**
-	 * Returns a <code>Collection<ShoppingList></code> from CSV
-	 */
 	@Override
 	public Collection<ShoppingList> getAll() throws DaoException {
 		Collection<ShoppingList> shoppingLists = ShoppingListDao.rowConverter(this.fetchRows());
@@ -201,12 +204,6 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 
 	}
 
-	/**
-	 * Get a rows from CSV as <code>List<String[]></code>
-	 * 
-	 * @return a row as String[]
-	 * @throws DaoException
-	 */
 	private List<String[]> fetchRows() throws DaoException {
 		try {
 			List<String> lines = Files.readAllLines(GetFileResource.get(fileName, folderName).toPath());
@@ -217,19 +214,30 @@ public class ShoppingListDao implements Dao<ShoppingList> {
 		}
 	}
 
-	/**
-	 * Convert a row a String[] into <code>Collection<ShoppingList></code>
-	 * 
-	 * @param csvRows
-	 * @return a Collection of ShoppingList instances
-	 */
 	public static Collection<ShoppingList> rowConverter(List<String[]> csvRows) {
 		Collection<List<String[]>> st = csvRows.stream().collect(Collectors
 				.groupingBy(s -> s[fieldsMap.get(Fields.uniqueCode.name())], TreeMap::new, Collectors.toList()))
 				.values();
 
-		return st.stream().map(ShoppingList::builderShoppingList).collect(Collectors.toList());
+		return st.stream().map(ShoppingListDao::builderShoppingList).collect(Collectors.toList());
 
+	}
+
+	public static ShoppingList builderShoppingList(List<String[]> shoppingList) {
+
+		ShoppingListBuilder builder = ShoppingListBuilder.builder();
+
+		builder.listName(shoppingList.get(0)[fieldsMap.get(Fields.listName.name())])
+				.id(new BigInteger(shoppingList.get(0)[fieldsMap.get(Fields.id.name())]))
+				.uniqueCode(shoppingList.get(0)[fieldsMap.get(Fields.uniqueCode.name())]);
+
+		builder.products(shoppingList.stream()
+				.map(s -> new Product(s[fieldsMap.get(Product.Fields.name.name())],
+						Integer.parseInt(s[fieldsMap.get(Product.Fields.qty.name())]),
+						Unit.valueOf(s[fieldsMap.get(Product.Fields.unit.name())])))
+				.collect(Collectors.toList()));
+
+		return builder.build();
 	}
 
 }

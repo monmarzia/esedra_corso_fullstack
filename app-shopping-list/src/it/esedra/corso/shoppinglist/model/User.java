@@ -1,19 +1,22 @@
 package it.esedra.corso.shoppinglist.model;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import it.esedra.corso.shoppinglist.exceptions.StoreException;
+import it.esedra.corso.shoppinglist.helper.AESHelper;
 import it.esedra.corso.shoppinglist.helper.SequenceManager;
 
 /**
- * Entity User
  * @author monica
  *
  */
 public class User {
+	private List<ShoppingList> shoppinglists = new ArrayList<ShoppingList>();
 	private static BigInteger id = new BigInteger("0");
 	private BigInteger userId = id;
 	private String firstName;
@@ -24,20 +27,15 @@ public class User {
 	private boolean privacyConsent = false;
 	private boolean newsletter = false;
 	private String uniqueCode;
-
-	private static Dao<User> userDao = new UserDao();
-
-	public static enum Fields {
-		userId, firstName, lastName, email, mobilePhone, isActive, isPrivacyConsent, isNewsletter
-	}
+	private final static Logger logger = LoggerFactory.getLogger(User.class.getName());
 
 	public User() {
 
 	}
 
-	public User(BigInteger userId, String firstName, String lastName, String email, String mobilePhone,
-			boolean isActive, boolean privacyConsent, boolean newsletter, String uniqueCode) {
-		this.userId = userId;
+	public User(String firstName, String lastName, String email, String mobilePhone,
+			boolean isActive, boolean privacyConsent, boolean newsletter) {
+		this.userId = newUserId();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
@@ -45,9 +43,17 @@ public class User {
 		this.isActive = isActive;
 		this.privacyConsent = privacyConsent;
 		this.newsletter = newsletter;
-		this.uniqueCode = uniqueCode;
+		setUniqueCode();
 	}
 
+	/**
+	 * TODO fare un metodo per creare una shoppinglist collegata all'utente
+	 * 
+	 */
+	public List<ShoppingList> getShoppinglists(){
+		return shoppinglists;
+		
+	}
 	public BigInteger getUserId() {
 		return userId;
 	}
@@ -87,6 +93,14 @@ public class User {
 	
 	public String getUniqueCode() {
 		return uniqueCode;
+	}
+	
+	public void setUniqueCode() {
+		try {
+			this.uniqueCode = AESHelper.generateUniqueKey(id,email);
+		} catch (StoreException e) {
+			logger.error(e.getMessage());
+		}
 	}
 
 	/**
