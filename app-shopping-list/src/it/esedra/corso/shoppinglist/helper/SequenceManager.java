@@ -45,7 +45,7 @@ public final class SequenceManager {
 		return getInstance().idUser;
 	}
 	
-	public BigInteger getIdShoppingList() {
+	public BigInteger getCurrentIdShoppingList() {
 		return getInstance().idShoppingList;
 	}
 
